@@ -1,0 +1,5 @@
+# Python 3.11; supplied wheels target macOS Apple Silicon.
+numpy==2.2.6
+igraph==0.11.9
+leidenalg==0.10.2
+texttable==1.7.0

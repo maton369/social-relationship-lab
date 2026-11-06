@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+exports/
+.DS_Store
+*_validation.json
+*_report.json
+Social_Relationship_Lab_v2.tox
