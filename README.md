@@ -2,7 +2,7 @@
 
 ランダムな人間関係から始め、一度の行動による評価・情報伝播・相互関係の変化を観察し、安定後の人物の役割を分析するTouchDesignerコンポーネントです。
 
-今回の設計を `/social_relationship_lab_v2_analysis` として追加しました。既存のサメ、旧試作、以前の `/social_relationship_lab_v2` は保持しています。別プロジェクトの起動や、サメのTOEの上書き保存はしていません。
+独立したプロジェクト `Social_Relationship_Lab_Analysis.toe` と、既存プロジェクトへ追加できる `Social_Relationship_Lab_Analysis.tox` を用意しています。専用TOEには水玉のサンプル構成を含めていません。
 
 ## 手動での停止・再開
 
@@ -15,6 +15,8 @@
 ## ネットワーク上の自分ノード
 
 選択中の行動者をネットワーク図の中央に固定します。周囲の人物は魚眼レンズのような放射変換で、中心付近を広げ、表示領域の端を保つように配置します。これは表示専用の変換で、社会関係やシミュレーション状態には影響しません。
+
+![独立プロジェクトの実画面。人物01を中央に固定した魚眼描画と、不透明な背景](docs/screenshots/centered_network_live.jpg)
 
 ## 実画面
 
@@ -32,15 +34,11 @@
 
 ## 利用方法
 
-現在のTouchDesignerに追加済みです。保存ファイルは **`Social_Relationship_Lab_Analysis.tox`**。後から利用する場合は、開いているプロジェクトのネットワークにドラッグしてください。
+単独で起動する場合は **`Social_Relationship_Lab_Analysis.toe`** を開きます。表示されない場合はF1でPerform画面に切り替えてください。既存プロジェクトへ追加する場合は **`Social_Relationship_Lab_Analysis.tox`** をネットワークへドラッグします。
 
 **TOXと `vendor/` の両方が必要です。** コードはTOX内のDATに埋め込んでいますが、Leidenのネイティブライブラリとレイアウト更新スクリプトは外部フォルダから読みます。読み込んだCOMPの `Basefolder` を、このREADMEがあるフォルダの絶対パスに変更してください。COMP背景は不透明な濃紺に設定し、親プロジェクトの背景が透けないようにしています。
 
-最新版の魚眼レイアウトを適用するには、`Basefolder` を設定した後、TouchDesignerのTextportで次を実行します。読み込み済みCOMPを更新して `.tox` を保存します。`.toe` は保存しません。
-
-```python
-exec(open(op('/project1/social_relationship_lab_v2_analysis').par.Basefolder.eval() + '/center_layout_update.py').read())
-```
+最新版のTOE・TOXには魚眼レイアウトを組み込んでいます。専用TOEのシミュレーションは `/social_relationship_lab_v2_analysis` にあります。別のPCでは `Basefolder` を配置先へ変更してください。同梱TOE内のMCPブリッジも作成環境の絶対パスを参照するため、MCPを使う場合は別途ブリッジの設定が必要です。通常のシミュレーション操作にMCPは不要です。
 
 同梱バイナリは macOS Apple Silicon / Python 3.11 用です。TouchDesigner 2025.33230（Python 3.11.15）で確認しました。他のOSやPythonには適合する依存パッケージが必要です。利用中の通信・アカウント・外部サービスは不要です。配布リポジトリには現在の分析用TOXを含め、以前の版のTOXは含めません。
 
