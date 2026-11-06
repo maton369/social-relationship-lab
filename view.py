@@ -88,23 +88,23 @@ class View:
             c=int(labels[i])
             same=c>=0 and labels[i]==labels[j]
             color=np.asarray(PALETTE[c%len(PALETTE)] if same else (110,125,145))*(.75 if mode=='network' else .22)
-            line(self.pos[i],self.pos[j],color.astype(int),3 if actor in (i,j) else 1)
+            line(self.pos[i],self.pos[j],color.astype(int),6 if actor in (i,j) else 1)
         if mode=='affinity':
             for j in range(sim.n):
                 if j==actor:continue
                 v=world.x[actor,j]
                 if abs(v)<.04:continue
                 color=(np.array((65,218,183) if v>0 else (250,101,117))*(.3+.7*abs(v))).astype(int)
-                line(self.pos[actor],self.pos[j],color,3+int(abs(v)>.65))
+                line(self.pos[actor],self.pos[j],color,6+int(abs(v)>.65))
                 dot(*(self.pos[actor]*.2+self.pos[j]*.8),3,color)
         if mode=='information':
             for i,j in world.transmissions:
-                line(self.pos[i],self.pos[j],(255,196,110),3 if actor in (i,j) else 2)
+                line(self.pos[i],self.pos[j],(255,196,110),6 if actor in (i,j) else 2)
                 dot(*(self.pos[i]*.25+self.pos[j]*.75),4,(255,222,169))
         for i,j in world.removed:
-            line(self.pos[i],self.pos[j],(248,101,112),3 if actor in (i,j) else 2)
+            line(self.pos[i],self.pos[j],(248,101,112),6 if actor in (i,j) else 2)
         for i,j in world.added:
-            line(self.pos[i],self.pos[j],(168,248,176),3 if actor in (i,j) else 2)
+            line(self.pos[i],self.pos[j],(168,248,176),6 if actor in (i,j) else 2)
         for i,(x,y) in enumerate(self.pos):
             color=PALETTE[int(labels[i])%len(PALETTE)] if labels[i]>=0 else (145,157,176)
             if mode=='information' and world.events and world.events[-1]['seen'][i]:dot(x,y,15,(213,140,62))
