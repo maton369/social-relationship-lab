@@ -78,7 +78,7 @@ class AnalysisChecks(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             path=Path(save(s,tmp))
             for name in ('runs.csv','agents.csv','agent_communities.csv','communities.csv','events.csv','person_comparison.csv','snapshots.json'):self.assertTrue((path/name).is_file())
-            data=json.loads((path/'snapshots.json').read_text())
+            data=json.loads((path/'snapshots.json').read_text(encoding='utf-8'))
             self.assertEqual(data['analysis_version'],'2.1')
             self.assertEqual(len(data['snapshots']),5)
             self.assertTrue(data['baseline_snapshots'])

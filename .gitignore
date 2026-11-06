@@ -5,3 +5,6 @@ exports/
 *_validation.json
 *_report.json
 Social_Relationship_Lab_v2.tox
+.deps/
+*.1.toe
+.portable-stage*.toe

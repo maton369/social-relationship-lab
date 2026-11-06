@@ -38,9 +38,46 @@
 
 **TOXと `vendor/` の両方が必要です。** コードはTOX内のDATに埋め込んでいますが、Leidenのネイティブライブラリとレイアウト更新スクリプトは外部フォルダから読みます。読み込んだCOMPの `Basefolder` を、このREADMEがあるフォルダの絶対パスに変更してください。COMP背景は不透明な濃紺に設定し、親プロジェクトの背景が透けないようにしています。
 
-最新版のTOE・TOXには魚眼レイアウトを組み込んでいます。専用TOEのシミュレーションは `/social_relationship_lab_v2_analysis` にあります。別のPCでは `Basefolder` を配置先へ変更してください。同梱TOE内のMCPブリッジも作成環境の絶対パスを参照するため、MCPを使う場合は別途ブリッジの設定が必要です。通常のシミュレーション操作にMCPは不要です。
+最新版のTOE・TOXには魚眼レイアウトを組み込んでいます。専用TOEのシミュレーションは `/social_relationship_lab_v2_analysis` にあります。専用TOEは配置先を自動検出します。TOXを別のプロジェクトへ追加する場合は `Basefolder` をこのREADMEのあるフォルダへ設定してください。通常のシミュレーション操作にMCPは不要です。
 
-同梱バイナリは macOS Apple Silicon / Python 3.11 用です。TouchDesigner 2025.33230（Python 3.11.15）で確認しました。他のOSやPythonには適合する依存パッケージが必要です。利用中の通信・アカウント・外部サービスは不要です。配布リポジトリには現在の分析用TOXを含め、以前の版のTOXは含めません。
+同梱の `vendor/` バイナリは macOS Apple Silicon / Python 3.11 用です。Windowsでは以下のコマンドで別の依存フォルダを構築します。TouchDesigner 2025.33230（Python 3.11.15）でmacOS上の動作を確認しました。
+
+## Windows：コマンドプロンプトからの環境構築・起動
+
+前提は **Windows x64、Python 3.11を搭載したTouchDesigner 2025** です。まず [公式インストーラー](https://derivative.ca/download) でTouchDesignerをインストールし、初回のライセンス登録を済ませてください。別途PythonやMCP、サメのプロジェクトを用意する必要はありません。
+
+GitHubのZIPを**全体ごと展開**し、コマンドプロンプトでそのフォルダへ移動して実行します。
+
+```bat
+cd /d "C:\Users\yourname\Downloads\social-relationship-lab-main"
+start_windows.cmd
+```
+
+標準の `C:\Program Files\Derivative\TouchDesigner*\bin` からTouchDesignerを検出し、付属の `python.exe` でWindows用のigraph・Leidenをインストールした後、専用TOEを起動します。インストール先はプロジェクト内の `.deps\windows-cp311` で、管理者権限は不要です。NumPyはTouchDesigner付属版を使用します。初回セットアップにはPyPIへのインターネット接続が必要です。読み込み時に配置先と日本語フォントを自動設定します。画面が出ない場合はF1でPerform画面へ切り替えてください。
+
+標準以外の場所へインストールした場合や、複数版から選択する場合：
+
+```bat
+set "TD_EXE=D:\Apps\TouchDesigner\bin\TouchDesigner.exe"
+start_windows.cmd
+```
+
+環境構築だけ／構築済みの環境でネット接続せず起動：
+
+```bat
+start_windows.cmd --setup-only
+start_windows.cmd --launch-only
+```
+
+ダウンロードまたはimport確認に失敗した場合は起動を中止し、コマンドプロンプトにエラーを表示します。pipが付属していない場合は `.deps\setup-python` にセットアップ専用環境を作成します。構築後は `.toe` の直接起動も可能です。フォルダを移動した場合も、プロジェクト一式をまとめて移動してください。
+
+**確認範囲：Windows実機でのCMD実行・DLL読み込み・描画は未確認です。** 自動テストでは依存取得失敗時の復旧、再セットアップの省略、空白・日本語を含むパスと起動引数を確認しています。macOSのTouchDesignerでは更新後の起動処理を確認しています。配布TOEにはMCPブリッジを含めていません。
+
+```bat
+"C:\Program Files\Derivative\TouchDesigner\bin\python.exe" -m unittest test_windows_launcher -v
+```
+
+実装：`start_windows.cmd` → `windows_launcher.py` → `runtime.py`。モデルの更新式とパラメータは変更していません。付属Pythonの場所は [Derivative公式資料](https://docs.derivative.ca/TDPyEnvManagerHelper)、Pythonと外部ライブラリの互換性は [Python公式ガイド](https://derivative.ca/UserGuide/Python) を参照しています。
 
 ## 操作
 
@@ -169,7 +206,7 @@ alternative = reanalyze_snapshot(saved['snapshots'][-1], {'community_min': 4})
 
 `model.py` が社会更新と履歴、`community.py` が検出・追跡・読取専用の役割分析、`view.py` が描画、`runtime.py` がTouchDesigner操作、`export_analysis.py` が出力です。`build_td.py` は独立COMPを作成し、同名COMPがあれば停止します。TOEはロード／保存せず、TOXだけ保存します。
 
-Python 3.11と同梱依存があれば `python3.11 -m unittest discover -s このフォルダ -v` で検証できます。21件が通過。提示された10人例、迂回路のある橋、完全グラフ、二者関係、同点解での不安定判定、初期属性保持、情報の重複受信、伝達実績の割当、再分析と全ファイル出力などを確認しています。
+Python 3.11と対応する依存があれば `python3.11 -m unittest discover -s このフォルダ -v` で検証できます。macOSのTouchDesignerプロセス内ではモデル・分析・描画・Windows起動準備の計28件が通過しました。提示された10人例、迂回路のある橋、完全グラフ、二者関係、同点解での不安定判定、初期属性保持、情報の重複受信、伝達実績の割当、再分析と全ファイル出力などを確認しています。Windows起動準備のテストはOSの挙動をモックしたもので、Windows実機確認を代替するものではありません。
 
 TouchDesigner 2025.33230上で、実行・手動停止・再開・単一ステップ・表示切替・安定分析・JSON/CSV出力・保存TOXの再読み込みを確認しています。生成された検証ログや実験出力は配布リポジトリには含めません。
 

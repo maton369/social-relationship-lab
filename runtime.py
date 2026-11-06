@@ -1,5 +1,5 @@
 """TouchDesigner adapter. All simulation state belongs to the owning COMP."""
-import sys,time,json,csv,traceback
+import sys,time,json,csv,traceback,os
 from pathlib import Path
 import numpy as np
 import unicodedata
@@ -28,10 +28,21 @@ def wrap_panel(text,width=44):
 
 def init():
     global sim,view
-    p=owner();base=Path(str(p.par.Basefolder))
-    vendor=str(base/'vendor')
-    if not (base/'vendor/leidenalg').is_dir():raise RuntimeError('Basefolder に vendor/leidenalg が必要です。')
+    p=owner()
+    candidates=[os.environ.get('SOCIAL_LAB_HOME',''), str(project.folder), str(p.par.Basefolder)]
+    base=next((Path(v) for v in candidates if v and (Path(v)/'model.py').is_file()), None)
+    if base is None:raise RuntimeError('プロジェクト一式を展開し、Basefolder を配置先へ設定してください。')
+    p.par.Basefolder=str(base)
+    packages=Path(os.environ.get('SOCIAL_LAB_PACKAGES') or
+                  str(base/('.deps/windows-cp311' if sys.platform=='win32' else 'vendor')))
+    vendor=str(packages)
+    if not (packages/'leidenalg').is_dir():raise RuntimeError('Windows は start_windows.cmd で環境構築してください。依存先: '+vendor)
     if vendor not in sys.path:sys.path.insert(0,vendor)
+    if sys.platform=='win32':
+        for node in p.children:
+            if node.OPType=='textTOP':
+                node.par.font='Yu Gothic UI'
+                node.par.typeface='Regular'
     settings={key:float(getattr(p.par,par)) for key,par in [('density','Density'),('q0','Qzero'),('qtri','Qtri'),
         ('pmax','Pmax'),('eta_v','Etav'),('eta_o','Etao'),('eta_r','Etar'),('omega','Omega'),('gamma','Gamma'),('tolerance','Tolerance')]}
     settings.update(witnesses=int(p.par.Witnesses),window=int(p.par.Window),limit=int(p.par.Limit),
