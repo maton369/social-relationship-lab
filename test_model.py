@@ -14,6 +14,64 @@ def adjacency(n,edges):
 
 
 class Checks(unittest.TestCase):
+    def neighbor_fixture(self):
+        s=Simulation(4,seed=23,settings={'witnesses':0,'pmax':0,'q0':0,'qtri':0})
+        for w in (s.world,s.base):
+            w.a[:]=False
+            w.a[0,1]=w.a[1,0]=w.a[0,2]=w.a[2,0]=True
+            w.x[:]=0.;w.x[w.a]=.7
+            w.traits['form'][:]=.55;w.traits['cut'][:]=.25
+            w.detector.detect(w.a,0,track_events=False)
+        return s
+
+    def test_neighbor_attack_includes_every_original_neighbor(self):
+        s=self.neighbor_fixture();old=s.world.x.copy();baseline=s.base.x.copy()
+        targets=s.act_to_neighbors('harm',0,1.)
+        self.assertEqual(targets,[1,2])
+        self.assertEqual([e['target'] for e in s.world.events],[1,2])
+        self.assertEqual({e['batch_id'] for e in s.world.events},{1})
+        self.assertAlmostEqual(s.world.x[1,0],.2)
+        self.assertAlmostEqual(s.world.x[2,0],.2)
+        self.assertFalse(s.world.a[0].any())
+        np.testing.assert_array_equal(s.world.x[3],old[3])
+        np.testing.assert_array_equal(s.base.x,baseline)
+        self.assertEqual(len(s.history),2)
+
+    def test_batch_uses_old_state_and_ignores_target_iteration_order(self):
+        a,b=self.neighbor_fixture(),self.neighbor_fixture()
+        a.world.p['witnesses']=b.world.p['witnesses']=2
+        old=a.world.x.copy()
+        expected=old.copy()
+        for receiver,other in [(1,2),(2,1)]:
+            expected[receiver,0]+=.5*.3+.4*.3*a.world.traits['receive'][receiver]*(.35+.65*old[receiver,other])
+        expected=np.clip(expected,-1,1)
+        a.world.act_many('help',0,[2,1],.3)
+        b.world.act_many('help',0,[1,2],.3)
+        np.testing.assert_allclose(a.world.x,expected)
+        np.testing.assert_array_equal(a.world.x,b.world.x)
+        np.testing.assert_array_equal(a.world.a,b.world.a)
+
+    def test_isolated_broadcast_does_not_create_actions_or_history(self):
+        s=self.neighbor_fixture();old=s.world.x.copy()
+        self.assertEqual(s.act_to_neighbors('help',3),[])
+        self.assertEqual(len(s.world.events),0)
+        self.assertEqual(len(s.history),1)
+        np.testing.assert_array_equal(s.world.x,old)
+
+    def test_neighbor_gossip_informs_all_receivers_but_not_subject(self):
+        s=self.neighbor_fixture();old=s.world.x.copy()
+        self.assertEqual(s.gossip_to_neighbors(0,3,.8),[1,2])
+        e=s.world.events[-1]
+        self.assertEqual(e['witnesses'],[1,2])
+        self.assertFalse(e['seen'][3])
+        self.assertFalse(s.world.a[0,3])
+        for i in (1,2):
+            expected=old[i,3]-.3*.8*s.world.traits['receive'][i]*(1+old[i,0])/2
+            self.assertAlmostEqual(s.world.x[i,3],expected)
+        other=self.neighbor_fixture()
+        self.assertEqual(other.gossip_to_neighbors(0,1),[2])
+        self.assertFalse(other.world.events[-1]['seen'][1])
+
     def test_bridge_does_not_merge_triangles(self):
         a=adjacency(7,[(0,1),(0,2),(1,2),(3,4),(3,5),(4,5),(2,3)])
         d=cm.Detector();d.detect(a)

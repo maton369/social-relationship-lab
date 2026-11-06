@@ -104,17 +104,21 @@ class World:
             change[i,u]=self.p['eta_o']*strength*s*credit*sign*response
         return change
 
-    def act(self,kind,u,v,strength):
+    def _prepare_action(self,kind,u,v,strength,event_id,witnesses=None):
         n=len(self.x)
         if u==v or not(0<=u<n and 0<=v<n):raise ValueError('別々の行動者と対象を選んでください。')
         if kind not in ('help','harm','gossip'):raise ValueError('Unknown action')
-        e={'id':len(self.events)+1,'kind':kind,'actor':int(u),'target':int(v),
+        e={'id':event_id,'kind':kind,'actor':int(u),'target':int(v),
            'strength':float(np.clip(strength,0,1)),'step':self.time,'seen':np.zeros(n,bool),
            'frontier':[],'depth':np.full(n,-1,int),'receipts':[]}
-        eligible=np.flatnonzero(self.a[u] | (self.a[v] if kind!='gossip' else False))
-        eligible=[int(i) for i in eligible if i not in (u,v)]
-        eligible.sort(key=lambda i:draw(self.seed,self.time,3,u,i,e['id']))
-        witnesses=eligible[:int(self.p['witnesses'])]
+        if witnesses is None:
+            eligible=np.flatnonzero(self.a[u] | (self.a[v] if kind!='gossip' else False))
+            eligible=[int(i) for i in eligible if i not in (u,v)]
+            eligible.sort(key=lambda i:draw(self.seed,self.time,3,u,i,e['id']))
+            witnesses=eligible[:int(self.p['witnesses'])]
+        else:
+            witnesses=sorted(set(int(i) for i in witnesses if i not in (u,v)))
+            if any(not 0<=i<n for i in witnesses):raise ValueError('Invalid receiver')
         informed=[u]+([v] if kind!='gossip' else [])+witnesses
         e['seen'][informed]=True;e['depth'][informed]=0;e['frontier']=informed
         delta=np.zeros_like(self.x)
@@ -122,22 +126,45 @@ class World:
         for i in witnesses:
             credit=(1.+self.x[i,u])/2 if kind=='gossip' else 1.
             delta+=self.delta_for(e,i,credit)
-        before_x=self.x.copy()
-        self.x=np.clip(self.x+delta,-1,1);np.fill_diagonal(self.x,0.)
-        self.residual=float(abs(self.x-before_x).max())
         e['witnesses']=witnesses;e['changed_appraisals']=int(np.count_nonzero(abs(delta)>1e-12))
-        self.received[[i for i in informed if i!=u]]+=1
-        self.events.append(e)
-        self.timeline.append(dict(step=self.time,kind='action',event=e['id'],action=kind,actor=int(u)+1,target=int(v)+1,strength=e['strength']))
-        for i in witnesses:self.timeline.append(dict(step=self.time,kind='observation',event=e['id'],person=i+1))
+        return e,delta,informed
+
+    def act(self,kind,u,v,strength,witnesses=None):
+        return self.act_many(kind,u,[v],strength,witnesses=witnesses)
+
+    def act_many(self,kind,u,targets,strength,witnesses=None,contact=True):
+        # Freeze both evaluations and adjacency until every action is prepared.
+        # A severed tie or clipping in one action cannot change another action.
+        targets=sorted(set(int(v) for v in targets))
+        prepared=[self._prepare_action(kind,u,v,strength,len(self.events)+k+1,witnesses)
+                  for k,v in enumerate(targets)]
+        if not prepared:return []
+        before_x=self.x.copy();delta=np.zeros_like(self.x);opportunity=np.zeros_like(self.a)
+        inputs={}
+        batch_id=prepared[0][0]['id']
+        for e,change,informed in prepared:
+            e['batch_id']=batch_id
+            delta+=change
+            self.received[[i for i in informed if i!=u]]+=1
+            self.events.append(e)
+            self.timeline.append(dict(step=self.time,kind='action',event=e['id'],batch_id=batch_id,
+                action=kind,actor=int(u)+1,target=e['target']+1,strength=e['strength']))
+            for i in e['witnesses']:self.timeline.append(dict(step=self.time,kind='observation',event=e['id'],person=i+1))
+            for i,j in np.argwhere(abs(change)>1e-12):
+                inputs.setdefault((int(i),int(j)),[]).append(dict(event=e['id'],requested_delta=float(change[i,j]),
+                    mechanism='direct_effect' if i==e['target'] and kind!='gossip' else 'initial_observation'))
+            if contact:opportunity[u,e['target']]=opportunity[e['target'],u]=True
+        self.x=np.clip(before_x+delta,-1,1);np.fill_diagonal(self.x,0.)
+        self.residual=float(abs(self.x-before_x).max())
         for i,j in np.argwhere(abs(self.x-before_x)>1e-12):
             self.timeline.append(dict(step=self.time,kind='appraisal_update',person=int(i)+1,target=int(j)+1,
-                event=e['id'],mechanism='direct_effect' if i==v and kind!='gossip' else 'initial_observation',
-                before=float(before_x[i,j]),after=float(self.x[i,j])))
-        opportunity=np.zeros_like(self.a);opportunity[u,v]=opportunity[v,u]=True
-        self.settle_relations(opportunity,dict(kind='direct_action',event=e['id']))
+                event=inputs[(int(i),int(j))][0]['event'] if len(inputs[(int(i),int(j))])==1 else None,
+                mechanism=inputs[(int(i),int(j))][0]['mechanism'] if len(inputs[(int(i),int(j))])==1 else 'simultaneous_actions',
+                inputs=inputs[(int(i),int(j))],batch_id=batch_id,before=float(before_x[i,j]),after=float(self.x[i,j])))
+        self.settle_relations(opportunity,dict(kind='direct_action',events=[e['id'] for e,_,_ in prepared],batch_id=batch_id))
         self.x_quiet=self.a_quiet=self.c_quiet=0
         self.capture('action')
+        return [e['id'] for e,_,_ in prepared]
 
     def advance(self):
         self.time+=1;old=self.x.copy();a=self.a.copy();n=len(a)
@@ -225,6 +252,26 @@ class Simulation:
         self.world.act(kind,int(actor),int(target),strength)
         self.status='running';self.analysis=None;self.record()
 
+    def act_to_neighbors(self,kind,actor,strength=.8):
+        if kind not in ('help','harm'):raise ValueError('Use an explicit subject for gossip.')
+        actor=int(actor)
+        if not 0<=actor<self.n:raise ValueError('Invalid actor')
+        targets=np.flatnonzero(self.world.a[actor]).tolist()
+        events=self.world.act_many(kind,actor,targets,strength)
+        if events:self.status='running';self.analysis=None;self.record()
+        return targets
+
+    def gossip_to_neighbors(self,actor,subject,strength=.8):
+        actor,subject=int(actor),int(subject)
+        if actor==subject or not(0<=actor<self.n and 0<=subject<self.n):
+            raise ValueError('噂を話す人物と、噂の対象は別の人物にしてください。')
+        receivers=[int(i) for i in np.flatnonzero(self.world.a[actor]) if i!=subject]
+        if not receivers:return []
+        # The subject is not a receiver. Hearing a rumor is not meeting its subject.
+        self.world.act_many('gossip',actor,[subject],strength,witnesses=receivers,contact=False)
+        self.status='running';self.analysis=None;self.record()
+        return receivers
+
     def step(self,enforce_limit=True):
         if enforce_limit and self.iteration>=self.p['limit']:
             self.status='limit';return False
@@ -282,7 +329,7 @@ class Simulation:
                 for key in ('witnesses','frontier'):e[key]=[i+1 for i in e[key]]
                 result.append(e)
             return result
-        return {'version':2,'model_version':'2.1','analysis_version':self.measure.ANALYSIS_VERSION,'seed':self.seed,'settings':self.p,'status':self.status,'step':self.iteration,
+        return {'version':2,'model_version':'2.2','analysis_version':self.measure.ANALYSIS_VERSION,'seed':self.seed,'settings':self.p,'status':self.status,'step':self.iteration,
             'indexing':'人物IDは1始まり。行列・人物別配列の位置はID−1。所属ラベルは人物IDではない。',
             'initial_appraisals':self.world.initial_x.tolist(),'initial_ties':self.world.initial_a.astype(int).tolist(),
             'appraisals':self.world.x.tolist(),'baseline_appraisals':self.base.x.tolist(),

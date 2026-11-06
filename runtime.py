@@ -147,9 +147,14 @@ def refresh():
     p.op('run_label').par.text='一時停止' if p.par.Running else '実行 / 再開'
     p.op('group_label').par.text={'person':'詳細：人物','community':'詳細：集団','analysis':'詳細：全体','compare':'詳細：比較','history':'詳細：履歴','distribution':'詳細：分布'}[sidebar]
     p.op('view_label').par.text={'network':'表示：関係','affinity':'表示：好感度','information':'表示：情報','comparison':'表示：比較','distribution':'表示：分布'}[mode]
+    p.op('help_label').par.text='全員に協力' if a==0 else '協力する'
+    p.op('harm_label').par.text='全員を攻撃' if a==0 else '攻撃する'
+    p.op('gossip_label').par.text='全員へ噂' if a==0 else '悪い噂'
     events=w.events[-2:]
     names={'help':'協力','harm':'攻撃','gossip':'悪い噂'}
-    p.op('event_log').par.text='\n'.join(f't={e["step"]:03d}  {e["actor"]+1:02d} → {e["target"]+1:02d}  {names[e["kind"]]}  到達 {int(e["seen"].sum())}人' for e in events) or '人物と対象を選択 → 協力・攻撃・悪い噂。集団ラベルは社会の更新規則に使いません。'
+    action_note=('人物1：協力・攻撃は接続中の全員へ。噂は右クリックした対象について、接続中の全員へ話します（対象本人を除く）。' if a==0 else '選択した行動者から、右クリックした対象への協力・攻撃・悪い噂。')
+    recent=' / '.join(f'{e["actor"]+1:02d}→{e["target"]+1:02d} {names[e["kind"]]}' for e in events)
+    p.op('event_log').par.text=action_note+ ('\n直近：'+recent if recent else '')
     if mode=='comparison':p.op('event_log').par.text='左：行動なし / 右：行動あり。同じ人物を同じ座標で描画。赤い輪は役割・次数・削除時の喪失ペアに差がある人物。'
     if mode=='distribution':p.op('event_log').par.text='列：成立閾値 / 切断閾値 / 感受性 / 拡散傾向　行：内部ハブ / 横断的接続者 / 構造的橋渡し役 / 孤立者'
     h=sim.history[-1];scale=max(.001,max(v['difference'] for v in sim.history[-400:]))
@@ -168,7 +173,7 @@ def export():
 
 
 def command(name):
-    p=owner()
+    p=owner();notice=None
     try:
         if name=='run':
             p.par.Running=not bool(p.par.Running)
@@ -178,7 +183,15 @@ def command(name):
             if name=='new':p.par.Seed=int(p.par.Seed)+1
             init()
         elif name in ('help','harm','gossip'):
-            sim.act(name,int(p.par.Actor)-1,int(p.par.Target)-1,float(p.par.Strength));p.par.Running=True
+            actor,target,strength=int(p.par.Actor)-1,int(p.par.Target)-1,float(p.par.Strength)
+            if actor==0:
+                people=sim.gossip_to_neighbors(actor,target,strength) if name=='gossip' else sim.act_to_neighbors(name,actor,strength)
+                if people:
+                    p.par.Running=True
+                    notice=('噂を話した相手' if name=='gossip' else '同時に行動した相手')+'：'+', '.join(str(i+1) for i in people)
+                else:notice='噂を話せる接続相手がいません（対象本人を除く）。' if name=='gossip' else '行動できる接続相手がいません。'
+            else:
+                sim.act(name,actor,target,strength);p.par.Running=True
         elif name=='view':
             names=['network','affinity','information','comparison','distribution'];p.par.Display=names[(names.index(str(p.par.Display))+1)%len(names)]
         elif name=='group':
@@ -193,6 +206,7 @@ def command(name):
             export()
         elif name=='settings':p.openParameters()
         refresh()
+        if notice:p.op('event_log').par.text=notice+'\n'+p.op('event_log').par.text.eval()
     except Exception as e:
         p.par.Running=False;p.op('diagnostics').text=traceback.format_exc();p.op('event_log').par.text=str(e)
 
