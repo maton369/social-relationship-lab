@@ -1,0 +1,30 @@
+{
+  "timestamp_utc": "2026-11-06T11:20:44.127358+00:00",
+  "python": "3.10.13 (main, Jun 19 2025, 15:45:56) [Clang 16.0.0 (clang-1600.0.26.6)]",
+  "platform": "Darwin",
+  "numpy": "2.2.6",
+  "seeds": [
+    23,
+    30,
+    42
+  ],
+  "modes": [
+    "adaptive"
+  ],
+  "warmup": 20,
+  "steps": 80,
+  "n": 40,
+  "actor": 1,
+  "gossip_subject": 2,
+  "strength": 1.0,
+  "repetitions": 10,
+  "interval": 1,
+  "snapshots": false,
+  "note": "Descriptive simulations, not empirical human predictions. Mechanisms differ during warmup.",
+  "source_sha256": {
+    "model.py": "36464c5efa6d5256cf73bd79e3c59d9943b184fd09b130945d8df8b98626466b",
+    "social_dynamics.py": "359bd1f1a23c25698ecbc1854eed57e09ce46ddaeb4c685ec29ea7753fb9e085",
+    "community.py": "3fd2bd38fa5016e7f104bfd0cf211682a063ecf538ddaa9cd1a8e1059cf44a62",
+    "experiments/run_social_dynamics.py": "54dcb103a882c33a1f8a92602670de6f08ac902b4eb80eee1bc147b7e51fe42f"
+  }
+}

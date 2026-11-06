@@ -5,11 +5,12 @@ CPM communities are distinct. Community labels/positions never affect X/A.
 """
 import hashlib
 import numpy as np
+from social_dynamics import SocialDynamics, DYNAMICS_DEFAULTS
 
 DEFAULTS=dict(density=.10,form=.55,cut=.25,receive=.65,spread=.55,
               q0=.03,qtri=.10,pmax=.70,eta_v=.50,eta_o=.40,eta_r=.30,
               omega=.65,gamma=.25,witnesses=2,window=10,tolerance=.005,limit=100,
-              community_min=3,hub_min_size=4,hub_degree=3,hub_ratio=.60,high_liking=.50)
+              community_min=3,hub_min_size=4,hub_degree=3,hub_ratio=.60,high_liking=.50) | DYNAMICS_DEFAULTS
 
 
 def draw(seed,t,kind,i,j,event=0):
@@ -31,9 +32,11 @@ class World:
         self.p=dict(settings);self.seed=seed;self.measure=measure
         self.detector=measure.Detector(self.p['gamma'],seed)
         self.detector.detect(self.a,0)
-        self.events=[];self.timeline=[];self.snapshots=[];self._last_tie_pairs=set();self._role_cache=None;self.time=0;self.added=[];self.removed=[];self.transmissions=[]
+        self.events=[];self.timeline=[];self.snapshots=[];self._last_tie_pairs={tuple(map(int,p)) for p in np.argwhere(np.triu(a,1))};self._role_cache=None;self.time=0;self.added=[];self.removed=[];self.transmissions=[]
         self.formed=np.zeros(len(x),int);self.lost=np.zeros(len(x),int)
         self.received=np.zeros(len(x),int);self.moves=np.zeros(len(x),int)
+        self.social=SocialDynamics(self,draw)
+        self.scheduled_actions=[]
         self.x_quiet=self.a_quiet=self.c_quiet=0;self.residual=0.
         self.initial_roles=self.role_rows(initial=False)
         self.capture('initial')
@@ -52,6 +55,12 @@ class World:
                 unique_people_informed=len({item['person'] for e in self.events for item in e['receipts'] if i+1 in item['sources']}),
                 ties_reformed=sum(v['kind']=='tie_formed' and v.get('reformed',False) and i+1 in v['people'] for v in self.timeline),
                 lost_people=sorted({j for v in self.timeline if v['kind']=='tie_cut' and i+1 in v['people'] for j in v['people'] if j!=i+1}))
+            r.update(incoming_trust=float(np.mean(np.delete(self.social.trust[:,i],i))),
+                outgoing_trust=float(np.mean(np.delete(self.social.trust[i],i))),
+                direct_experiences=int(self.social.experiences[i].sum()),
+                attention_remaining=float(self.social.remaining[i]),
+                invitations_sent=sum(e['kind']=='social_invitation' and e['actor']==i+1 for e in self.timeline),
+                invitations_received=sum(e['kind']=='social_invitation' and e['target']==i+1 for e in self.timeline))
         if initial:self._role_cache=rows
         return rows
 
@@ -62,7 +71,8 @@ class World:
             cpm_quality=self.detector.score,gamma=self.detector.gamma,
             ambiguous=self.detector.ambiguous.copy(),options=list(self.detector.options),
             settings=dict(self.p),
-            traits={k:v.copy() for k,v in self.traits.items()}))
+            traits={k:v.copy() for k,v in self.traits.items()},trust=self.social.trust.copy(),
+            experiences=self.social.experiences.copy(),attention_remaining=self.social.remaining.copy()))
 
     def settle_relations(self,opportunity,trigger=None):
         before=self.a.copy();prev=self.detector.labels.copy();raw=self.detector.raw.copy()
@@ -97,7 +107,7 @@ class World:
         change=np.zeros_like(self.x)
         if i==u:return change
         s=self.traits['receive'][i]
-        if event['kind']=='gossip':change[i,v]=-self.p['eta_r']*strength*s*credit
+        if event['kind']=='gossip' and i!=v:change[i,v]=-self.p['eta_r']*strength*s*credit
         elif i!=v:
             sign=1. if event['kind']=='help' else -1.
             response=1.-self.p['omega']+self.p['omega']*self.x[i,v]
@@ -122,9 +132,16 @@ class World:
         informed=[u]+([v] if kind!='gossip' else [])+witnesses
         e['seen'][informed]=True;e['depth'][informed]=0;e['frontier']=informed
         delta=np.zeros_like(self.x)
-        if kind!='gossip':delta[v,u]=(1 if kind=='help' else -1)*self.p['eta_v']*e['strength']
+        if kind!='gossip':
+            factor=self.social.protection(v,u) if kind=='harm' else 1.
+            delta[v,u]=(1 if kind=='help' else -1)*self.p['eta_v']*e['strength']*factor
+            e['direct_effect_factor']=float(factor)
+        e['initial_credits']={}
+        e['initial_appraisals']={}
         for i in witnesses:
-            credit=(1.+self.x[i,u])/2 if kind=='gossip' else 1.
+            credit=self.social.credibility(i,u,v) if kind=='gossip' else 1.
+            e['initial_credits'][str(i+1)]=float(credit)
+            e['initial_appraisals'][str(i+1)]=float(self.x[i,v if kind=='gossip' else u])
             delta+=self.delta_for(e,i,credit)
         e['witnesses']=witnesses;e['changed_appraisals']=int(np.count_nonzero(abs(delta)>1e-12))
         return e,delta,informed
@@ -139,11 +156,20 @@ class World:
         prepared=[self._prepare_action(kind,u,v,strength,len(self.events)+k+1,witnesses)
                   for k,v in enumerate(targets)]
         if not prepared:return []
+        count=len(witnesses) if kind=='gossip' and witnesses is not None else len(targets)
+        effective=self.social.strength(u,strength,count)
+        if effective<=1e-12:
+            self.timeline.append(dict(step=self.time,kind='action_without_effect',actor=u+1,reason='no_attention_or_zero_strength'))
+            return []
+        prepared=[self._prepare_action(kind,u,v,effective,len(self.events)+k+1,witnesses)
+                  for k,v in enumerate(targets)]
         before_x=self.x.copy();delta=np.zeros_like(self.x);opportunity=np.zeros_like(self.a)
         inputs={}
         batch_id=prepared[0][0]['id']
         for e,change,informed in prepared:
             e['batch_id']=batch_id
+            e['requested_strength']=float(strength)
+            e['attention_recipients']=count
             delta+=change
             self.received[[i for i in informed if i!=u]]+=1
             self.events.append(e)
@@ -155,6 +181,11 @@ class World:
                     mechanism='direct_effect' if i==e['target'] and kind!='gossip' else 'initial_observation'))
             if contact:opportunity[u,e['target']]=opportunity[e['target'],u]=True
         self.x=np.clip(before_x+delta,-1,1);np.fill_diagonal(self.x,0.)
+        for e,change,_ in prepared:
+            e['initial_effects']=[dict(person=int(i)+1,target=int(j)+1,
+                requested_delta=float(change[i,j]),before=float(before_x[i,j]),
+                after_aggregate=float(self.x[i,j])) for i,j in np.argwhere(abs(change)>1e-12)]
+        self.social.learn([e for e,_,_ in prepared])
         self.residual=float(abs(self.x-before_x).max())
         for i,j in np.argwhere(abs(self.x-before_x)>1e-12):
             self.timeline.append(dict(step=self.time,kind='appraisal_update',person=int(i)+1,target=int(j)+1,
@@ -167,7 +198,11 @@ class World:
         return [e['id'] for e,_,_ in prepared]
 
     def advance(self):
-        self.time+=1;old=self.x.copy();a=self.a.copy();n=len(a)
+        self.time+=1
+        self.social.begin_round()
+        scheduled,self.scheduled_actions=self.scheduled_actions,[]
+        for request in scheduled:self.act_many(**request)
+        old=self.x.copy();a=self.a.copy();n=len(a)
         total=np.zeros_like(self.x);self.transmissions=[];inputs=[]
         for e in self.events:
             arrivals={}
@@ -181,7 +216,7 @@ class World:
                     if success:
                         arrivals.setdefault(receiver,[]).append(source)
             for receiver,sources in arrivals.items():
-                credit=max((1.+old[receiver,s])/2 for s in sources)
+                credit=max(self.social.credibility(receiver,s,e['target'] if e['kind']=='gossip' else None,old) for s in sources)
                 contribution=self.delta_for(e,receiver,credit);total+=contribution
                 for i,j in np.argwhere(abs(contribution)>1e-12):
                     inputs.append(dict(person=int(i)+1,target=int(j)+1,event=e['id'],
@@ -189,14 +224,18 @@ class World:
                 depth=1+min(int(e['depth'][s]) for s in sources)
                 e['depth'][receiver]=depth;e['seen'][receiver]=True;self.received[receiver]+=1
                 e['receipts'].append({'step':self.time,'person':receiver+1,'sources':[s+1 for s in sources],
-                                      'credit':float(credit),'depth':depth})
+                                      'credit':float(credit),'depth':depth,
+                                      'requested_delta_to_subject':float(contribution[receiver,e['target']]) if e['kind']=='gossip' else None})
                 self.transmissions.extend((s,receiver) for s in sources)
                 self.timeline.append(dict(kind='transmission',event=e['id'],**e['receipts'][-1]))
             e['frontier']=sorted(arrivals)
+        background,meetings=self.social.background(old,a)
+        total+=background
         self.x=np.clip(old+total,-1,1);np.fill_diagonal(self.x,0.)
         for i,j in np.argwhere(abs(self.x-old)>1e-12):
             self.timeline.append(dict(step=self.time,kind='appraisal_update',person=int(i)+1,target=int(j)+1,
-                mechanism='information',before=float(old[i,j]),after=float(self.x[i,j]),
+                mechanism='information_and_social_update' if abs(background[i,j])>1e-12 else 'information',before=float(old[i,j]),after=float(self.x[i,j]),
+                social_requested_delta=float(background[i,j]),
                 inputs=[item for item in inputs if item['person']==i+1 and item['target']==j+1]))
         self.residual=float(abs(self.x-old).max())
         common=a.astype(int)@a.astype(int)
@@ -205,12 +244,13 @@ class World:
             for j in range(i+1,n):
                 q=min(1.,self.p['q0']+self.p['qtri']*(common[i,j]>0))
                 opportunity[i,j]=opportunity[j,i]=draw(self.seed,self.time,1,i,j)<q
+        opportunity |= meetings
         self.settle_relations(opportunity,dict(kind='synchronous_update',arrivals=[v for v in self.timeline if v['step']==self.time and v['kind']=='transmission']))
         self.x_quiet=self.x_quiet+1 if self.residual<self.p['tolerance'] else 0
         self.capture('step')
 
     @property
-    def pending(self):return sum(len(e['frontier']) for e in self.events)
+    def pending(self):return sum(len(e['frontier']) for e in self.events)+len(self.scheduled_actions)
 
     @property
     def possible_contacts(self):
@@ -249,15 +289,26 @@ class Simulation:
     def iteration(self):return self.world.time
 
     def act(self,kind,actor,target,strength=.8):
-        self.world.act(kind,int(actor),int(target),strength)
+        self._intervene(kind,int(actor),[int(target)],strength)
         self.status='running';self.analysis=None;self.record()
+
+    def _intervene(self,kind,actor,targets,strength,**kwargs):
+        if self.p['budget_enabled']:
+            # The next round allocates time to the explicit intervention first,
+            # then to background proposals; the control world has no intervention.
+            for v in targets:self.world._prepare_action(kind,actor,v,strength,1,kwargs.get('witnesses'))
+            self.world.scheduled_actions.append(dict(kind=kind,u=actor,targets=list(targets),strength=strength,**kwargs))
+            self.world.timeline.append(dict(step=self.iteration,kind='action_scheduled',actor=actor+1,
+                targets=[v+1 for v in targets],action=kind,execution_step=self.iteration+1))
+            return list(targets)
+        return self.world.act_many(kind,actor,targets,strength,**kwargs)
 
     def act_to_neighbors(self,kind,actor,strength=.8):
         if kind not in ('help','harm'):raise ValueError('Use an explicit subject for gossip.')
         actor=int(actor)
         if not 0<=actor<self.n:raise ValueError('Invalid actor')
         targets=np.flatnonzero(self.world.a[actor]).tolist()
-        events=self.world.act_many(kind,actor,targets,strength)
+        events=self._intervene(kind,actor,targets,strength) if targets else []
         if events:self.status='running';self.analysis=None;self.record()
         return targets
 
@@ -268,7 +319,7 @@ class Simulation:
         receivers=[int(i) for i in np.flatnonzero(self.world.a[actor]) if i!=subject]
         if not receivers:return []
         # The subject is not a receiver. Hearing a rumor is not meeting its subject.
-        self.world.act_many('gossip',actor,[subject],strength,witnesses=receivers,contact=False)
+        self._intervene('gossip',actor,[subject],strength,witnesses=receivers,contact=False)
         self.status='running';self.analysis=None;self.record()
         return receivers
 
@@ -277,8 +328,8 @@ class Simulation:
             self.status='limit';return False
         self.world.advance();self.base.advance();self.record();self.analysis=None
         window=self.p['window']
-        stable=all(min(w.x_quiet,w.a_quiet,w.c_quiet)>=window and not w.pending for w in (self.world,self.base))
-        self.status=('absorbed' if not self.world.possible_contacts and not self.base.possible_contacts else 'stable') if stable else 'running'
+        stable=all(min(w.x_quiet,w.a_quiet,w.c_quiet,w.social.trust_quiet if w.p['history_enabled'] else window)>=window and not w.pending for w in (self.world,self.base))
+        self.status=('absorbed' if not any(w.social.active or w.possible_contacts for w in (self.world,self.base)) else 'stable') if stable else 'running'
         if enforce_limit and self.iteration>=self.p['limit'] and not stable:self.status='limit'
         return True
 
@@ -289,7 +340,9 @@ class Simulation:
             'tie_difference':int(np.triu(w.a!=b.a,1).sum()),'vi_bits':self.measure.partition_vi(w.detector.raw,b.detector.raw),
             'communities':sum(len(g)>=self.p['community_min'] for g in w.detector.groups),'baseline_communities':sum(len(g)>=self.p['community_min'] for g in b.detector.groups),
             'ties':int(w.a.sum()//2),'isolated':int((w.a.sum(axis=1)==0).sum()),
-            'max_change':w.residual,'pending':w.pending})
+            'max_change':w.residual,'pending':w.pending,
+            'trust_difference':float(abs(w.social.trust-b.social.trust)[mask].mean()),
+            'invitations':sum(e['kind']=='social_invitation' and e['outcome']=='accepted' for e in w.timeline)})
 
     def edit_person(self,i,form,cut,receive,spread):
         if cut>=form:raise ValueError('成立閾値は切断閾値より高くしてください。')
@@ -329,11 +382,15 @@ class Simulation:
                 for key in ('witnesses','frontier'):e[key]=[i+1 for i in e[key]]
                 result.append(e)
             return result
-        return {'version':2,'model_version':'2.2','analysis_version':self.measure.ANALYSIS_VERSION,'seed':self.seed,'settings':self.p,'status':self.status,'step':self.iteration,
+        return {'version':3,'model_version':'3.0','analysis_version':self.measure.ANALYSIS_VERSION,'seed':self.seed,'settings':self.p,'status':self.status,'step':self.iteration,
             'indexing':'人物IDは1始まり。行列・人物別配列の位置はID−1。所属ラベルは人物IDではない。',
             'initial_appraisals':self.world.initial_x.tolist(),'initial_ties':self.world.initial_a.astype(int).tolist(),
             'appraisals':self.world.x.tolist(),'baseline_appraisals':self.base.x.tolist(),
             'ties':self.world.a.astype(int).tolist(),'baseline_ties':self.base.a.astype(int).tolist(),
+            'trust':self.world.social.trust.tolist(),'baseline_trust':self.base.social.trust.tolist(),
+            'initial_trust':self.world.social.initial_trust.tolist(),
+            'queued_actions':[dict(action=e['kind'],actor=e['u']+1,targets=[v+1 for v in e['targets']],
+                strength=e['strength'],receivers=[v+1 for v in e.get('witnesses',[])],contact=e.get('contact',True)) for e in self.world.scheduled_actions],
             'events':events(self.world),'history':self.history,'analysis':self.analysis or self.summary(),
             'timeline':self.world.timeline,'baseline_timeline':self.base.timeline,
             'snapshots':self.serial_snapshots(self.world),'baseline_snapshots':self.serial_snapshots(self.base)}

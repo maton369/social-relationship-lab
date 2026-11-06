@@ -1,0 +1,10 @@
+{
+  "before": 7,
+  "after": 14,
+  "paused": true,
+  "elapsed_seconds": 3.7117497499857564,
+  "errors": "",
+  "diagnostics": "",
+  "method": "actual run button click, real-time clock, actual pause button click",
+  "passed": true
+}

@@ -1,0 +1,11 @@
+{
+  "before": 0,
+  "after": 7,
+  "paused": true,
+  "elapsed_seconds": 1.5638111250009388,
+  "errors": "",
+  "diagnostics": "",
+  "started_with": "actual run button virtual click",
+  "stopped_with": "scheduled Running=False; pause button tested separately",
+  "passed": true
+}

@@ -33,6 +33,30 @@ def init():
     base=next((Path(v) for v in candidates if v and (Path(v)/'model.py').is_file()), None)
     if base is None:raise RuntimeError('プロジェクト一式を展開し、Basefolder を配置先へ設定してください。')
     p.par.Basefolder=str(base)
+    p.par.uvbuttonsright=True
+    p.op('graph_panel').par.uvbuttonsright=True
+    if str(base) not in sys.path:sys.path.insert(0,str(base))
+    from social_dynamics import MODES,DYNAMICS_DEFAULTS
+    if not hasattr(p.par,'Dynamics'):
+        page=p.appendCustomPage('Social Dynamics')
+        mode=page.appendMenu('Dynamics',label='モデル（同じ初期値で適用）')[0]
+        mode.menuNames=list(MODES);mode.menuLabels=['旧モデル','履歴・信頼','履歴＋時間制約','自律交流あり'];mode.val='adaptive'
+        for name,key,label,lo,hi in [
+            ('Socialbudget','social_budget','1時刻の交流時間',1,10),
+            ('Trustlearning','trust_learning','信頼の学習率',0,1),
+            ('Trustprotection','trust_protection','信頼による攻撃の緩和',0,1),
+            ('Trustdecay','trust_decay','信頼の減衰率',0,.1),
+            ('Socialgain','social_gain','自主交流による評価上昇',0,.5),
+            ('Rejectionloss','rejection_loss','誘いを断られた際の低下',0,.5),
+            ('Maintenancedecay','maintenance_decay','交流維持による評価の減衰率',0,.1),
+            ('Exploration','exploration','新しい相手を探す割合',0,1),
+            ('Conflictdiscount','conflict_discount','発信者と対象の対立による割引',0,1)]:
+            par=page.appendFloat(name,label=label+'（初期化で適用）')[0]
+            par.val=DYNAMICS_DEFAULTS[key];par.min=lo;par.max=hi;par.clampMin=par.clampMax=True
+    sidebar=p.par.Sidebar
+    if 'social' not in sidebar.menuNames:
+        names,labels=list(sidebar.menuNames),list(sidebar.menuLabels)
+        sidebar.menuNames=names+['social','gossip'];sidebar.menuLabels=labels+['交流履歴・信頼','噂の影響']
     packages=Path(os.environ.get('SOCIAL_LAB_PACKAGES') or
                   str(base/('.deps/windows-cp311' if sys.platform=='win32' else 'vendor')))
     vendor=str(packages)
@@ -47,6 +71,11 @@ def init():
         ('pmax','Pmax'),('eta_v','Etav'),('eta_o','Etao'),('eta_r','Etar'),('omega','Omega'),('gamma','Gamma'),('tolerance','Tolerance')]}
     settings.update(witnesses=int(p.par.Witnesses),window=int(p.par.Window),limit=int(p.par.Limit),
         community_min=int(p.par.Communitymin),hub_min_size=int(p.par.Hubsize),hub_degree=int(p.par.Hubdegree),hub_ratio=float(p.par.Hubratio),high_liking=float(p.par.Highliking))
+    settings.update(MODES[str(p.par.Dynamics)])
+    for par,key in [('Socialbudget','social_budget'),('Trustlearning','trust_learning'),('Trustprotection','trust_protection'),
+                    ('Trustdecay','trust_decay'),('Socialgain','social_gain'),('Rejectionloss','rejection_loss'),
+                    ('Maintenancedecay','maintenance_decay'),('Exploration','exploration'),('Conflictdiscount','conflict_discount')]:
+        settings[key]=float(getattr(p.par,par))
     sim=p.op('model').module.Simulation(int(p.par.Population),int(p.par.Seed),settings,p.op('community').module)
     view=p.op('view').module.View(sim.n,sim.seed)
     for _ in range(100):view.layout(sim,pinned=int(p.par.Actor)-1)
@@ -86,7 +115,29 @@ def refresh():
     p.op('stats').par.text=f'{status}  |  STEP {sim.iteration:03d}  |  関係 {w.a.sum()//2}  |  主要集団 {sum(len(g)>=sim.p["community_min"] for g in d.groups)} / 二者 {sum(len(g)==2 for g in d.groups)}  |  孤立 {isolated}  |  情報待ち {w.pending}'
     sidebar=str(p.par.Sidebar)
     r=rows[a]
-    if sidebar=='person':
+    if sidebar=='social':
+        social=w.social
+        history=[e for e in w.timeline if e['kind']=='social_invitation' and a+1 in (e['actor'],e['target'])][-7:]
+        outcomes={'accepted':'交流成立','rejected':'相手が辞退','no_time':'時間不足'}
+        text=(f'人物 {a+1:02d} / 交流・信頼\n\n受ける信頼 {r["incoming_trust"]:.2f}\n向ける信頼 {r["outgoing_trust"]:.2f}\n'
+              f'直接の交流経験 {r["direct_experiences"]}回\n残り時間 {social.remaining[a]:.2f} / {sim.p["social_budget"]:.2f}\n'
+              f'この時刻の消費 {social.last_spent[a]:.2f}\n\n対象へ：\n好感度 {w.x[a,t]:+.2f}\n信頼 {social.trust[a,t]:.2f}\n交流経験 {social.experiences[a,t]}回\n\n最近の交流\n')
+        text+='\n'.join(f't={e["step"]} {e["actor"]}→{e["target"]} {outcomes[e["outcome"]]}' for e in history) or 'まだ記録なし'
+        text+='\n\n初期信頼は仮の過去履歴。\n信頼と好感度は別の状態です。'
+    elif sidebar=='gossip':
+        rumor=next((e for e in reversed(w.events) if e['kind']=='gossip'),None)
+        if rumor is None:text='噂の影響\n\nまだ噂は発生していません。\n右クリックで対象を選び、\n「全員へ噂」を押してください。'
+        else:
+            subject=rumor['target'];seen=np.flatnonzero(rumor['seen'])
+            changes={e['person']:e['requested_delta'] for e in rumor['initial_effects']}
+            impacts={i+1:(rumor['initial_credits'].get(str(i+1),0),changes.get(i+1,0.)) for i in rumor['witnesses']}
+            for receipt in rumor['receipts']:
+                impacts[receipt['person']]=(receipt['credit'],receipt['requested_delta_to_subject'] or 0.)
+            text=(f'噂 #{rumor["id"]} / t={rumor["step"]}\n発信者 {rumor["actor"]+1} / 対象 {subject+1}\n'
+                  f'受信者 {max(0,len(seen)-1)}人\n対象本人の認知：'+('あり' if rumor['seen'][subject] else 'なし')+'\n\n受信者：信用 / 要求変化 / 現在評価\n')
+            text+='\n'.join(f'{i:02d}: {credit:.2f} / {change:+.3f} / {w.x[i-1,subject]:+.2f}' for i,(credit,change) in sorted(impacts.items())[:9])
+            text+='\n\n要求変化は他更新との合算・\nクリップ前のこの噂の寄与。\n真偽の判定は実装していません。'
+    elif sidebar=='person':
         c=r['community'];group='未所属' if c is None else 'C%02d'%c
         ratio='—' if r['internal_ratio'] is None else '%.2f'%r['internal_ratio']
         liking='—' if r['internal_incoming_mean'] is None else '%+.2f'%r['internal_incoming_mean']
@@ -145,14 +196,15 @@ def refresh():
         text+=f'\n将来成立し得る関係 {w.possible_contacts}\n情報の未処理 {w.pending}\n\n一試行の記述的比較です。'
     p.op('details').par.text=wrap_panel(text)
     p.op('run_label').par.text='一時停止' if p.par.Running else '実行 / 再開'
-    p.op('group_label').par.text={'person':'詳細：人物','community':'詳細：集団','analysis':'詳細：全体','compare':'詳細：比較','history':'詳細：履歴','distribution':'詳細：分布'}[sidebar]
+    p.op('group_label').par.text={'person':'詳細：人物','community':'詳細：集団','analysis':'詳細：全体','compare':'詳細：比較','history':'詳細：履歴','distribution':'詳細：分布','social':'詳細：交流','gossip':'詳細：噂'}[sidebar]
     p.op('view_label').par.text={'network':'表示：関係','affinity':'表示：好感度','information':'表示：情報','comparison':'表示：比較','distribution':'表示：分布'}[mode]
     p.op('help_label').par.text='全員に協力' if a==0 else '協力する'
     p.op('harm_label').par.text='全員を攻撃' if a==0 else '攻撃する'
     p.op('gossip_label').par.text='全員へ噂' if a==0 else '悪い噂'
     events=w.events[-2:]
     names={'help':'協力','harm':'攻撃','gossip':'悪い噂'}
-    action_note=('人物1：協力・攻撃は接続中の全員へ。噂は右クリックした対象について、接続中の全員へ話します（対象本人を除く）。' if a==0 else '選択した行動者から、右クリックした対象への協力・攻撃・悪い噂。')
+    action_note=('人物1：協力・攻撃→接続全員。噂→選択対象について接続全員（本人除外）。' if a==0 else '選択した行動者から、右クリックした対象への協力・攻撃・悪い噂。')
+    if sim.p['budget_enabled']:action_note+=' 次時刻に予約／時間を人数で配分。'
     recent=' / '.join(f'{e["actor"]+1:02d}→{e["target"]+1:02d} {names[e["kind"]]}' for e in events)
     p.op('event_log').par.text=action_note+ ('\n直近：'+recent if recent else '')
     if mode=='comparison':p.op('event_log').par.text='左：行動なし / 右：行動あり。同じ人物を同じ座標で描画。赤い輪は役割・次数・削除時の喪失ペアに差がある人物。'
@@ -188,14 +240,16 @@ def command(name):
                 people=sim.gossip_to_neighbors(actor,target,strength) if name=='gossip' else sim.act_to_neighbors(name,actor,strength)
                 if people:
                     p.par.Running=True
-                    notice=('噂を話した相手' if name=='gossip' else '同時に行動した相手')+'：'+', '.join(str(i+1) for i in people)
+                    label=('噂を話す相手を予約' if name=='gossip' else '行動する相手を予約') if sim.p['budget_enabled'] else ('噂を話した相手' if name=='gossip' else '同時に行動した相手')
+                    notice=label+'：'+', '.join(str(i+1) for i in people)
                 else:notice='噂を話せる接続相手がいません（対象本人を除く）。' if name=='gossip' else '行動できる接続相手がいません。'
             else:
                 sim.act(name,actor,target,strength);p.par.Running=True
+            if name=='gossip':p.par.Sidebar='gossip';p.par.Display='information'
         elif name=='view':
             names=['network','affinity','information','comparison','distribution'];p.par.Display=names[(names.index(str(p.par.Display))+1)%len(names)]
         elif name=='group':
-            names=['person','community','analysis','compare','history','distribution'];p.par.Sidebar=names[(names.index(str(p.par.Sidebar))+1)%len(names)]
+            names=['person','community','analysis','compare','history','distribution','social','gossip'];p.par.Sidebar=names[(names.index(str(p.par.Sidebar))+1)%len(names)]
             if str(p.par.Sidebar)=='compare':p.par.Display='comparison'
             elif str(p.par.Sidebar)=='distribution':p.par.Display='distribution'
             elif str(p.par.Display) in ('comparison','distribution'):p.par.Display='network'
@@ -206,7 +260,7 @@ def command(name):
             export()
         elif name=='settings':p.openParameters()
         refresh()
-        if notice:p.op('event_log').par.text=notice+'\n'+p.op('event_log').par.text.eval()
+        if notice:p.op('event_log').par.text=notice+'\n'+p.op('event_log').par.text.eval().split('\n')[0]
     except Exception as e:
         p.par.Running=False;p.op('diagnostics').text=traceback.format_exc();p.op('event_log').par.text=str(e)
 

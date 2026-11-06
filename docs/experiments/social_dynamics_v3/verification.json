@@ -1,0 +1,10 @@
+{
+  "paired_state_equality": "checked in every run",
+  "replay": {
+    "seed": 42,
+    "mode": "adaptive",
+    "action": "harm",
+    "exact_match": true
+  },
+  "runs": 36
+}

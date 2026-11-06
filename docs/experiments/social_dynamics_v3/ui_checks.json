@@ -1,0 +1,246 @@
+{
+  "project": "Social_Lab_v3_Control.toe",
+  "build": "2025.33230",
+  "passed": true,
+  "interaction": "PanelCOMP.interactMouse virtual left/right clicks; actual Panel Execute callbacks",
+  "automatic_clock": "held during deterministic button tests; steps driven by the step button",
+  "source_sha256": {
+    "runtime.py": "0b63fc6ad5e7ac1dc42432ec0289be2d427222af2015fca0d36e04fc268a6518",
+    "model.py": "36464c5efa6d5256cf73bd79e3c59d9943b184fd09b130945d8df8b98626466b",
+    "social_dynamics.py": "359bd1f1a23c25698ecbc1854eed57e09ce46ddaeb4c685ec29ea7753fb9e085"
+  },
+  "scenarios": [
+    {
+      "mode": "legacy",
+      "action": "help",
+      "queued_before_step": 0,
+      "step": 5,
+      "events": 2,
+      "strengths": [
+        1.0,
+        1.0
+      ],
+      "ego_degree": 2,
+      "edge_difference": 0,
+      "sidebar": "gossip",
+      "errors": "",
+      "diagnostics": ""
+    },
+    {
+      "mode": "legacy",
+      "action": "harm",
+      "queued_before_step": 0,
+      "step": 5,
+      "events": 2,
+      "strengths": [
+        1.0,
+        1.0
+      ],
+      "ego_degree": 0,
+      "edge_difference": 2,
+      "sidebar": "gossip",
+      "errors": "",
+      "diagnostics": ""
+    },
+    {
+      "mode": "legacy",
+      "action": "gossip",
+      "queued_before_step": 0,
+      "step": 5,
+      "events": 1,
+      "strengths": [
+        1.0
+      ],
+      "ego_degree": 2,
+      "edge_difference": 0,
+      "sidebar": "gossip",
+      "errors": "",
+      "diagnostics": ""
+    },
+    {
+      "mode": "history",
+      "action": "help",
+      "queued_before_step": 0,
+      "step": 5,
+      "events": 2,
+      "strengths": [
+        1.0,
+        1.0
+      ],
+      "ego_degree": 2,
+      "edge_difference": 0,
+      "sidebar": "gossip",
+      "errors": "",
+      "diagnostics": ""
+    },
+    {
+      "mode": "history",
+      "action": "harm",
+      "queued_before_step": 0,
+      "step": 5,
+      "events": 2,
+      "strengths": [
+        1.0,
+        1.0
+      ],
+      "ego_degree": 2,
+      "edge_difference": 0,
+      "sidebar": "gossip",
+      "errors": "",
+      "diagnostics": ""
+    },
+    {
+      "mode": "history",
+      "action": "gossip",
+      "queued_before_step": 0,
+      "step": 5,
+      "events": 1,
+      "strengths": [
+        1.0
+      ],
+      "ego_degree": 2,
+      "edge_difference": 0,
+      "sidebar": "gossip",
+      "errors": "",
+      "diagnostics": ""
+    },
+    {
+      "mode": "budget",
+      "action": "help",
+      "queued_before_step": 1,
+      "step": 5,
+      "events": 2,
+      "strengths": [
+        0.5,
+        0.5
+      ],
+      "ego_degree": 2,
+      "edge_difference": 0,
+      "sidebar": "gossip",
+      "errors": "",
+      "diagnostics": ""
+    },
+    {
+      "mode": "budget",
+      "action": "harm",
+      "queued_before_step": 1,
+      "step": 5,
+      "events": 2,
+      "strengths": [
+        0.5,
+        0.5
+      ],
+      "ego_degree": 2,
+      "edge_difference": 0,
+      "sidebar": "gossip",
+      "errors": "",
+      "diagnostics": ""
+    },
+    {
+      "mode": "budget",
+      "action": "gossip",
+      "queued_before_step": 1,
+      "step": 5,
+      "events": 1,
+      "strengths": [
+        0.5
+      ],
+      "ego_degree": 2,
+      "edge_difference": 0,
+      "sidebar": "gossip",
+      "errors": "",
+      "diagnostics": ""
+    },
+    {
+      "mode": "adaptive",
+      "action": "help",
+      "queued_before_step": 1,
+      "step": 5,
+      "events": 2,
+      "strengths": [
+        0.5,
+        0.5
+      ],
+      "ego_degree": 2,
+      "edge_difference": 0,
+      "sidebar": "gossip",
+      "errors": "",
+      "diagnostics": ""
+    },
+    {
+      "mode": "adaptive",
+      "action": "harm",
+      "queued_before_step": 1,
+      "step": 5,
+      "events": 2,
+      "strengths": [
+        0.5,
+        0.5
+      ],
+      "ego_degree": 2,
+      "edge_difference": 0,
+      "sidebar": "gossip",
+      "errors": "",
+      "diagnostics": ""
+    },
+    {
+      "mode": "adaptive",
+      "action": "gossip",
+      "queued_before_step": 1,
+      "step": 5,
+      "events": 1,
+      "strengths": [
+        0.5
+      ],
+      "ego_degree": 2,
+      "edge_difference": 0,
+      "sidebar": "gossip",
+      "errors": "",
+      "diagnostics": ""
+    }
+  ],
+  "issues_fixed": [
+    "Right-click UV tracking was disabled; enabled on graph and root panels."
+  ],
+  "graph_selection": "passed",
+  "start_pause": "passed",
+  "reset_and_step": "passed",
+  "export": {
+    "passed": true,
+    "path": "exports/seed23_t005_1793964085697691000"
+  },
+  "initial_realtime_attempt": {
+    "result": "MCP socket hang up; subsequent connection was refused",
+    "cause": "not established",
+    "followup": "reopened isolated validation project and used in-app timers to separate playback from HTTP request lifetime"
+  },
+  "real_time_playback": {
+    "before": 0,
+    "after": 7,
+    "paused": true,
+    "elapsed_seconds": 1.5638111250009388,
+    "errors": "",
+    "diagnostics": "",
+    "started_with": "actual run button virtual click",
+    "stopped_with": "scheduled Running=False; pause button tested separately",
+    "passed": true
+  },
+  "real_time_pause_button": {
+    "before": 7,
+    "after": 14,
+    "paused": true,
+    "elapsed_seconds": 3.7117497499857564,
+    "errors": "",
+    "diagnostics": "",
+    "method": "actual run button click, real-time clock, actual pause button click",
+    "passed": true
+  },
+  "ui_vs_headless": {
+    "passed": true,
+    "seed": 23,
+    "autonomous_steps_before_gossip": 14,
+    "subject": 2,
+    "post_steps": 5,
+    "x_a_trust_exact_match": true
+  }
+}
