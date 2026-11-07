@@ -1,10 +1,10 @@
-# Social Relationship Lab v3 正式版
+# Social Relationship Lab 正式版
 
-ダウンロードするのは **Social_Relationship_Lab_v3.toe 一つだけ**です。
+ダウンロードするのは **Social_Relationship_Lab.toe 一つだけ**です。
 
 1. TouchDesigner 2025（Python 3.11版）をインストールし、ライセンス登録を済ませます。
 2. `.toe` を書き込み可能なフォルダへ保存し、TouchDesignerで開きます。
-3. 初回に必要なファイルを同じ場所の `.social_lab_v3` へ展開し、操作画面を開きます。
+3. 初回に必要なファイルを同じ場所の `.social_lab` へ展開し、操作画面を開きます。
 
 サメのプロジェクト、別のTOX、リポジトリ全体、別途Python・pip・MCPの設定は不要です。
 コードとMac Apple Silicon／Windows x64用ライブラリを同梱しています。通常の起動時はネット接続不要です。

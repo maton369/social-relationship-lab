@@ -6,7 +6,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 
-base=Path(__file__).resolve().parents[1]/'docs/experiments/social_dynamics_v3'
+base=Path(__file__).resolve().parents[1]/'docs/experiments/social_dynamics'
 def read(name):
     with (base/name).open(encoding='utf-8-sig') as f:
         return {(int(r['seed']),r['action']):r for r in csv.DictReader(f) if r['mode']=='adaptive'}

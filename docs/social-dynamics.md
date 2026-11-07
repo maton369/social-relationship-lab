@@ -1,4 +1,4 @@
-# 履歴・交流時間・自律交流モデル v3.0
+# 履歴・交流時間・自律交流モデル
 
 ## 比較するモデル
 
@@ -79,8 +79,8 @@ baselineには予約を入れないため、介入で使った時間により自
 
 ## 実施した確認と記録
 
-- [単発介入36条件の実測結果](experiments/social_dynamics_v3/results.md)：3シード×4モデル×3行動。全条件と、変化がなかった条件を含む。
-- [TouchDesigner実操作の記録](experiments/social_dynamics_v3/ui_checks.json)：MCPから実際のPanelCOMP仮想マウス操作を行い、12条件、開始・一時停止、ステップ、左右の人物選択、JSON/CSV保存を確認。
+- [単発介入36条件の実測結果](experiments/social_dynamics/results.md)：3シード×4モデル×3行動。全条件と、変化がなかった条件を含む。
+- [TouchDesigner実操作の記録](experiments/social_dynamics/ui_checks.json)：MCPから実際のPanelCOMP仮想マウス操作を行い、12条件、開始・一時停止、ステップ、左右の人物選択、JSON/CSV保存を確認。
 - `test_social_dynamics.py`：強い信頼による緩和と反復攻撃による切断、時間配分、過剰実行防止、信用と情報到達の区別、再現性、吸収状態の誤判定防止。
 - 既存のUIでは右クリック時のUV更新が無効だったため、グラフと親パネルで有効化した。修正後、右クリック選択を実機確認した。
 

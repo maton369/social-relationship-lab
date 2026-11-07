@@ -12,8 +12,8 @@ import tempfile
 import zipfile
 
 ROOT=Path(__file__).resolve().parents[1]
-NAME='Social_Relationship_Lab_v3.toe'
-COMP='social_relationship_lab_v3'
+NAME='Social_Relationship_Lab.toe'
+COMP='social_relationship_lab'
 SOURCES=['model','runtime','view','community','export_analysis','social_dynamics','distribution_bootstrap']
 
 
@@ -49,7 +49,7 @@ def main():
     parser.add_argument('--bin-dir',type=Path,default=Path('/Applications/TouchDesigner.app/Contents/MacOS'))
     args=parser.parse_args()
     data=payload(args.windows_wheels)
-    work=Path(tempfile.mkdtemp(prefix='social-v3-release-'))
+    work=Path(tempfile.mkdtemp(prefix='social-release-'))
     stage=work/NAME;shutil.copy2(args.template,stage)
     subprocess.run([str(args.bin_dir/'toeexpand'),str(stage)],capture_output=True)
     folder=Path(str(stage)+'.dir');tocfile=Path(str(stage)+'.toc')

@@ -1,12 +1,12 @@
-# Social Relationship Lab v3
+# Social Relationship Lab
 
-**開くファイルは `Social_Relationship_Lab_v3.toe` の一つだけです。**
+**開くファイルは `Social_Relationship_Lab.toe` の一つだけです。**
 
-[正式版をダウンロード](https://github.com/maton369/social-relationship-lab/releases/latest/download/Social_Relationship_Lab_v3.toe) → 書き込み可能なフォルダに保存 → TouchDesignerで開いてください。
+[正式版をダウンロード](https://github.com/maton369/social-relationship-lab/releases/latest/download/Social_Relationship_Lab.toe) → 書き込み可能なフォルダに保存 → TouchDesignerで開いてください。
 
 コードとWindows x64／Mac Apple Silicon用の対応ライブラリを同梱しています。サメのプロジェクト、別のTOX、Pythonの追加インストール、MCP、pip設定は不要です。TouchDesigner本体とライセンス登録は必要です。
 
-![正式版v3をソースのないフォルダの一つのTOEから起動し、協力・噂・実時間再生を操作したMac実機の画面](docs/screenshots/official_v3.jpg)
+![正式版をソースのないフォルダの一つのTOEから起動し、協力・噂・実時間再生を操作したMac実機の画面](docs/screenshots/official.jpg)
 
 ## 交流の履歴・時間制約・自律交流
 
@@ -17,25 +17,25 @@ TouchDesignerの初期モードを**自律交流あり**にしました。「設
 - 各人物も相手を選んで交流を申し込み、受諾・拒絶・時間不足を記録します。既存関係以外にも交流する機会があります。
 - 「詳細：交流」で信頼・実際の交流経験・時間残量を確認できます。噂のボタンを押すと「詳細：噂」と情報表示に切り替わり、誰が聞き、どれほど評価を変える要求が生じたかを確認できます。
 
-式と全パラメータ：[モデル設計・更新順序](docs/social-dynamics-v3.md)。出典と独自仮定の区別：[参考文献](docs/references.md)。
+式と全パラメータ：[モデル設計・更新順序](docs/social-dynamics.md)。出典と独自仮定の区別：[参考文献](docs/references.md)。
 
 私たちのソフトウェア内の仮定を観察するためのモデルです。実在の人間の行動を予測する精度を検証したものではありません。
 
 ## 実施・保存した検証
 
-[単発介入36条件の結果](docs/experiments/social_dynamics_v3/results.md)と、[10回反復した追加9条件](docs/experiments/social_dynamics_v3/repeated/results.md)を保存しました。シード23・30・42を共通に使い、行動あり／なしは介入前まで完全一致することを検査しています。変化しなかった結果も含みます。
+[単発介入36条件の結果](docs/experiments/social_dynamics/results.md)と、[10回反復した追加9条件](docs/experiments/social_dynamics/repeated/results.md)を保存しました。シード23・30・42を共通に使い、行動あり／なしは介入前まで完全一致することを検査しています。変化しなかった結果も含みます。
 
-[機能追加時の実操作ログ](docs/experiments/social_dynamics_v3/ui_checks.json)には、12条件のボタン操作と出力の確認を記録しています。当時の自動テストは40件通過しました。単一ファイル配布に統一した正式版では、[ソースのないフォルダでの起動と41件のテスト](docs/official-release-checks.json)を別途確認しています。過去のログは、その時点の検証証拠として保存しています。
+[機能追加時の実操作ログ](docs/experiments/social_dynamics/ui_checks.json)には、12条件のボタン操作と出力の確認を記録しています。当時の自動テストは40件通過しました。単一ファイル配布に統一した正式版では、[ソースのないフォルダでの起動と41件のテスト](docs/official-release-checks.json)を別途確認しています。過去のログは、その時点の検証証拠として保存しています。
 
-全条件のCSV、実行条件・ソースハッシュ、再現確認、選択した試行の全時刻状態と履歴（圧縮JSON）は `docs/experiments/social_dynamics_v3/` にあります。3シードの記述的な比較であり、統計的な一般則を示す検証ではありません。
+全条件のCSV、実行条件・ソースハッシュ、再現確認、選択した試行の全時刻状態と履歴（圧縮JSON）は `docs/experiments/social_dynamics/` にあります。3シードの記述的な比較であり、統計的な一般則を示す検証ではありません。
 
 | 交流履歴・残り時間の実画面 | 噂の到達先と評価変化の実画面 |
 | --- | --- |
-| ![TouchDesignerで実時間再生後に停止したSTEP14。人物1の信頼・交流履歴・残り時間と招待履歴](docs/screenshots/v3_social.jpg) | ![STEP15に話した噂をSTEP19で確認。25人が受信し、対象本人にも届いた状態で、受信者ごとの信用と要求変化を表示](docs/screenshots/v3_gossip.jpg) |
+| ![TouchDesignerで実時間再生後に停止したSTEP14。人物1の信頼・交流履歴・残り時間と招待履歴](docs/screenshots/social_history.jpg) | ![STEP15に話した噂をSTEP19で確認。25人が受信し、対象本人にも届いた状態で、受信者ごとの信用と要求変化を表示](docs/screenshots/gossip_effects.jpg) |
 
-![adaptiveでの行動なし・単発・10回試行の最終関係数。3シードすべてを表示し、行動なしの世界は両実験で完全一致](docs/experiments/social_dynamics_v3/degree_comparison.png)
+![adaptiveでの行動なし・単発・10回試行の最終関係数。3シードすべてを表示し、行動なしの世界は両実験で完全一致](docs/experiments/social_dynamics/degree_comparison.png)
 
-確認の経緯・問題の修正・具体的な数値：[検証記録](docs/experiments/social_dynamics_v3/verification-notes.md)。実時間の開始・停止は別途、内部タイマーから実際のボタンを操作して確認し、STEP 7→14へ進んで停止しました。画面の実時間進行と同じ操作をヘッドレスで再現したところ、両世界のX/A/信頼が完全一致しました。
+確認の経緯・問題の修正・具体的な数値：[検証記録](docs/experiments/social_dynamics/verification-notes.md)。実時間の開始・停止は別途、内部タイマーから実際のボタンを操作して確認し、STEP 7→14へ進んで停止しました。画面の実時間進行と同じ操作をヘッドレスで再現したところ、両世界のX/A/信頼が完全一致しました。
 
 ## 手動での停止・再開
 
@@ -72,10 +72,10 @@ TouchDesignerの初期モードを**自律交流あり**にしました。「設
 ## 利用方法
 
 1. TouchDesigner 2025（Python 3.11を搭載した版）をインストールし、初回のライセンス登録を済ませます。
-2. **`Social_Relationship_Lab_v3.toe` だけ**を、ダウンロードフォルダなど書き込み可能な場所へ保存します。
-3. このファイルを開くと、初回だけ同じ場所の `.social_lab_v3` フォルダへコードと対応ライブラリを展開し、操作画面を開きます。通常はインターネット接続不要です。
+2. **`Social_Relationship_Lab.toe` だけ**を、ダウンロードフォルダなど書き込み可能な場所へ保存します。
+3. このファイルを開くと、初回だけ同じ場所の `.social_lab` フォルダへコードと対応ライブラリを展開し、操作画面を開きます。通常はインターネット接続不要です。
 
-`.social_lab_v3` は自動生成する動作用フォルダです。別のメンバーへ渡すのは `.toe` 一つだけで構いません。「記録を保存」の出力先は `.toe` と同じ場所の `exports/` です。メンバーが複数版から選択する必要はありません。
+`.social_lab` は自動生成する動作用フォルダです。別のメンバーへ渡すのは `.toe` 一つだけで構いません。「記録を保存」の出力先は `.toe` と同じ場所の `exports/` です。メンバーが複数版から選択する必要はありません。
 
 対応は **Mac Apple Silicon／Windows x64、Python 3.11版のTouchDesigner**。Mac実機での確認結果は [正式版の検証記録](docs/official-release-checks.json) に保存します。Windows用バイナリも内蔵していますが、Windows実機での描画は未確認です。
 
@@ -231,6 +231,6 @@ alternative = reanalyze_snapshot(saved['snapshots'][-1], {'community_min': 4})
 
 Python 3.11と対応する依存があれば `python3.11 -m unittest discover -s このフォルダ -v` で検証できます。正式版はMacのTouchDesigner内で計41件（モデル・分析・描画・自律交流・内蔵ファイル展開）が通過しました。信頼による緩和、反復攻撃、時間の過剰消費防止、再現性、到達と信用の区別、展開先の安全性も確認しています。Windows実機確認を代替するものではありません。
 
-計算と実操作の検証記録は `docs/experiments/social_dynamics_v3/`、単一ファイル配布の検証記録は `docs/official-release-checks.json`、内蔵コードとバイナリの識別情報は `docs/release-manifest.json` にあります。
+計算と実操作の検証記録は `docs/experiments/social_dynamics/`、単一ファイル配布の検証記録は `docs/official-release-checks.json`、内蔵コードとバイナリの識別情報は `docs/release-manifest.json` にあります。
 
 公開実装は [leidenalg](https://github.com/vtraag/leidenalg) と [igraph](https://github.com/igraph/python-igraph) を直接利用。[Traag et al. (2019)](https://doi.org/10.1038/s41598-019-41695-z) のLeidenと [CPM公式資料](https://leidenalg.readthedocs.io/en/stable/reference.html#cpmvertexpartition) が検出部分の根拠です。役割の境界、行動反応式、初期係数は今回の制作の仮定であり、研究の役割分類や人間の予測モデルを再現したものではありません。依存のライセンスと固定版は [THIRD_PARTY.md](THIRD_PARTY.md) に記載しています。

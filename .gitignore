@@ -8,6 +8,6 @@ exports/
 .deps/
 *.[0-9]*.toe
 .portable-stage*.toe
-.social_lab_v3/
+.social_lab/
 Backup/
 .build/

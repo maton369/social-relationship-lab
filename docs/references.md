@@ -1,4 +1,4 @@
-# v3で追加した機構と先行研究
+# 実装した機構と先行研究
 
 以下は実装の着想と、独自の仮定を分けた記録。論文が今回の係数、好感度尺度、収束、分裂を保証したとは扱わない。
 既存のCPM・Leiden等についてはREADMEおよびTHIRD_PARTY.mdも参照。
@@ -23,4 +23,4 @@ Dores Cruzらの公開PDF：https://research-repository.st-andrews.ac.uk/bitstre
 - 噂の信用をTとXから計算する式。真偽や送り手の意図をモデル内で判定したものではない。
 - 3シード・80時刻という今回の検証規模。必要サンプル数を算定した統計設計ではない。
 
-式・実際の値と更新順序：[social-dynamics-v3.md](social-dynamics-v3.md)。実験の全条件と出力：[結果記録](experiments/social_dynamics_v3/results.md)。
+式・実際の値と更新順序：[social-dynamics.md](social-dynamics.md)。実験の全条件と出力：[結果記録](experiments/social_dynamics/results.md)。

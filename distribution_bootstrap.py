@@ -1,4 +1,4 @@
-"""Extract the official v3's embedded code and native dependencies on first use."""
+"""Extract the official project's embedded code and native dependencies on first use."""
 import base64
 import hashlib
 import io
@@ -24,7 +24,7 @@ def platform_key():
 def extract(encoded, folder, key):
     raw=base64.b64decode(encoded,validate=True)
     digest=hashlib.sha256(raw).hexdigest()
-    parent=Path(folder)/'.social_lab_v3'/digest[:16]
+    parent=Path(folder)/'.social_lab'/digest[:16]
     target=parent/key
     marker=target/'installed.json'
     if marker.is_file():

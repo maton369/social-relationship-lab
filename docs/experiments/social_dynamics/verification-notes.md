@@ -22,7 +22,7 @@
 
 seed23・adaptive・40人で、実時間で14時刻進め、人物1から人物2について噂を話すボタンを押し、ステップボタンで5時刻進めた。
 同じ操作をPython計算エンジンで再現し、両世界のX/A/Tがすべて完全一致することを確認した。`ui_checks.json:ui_vs_headless` に記録。
-この時刻の全状態は `ui_preview_snapshot.json.gz`、実画面は `../../screenshots/v3_gossip.jpg`。
+この時刻の全状態は `ui_preview_snapshot.json.gz`、実画面は `../../screenshots/gossip_effects.jpg`。
 
 ## 観測された結果
 

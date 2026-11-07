@@ -38,7 +38,7 @@ def init():
         if base is None:raise RuntimeError('プロジェクト一式を展開し、Basefolder を配置先へ設定してください。')
         packages=Path(os.environ.get('SOCIAL_LAB_PACKAGES') or str(base/('.deps/windows-cp311' if sys.platform=='win32' else 'vendor')))
     p.par.Basefolder=str(base)
-    p.op('title').par.text='RELATIONSHIP LAB v3 / 人物・コミュニティ分析'
+    p.op('title').par.text='RELATIONSHIP LAB / 人物・コミュニティ分析'
     p.par.uvbuttonsright=True
     p.op('graph_panel').par.uvbuttonsright=True
     if str(base) not in sys.path:sys.path.insert(0,str(base))

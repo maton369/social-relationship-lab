@@ -1,45 +1,30 @@
 {
   "status": "passed",
-  "test_folder": "/private/tmp/v3-single-file-check-vuqhvtdx/bare",
+  "test_folder": "/private/tmp/relationship-single-file-y9okz4yj/bare",
   "files_before_launch": [
-    "Social_Relationship_Lab_v3.toe"
+    "Social_Relationship_Lab.toe"
   ],
-  "instrumentation": "Validation copy adds only the MCP observer component; model DATs and embedded dependency payload match the release.",
-  "formal_toe": "Social_Relationship_Lab_v3.toe",
+  "instrumentation": "Validation copy adds an MCP observer only; executable source and dependency payload match the release.",
+  "formal_toe": "Social_Relationship_Lab.toe",
+  "formal_toe_sha256": "694f03083f97da4a2e0682813f4df36093cdcf27f8cdc249db13a16488d9a531",
   "build": "2025.33230",
+  "component": "/social_relationship_lab",
+  "title": "RELATIONSHIP LAB / 人物・コミュニティ分析",
   "single_input_startup": true,
   "automatic_perform": true,
-  "extracted_inside_test_folder": true,
   "native_libraries_from_embedded_cache": true,
   "native_paths": {
-    "igraph": "/tmp/v3-single-file-check-vuqhvtdx/bare/.social_lab_v3/0c75fb39393b03da/macos-arm64/vendor/igraph/__init__.py",
-    "leidenalg": "/tmp/v3-single-file-check-vuqhvtdx/bare/.social_lab_v3/0c75fb39393b03da/macos-arm64/vendor/leidenalg/__init__.py",
-    "social_dynamics": "/tmp/v3-single-file-check-vuqhvtdx/bare/.social_lab_v3/0c75fb39393b03da/macos-arm64/social_dynamics.py"
+    "igraph": "/tmp/relationship-single-file-y9okz4yj/bare/.social_lab/f691667a8eaa0287/macos-arm64/vendor/igraph/__init__.py",
+    "leidenalg": "/tmp/relationship-single-file-y9okz4yj/bare/.social_lab/f691667a8eaa0287/macos-arm64/vendor/leidenalg/__init__.py",
+    "social_dynamics": "/tmp/relationship-single-file-y9okz4yj/bare/.social_lab/f691667a8eaa0287/macos-arm64/social_dynamics.py"
   },
-  "buttons_and_right_click": "passed",
-  "export_next_to_toe": true,
+  "buttons_and_export": "passed",
   "unit_tests": {
     "count": 41,
     "passed": true,
-    "output": ".........................................\n----------------------------------------------------------------------\nRan 41 tests in 0.570s\n\nOK\n"
+    "output": ".........................................\n----------------------------------------------------------------------\nRan 41 tests in 0.563s\n\nOK\n"
   },
-  "component": "/social_relationship_lab_v3",
-  "title": "RELATIONSHIP LAB v3 / 人物・コミュニティ分析",
   "windows_runtime": "not tested",
   "errors": "",
-  "diagnostics": "",
-  "realtime": {
-    "before": 2,
-    "after": 8,
-    "paused": true,
-    "elapsed_seconds": 3.550038332992699,
-    "passed": true
-  },
-  "formal_toe_sha256": "c047ef5c1123e3d1f15167e39a913fecb7d0754c3ff6774fa6e70ab2551dc083",
-  "formal_payload_sha256": "e432ce0afbd26a3c51c281f56ff8f19b29683a34aa9e3c2fd540dc0f04220600",
-  "source_and_native_bytes_match_final_release": true,
-  "validation_copy_difference": [
-    "source/THIRD_PARTY.md"
-  ],
-  "validation_copy_difference_note": "Third-party README clarified after testing; all executable Python and native library bytes match the final release."
+  "diagnostics": ""
 }

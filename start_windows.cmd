@@ -12,9 +12,9 @@ if not exist "%TD_EXE%" (
   echo ERROR: TD_EXE does not exist: "%TD_EXE%"
   exit /b 1
 )
-if not exist "%~dp0Social_Relationship_Lab_v3.toe" (
-  echo ERROR: Place this script next to Social_Relationship_Lab_v3.toe.
+if not exist "%~dp0Social_Relationship_Lab.toe" (
+  echo ERROR: Place this script next to Social_Relationship_Lab.toe.
   exit /b 1
 )
-start "" "%TD_EXE%" "%~dp0Social_Relationship_Lab_v3.toe"
+start "" "%TD_EXE%" "%~dp0Social_Relationship_Lab.toe"
 exit /b %errorlevel%

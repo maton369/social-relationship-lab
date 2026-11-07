@@ -9,7 +9,7 @@ import time
 from pathlib import Path
 import numpy as np
 
-c=op('/social_relationship_lab_v3')
+c=op('/social_relationship_lab')
 if c is None:raise RuntimeError('Validation component not found')
 r=c.op('runtime').module
 base=Path(c.par.Basefolder.eval())
@@ -62,7 +62,7 @@ try:
     report['passed']=True
 finally:
     c.par.Running=False;r.last_tick=0.
-    output=base/'docs/experiments/social_dynamics_v3/ui_checks.json'
+    output=base/'docs/experiments/social_dynamics/ui_checks.json'
     output.parent.mkdir(parents=True,exist_ok=True)
     output.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
 print('UI checks passed:',report['passed'],'scenarios:',len(report['scenarios']))

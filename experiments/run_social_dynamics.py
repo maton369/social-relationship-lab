@@ -77,7 +77,7 @@ def main():
     p.add_argument('--repetitions',type=int,default=1)
     p.add_argument('--interval',type=int,default=1)
     p.add_argument('--no-snapshots',action='store_true')
-    p.add_argument('--output',type=Path,default=ROOT/'docs/experiments/social_dynamics_v3')
+    p.add_argument('--output',type=Path,default=ROOT/'docs/experiments/social_dynamics')
     args=p.parse_args()
     if args.warmup<0 or args.steps<1:p.error('warmup >= 0 and steps >= 1 are required')
     if args.repetitions<1 or args.interval<1 or (args.repetitions-1)*args.interval>=args.steps:p.error('Invalid repetition schedule')
