@@ -1,5 +1,6 @@
 {
   "template": "【FMT】背景_東京都市大学.pptx (provided in workspace; master/layouts/logo/footer preserved)",
+  "cover_layout": "Original タイトル スライド; title/subtitle placeholders and inherited formatting preserved",
   "screenshot": "docs/screenshots/official.jpg (Mac実機画面。結果例の実験条件とは別)",
   "main_slides": 8,
   "appendix_slides": 5,

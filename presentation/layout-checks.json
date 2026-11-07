@@ -3,6 +3,9 @@
   "renderer": "PPTX geometry -> SVG -> librsvg/Pango PDF",
   "text_height_warnings": [],
   "template": "【FMT】背景_東京都市大学.pptx",
+  "cover_uses_original_title_layout": true,
+  "cover_has_original_title_and_subtitle_placeholders_only": true,
+  "cover_positions_and_inherited_formatting_preserved": true,
   "template_master_layout_theme_xml_canonical_equal": true,
   "template_relationships_equal": true,
   "template_images_byte_identical": true,
@@ -10,13 +13,12 @@
   "appendix_slides": 5,
   "total_seconds": 300,
   "pptx_notes_all_present": true,
-  "content_clear_of_university_footer": true,
   "pdf_japanese_text_extraction": "passed",
-  "contact_sheet_review": "all 13 slides reviewed",
+  "visual_review": "cover inspected at full size; contact sheet regenerated",
   "keynote_pptx_import": "unverified: environment import timeouts",
   "artifact_sha256": {
-    "Social_Relationship_Lab.pptx": "2f79321a57803546172abbfe51f5068df00afe9d5e02f17e261277ce4804b84c",
-    "Social_Relationship_Lab.pdf": "6defb075f3e2f97b5ed6f0d9f381a2cef8b507cdb7313b09bc5cbc0fe1e5762e",
+    "Social_Relationship_Lab.pptx": "264cd910d66501f2dbddf93c51e662a95af2ed6541d481881b81ce9f72d21814",
+    "Social_Relationship_Lab.pdf": "c2b653cfd44c6f653be76d4ae151c1ac54a162775e3059ac3676b7930cd26533",
     "tcu_template.pptx": "ceeee5da99ae9f1b12df4ab2e4d3438cae5266ea965fff688e50193cc633cde5"
   }
 }

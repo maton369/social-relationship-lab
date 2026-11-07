@@ -59,15 +59,28 @@ for i,slide in enumerate(pr.slides,1):
                 svg.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{radius}" fill="{fill}"/>')
         if shape.has_text_frame and shape.text:
             tf=shape.text_frame;rendered=[]
+            inherited_style=None;inherited_anchor=None
+            if shape.is_placeholder:
+                parents=[p for p in slide.slide_layout.placeholders if p.placeholder_format.idx==shape.placeholder_format.idx]
+                if parents:
+                    levels=parents[0]._element.xpath('./p:txBody/a:lstStyle/a:lvl1pPr')
+                    inherited_style=levels[0] if levels else None
+                    bodies=parents[0]._element.xpath('./p:txBody/a:bodyPr')
+                    inherited_anchor=bodies[0].get('anchor') if bodies else None
             for p in tf.paragraphs:
-                size=(p.font.size.pt if p.font.size else 18)*2
-                font=ImageFont.truetype(FONT_BOLD if p.font.bold else FONT_NORMAL,round(size))
+                inherited_font=inherited_style.find('{http://schemas.openxmlformats.org/drawingml/2006/main}defRPr') if inherited_style is not None else None
+                default_size=float(inherited_font.get('sz','1800'))/100 if inherited_font is not None else 18
+                bold=p.font.bold if p.font.bold is not None else (inherited_font is not None and inherited_font.get('b')=='1')
+                alignment=p.alignment
+                if alignment is None and inherited_style is not None and inherited_style.get('algn')=='ctr':alignment=PP_ALIGN.CENTER
+                size=(p.font.size.pt if p.font.size else default_size)*2
+                font=ImageFont.truetype(FONT_BOLD if bold else FONT_NORMAL,round(size))
                 width=w-(tf.margin_left+tf.margin_right)*SCALE
                 lines=wrap(p.text,font,width) if tf.word_wrap else [p.text]
                 ascent,descent=font.getmetrics()
                 for part in lines:
                     rendered.append(dict(text=part,size=size,ascent=ascent,height=size*1.2,
-                        color=color(p.font.color),bold=p.font.bold,align=p.alignment))
+                        color=color(p.font.color,'#000000' if shape.is_placeholder else '#182D41'),bold=bold,align=alignment))
                 rendered[-1]['height']+=(p.space_after.pt if p.space_after else 0)*2
             height=sum(r['height'] for r in rendered)
             available=h-(tf.margin_top+tf.margin_bottom)*SCALE
@@ -75,6 +88,8 @@ for i,slide in enumerate(pr.slides,1):
                 warnings.append(dict(slide=i,text=shape.text,box_height=available,text_height=height))
             cursor=y+tf.margin_top*SCALE
             if tf.vertical_anchor==MSO_ANCHOR.MIDDLE:cursor=y+(h-height)/2
+            elif tf.vertical_anchor==MSO_ANCHOR.BOTTOM or (tf.vertical_anchor is None and inherited_anchor=='b'):
+                cursor=y+h-tf.margin_bottom*SCALE-height
             for r in rendered:
                 if r['align']==PP_ALIGN.CENTER:xx=x+w/2;anchor='middle'
                 elif r['align']==PP_ALIGN.RIGHT:xx=x+w-tf.margin_right*SCALE;anchor='end'

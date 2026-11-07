@@ -77,6 +77,10 @@ def circle(s,x,y,d,fill=TEAL,label=None,size=16):
 
 def slide(title,tag=''):
     s=prs.slides.add_slide(prs.slide_layouts[0 if not len(prs.slides) else 7])
+    if len(prs.slides)==1:
+        # The cover uses the actual title/subtitle placeholders, including their
+        # inherited positions, typography, alignment and vertical anchoring.
+        return s
     for v in list(s.shapes):
         if v.is_placeholder:v._element.getparent().remove(v._element)
     s.background.fill.solid();s.background.fill.fore_color.rgb=rgb(BG)
@@ -118,11 +122,10 @@ def build():
     low_rumor=mean('low','gossip_burst','delta_subject_liking');high_rumor=mean('high','gossip_burst','delta_subject_liking')
 
     s=slide('', 'マルチメディア情報特論  /  作品発表')
-    text(s,'Social\nRelationship Lab',.72,1.15,6.1,1.6,38,bold=True,font='Avenir Next')
-    text(s,'ひとつの行動が、\n関係のかたちを変える。',.75,3.12,6.0,1.45,30,bold=True)
-    text(s,'人間関係とコミュニティの変化を\n触って観察する、TouchDesigner作品',.77,5.15,6,1.0,18,MUTED)
-    s.shapes.add_picture(str(ASSETS/'network_detail.jpg'),Inches(6.8),Inches(2.0),width=Inches(5.85))
-    text(s,'実際の作品画面より',9.1,5.47,3.5,.3,11,MUTED,align=PP_ALIGN.RIGHT)
+    s.shapes.title.text='Social Relationship Lab'
+    s.placeholders[1].text=('ひとつの行動が、関係のかたちを変える。\n'
+                            '人間関係・コミュニティを観察するTouchDesigner作品\n'
+                            'マルチメディア情報特論')
     note(s,'作品紹介','私が制作したのは、人間関係とコミュニティの変化を触って観察する作品、Social Relationship Labです。一つの行動が、相手だけでなく、周囲との関係にどう波及するのかを表現しました。')
 
     s=slide('表現したかったこと：自分の行動は、どこまで届くのか。')
@@ -288,7 +291,7 @@ def build():
 
     # Keep the supplied university master, logo and campus footer intact. Reserve
     # their header/footer space by mapping only our content into the body region.
-    for page in prs.slides:
+    for page in list(prs.slides)[1:]:
         for shape in page.shapes:
             if shape.name.startswith('TCU_CHROME_'):continue
             shape.top=int(Inches(.07)+shape.top*.88)
@@ -315,6 +318,7 @@ def build():
     (HERE/'speaker-notes.md').write_text('\n'.join(md)+'\n',encoding='utf-8')
     (HERE/'provenance.json').write_text(json.dumps(dict(
         template='【FMT】背景_東京都市大学.pptx (provided in workspace; master/layouts/logo/footer preserved)',
+        cover_layout='Original タイトル スライド; title/subtitle placeholders and inherited formatting preserved',
         screenshot='docs/screenshots/official.jpg (Mac実機画面。結果例の実験条件とは別)',
         main_slides=8,appendix_slides=5,total_seconds=sum(timings),
         cooperation_case='docs/experiments/conditions-and-policies/cases/s2_d0.1_help_spaced_t240-summary.json',
