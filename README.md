@@ -10,7 +10,7 @@
 
 ## 講義での5分発表
 
-[発表用PDF](presentation/Social_Relationship_Lab.pdf)・[Keynote版](presentation/Social_Relationship_Lab.key)・[編集用PowerPoint](presentation/Social_Relationship_Lab.pptx)・[読み上げ原稿とデモ操作](presentation/speaker-notes.md)を用意しました。本編8枚で5分、仕様・検証・参考文献の補足は後ろの5枚です。
+[発表用PDF](presentation/Social_Relationship_Lab.pdf)・[編集用PowerPoint](presentation/Social_Relationship_Lab.pptx)・[読み上げ原稿とデモ操作](presentation/speaker-notes.md)を用意しました。本編8枚で5分、仕様・検証・参考文献の補足は後ろの5枚です。
 
 ![5分発表のスライド一覧。表現したかったこと、実際のデモ画面、時間で逆転する協力、噂と関係の違い、信頼の二面性、後半の仕様と参考文献](presentation/previews/contact-sheet.jpg)
 
