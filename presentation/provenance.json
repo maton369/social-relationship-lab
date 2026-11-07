@@ -1,0 +1,17 @@
+{
+  "screenshot": "docs/screenshots/official.jpg (Mac実機画面。結果例の実験条件とは別)",
+  "main_slides": 8,
+  "appendix_slides": 5,
+  "total_seconds": 300,
+  "cooperation_case": "docs/experiments/conditions-and-policies/cases/s2_d0.1_help_spaced_t240-summary.json",
+  "later_case": "docs/experiments/conditions-and-policies/cases/s2_longer_horizon_check.json",
+  "gossip_case": "docs/experiments/conditions-and-policies/cases/s0_d0.2_gossip_burst_t60-summary.json",
+  "trust_comparison": "docs/experiments/conditions-and-policies/runs.csv",
+  "reference_links": [
+    "https://www.jasss.org/15/4/3.html",
+    "https://doi.org/10.1073/pnas.1108243108",
+    "https://doi.org/10.1098/rstb.2020.0301",
+    "https://arxiv.org/abs/1104.3083",
+    "https://arxiv.org/abs/1810.08473"
+  ]
+}
