@@ -1,0 +1,53 @@
+{
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    100,
+    101,
+    102,
+    103,
+    104,
+    105
+  ],
+  "densities": [
+    0.05,
+    0.1,
+    0.2
+  ],
+  "policies": [
+    "none",
+    "help_once",
+    "help_burst",
+    "help_spaced",
+    "help_weak",
+    "help_strong",
+    "help_new",
+    "harm_once",
+    "harm_burst",
+    "gossip_burst",
+    "repair"
+  ],
+  "steps": 60,
+  "warmup": 10,
+  "mode": "adaptive",
+  "n": 40,
+  "actor_python_id": 0,
+  "strength": 1.0,
+  "trust_check": true,
+  "splits": "seeds <100 discovery; >=100 validation; all policies fixed before running",
+  "schedule": "once:0; burst:0..4; spaced/weak/strong/new:0,4,8,12,16; repair:harm0+help4,8,12,16",
+  "target_rule": "weak=min receiver cut margin; strong=max receiver trust; new=max min bilateral join margin; gossip=highest-degree original neighbor",
+  "interpretation": "finite-horizon model experiment, not empirical social advice; paired complete initial state and keyed external random draws",
+  "source_sha256": {
+    "model.py": "36464c5efa6d5256cf73bd79e3c59d9943b184fd09b130945d8df8b98626466b",
+    "social_dynamics.py": "359bd1f1a23c25698ecbc1854eed57e09ce46ddaeb4c685ec29ea7753fb9e085",
+    "community.py": "3fd2bd38fa5016e7f104bfd0cf211682a063ecf538ddaa9cd1a8e1059cf44a62",
+    "experiments/run_policy_study.py": "c81e40b23a7b753f4dac1f6ee3a73ef514260fe6e4b4247cf5ac707b828c791b"
+  },
+  "python": "3.10.13 (main, Jun 19 2025, 15:45:56) [Clang 16.0.0 (clang-1600.0.26.6)]",
+  "numpy": "2.2.6"
+}

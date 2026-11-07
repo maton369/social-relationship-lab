@@ -1,0 +1,16 @@
+{
+  "paired_conditions": 540,
+  "post_hoc_horizon_conditions": 1,
+  "source_hashes_match": true,
+  "common_initial_and_control_across_policies": true,
+  "null_policy_pairs_exact": 48,
+  "short_and_long_initial_conditions_identical": true,
+  "case_replays_exact": 2,
+  "model_and_toe_unchanged": true,
+  "tests": "44 passed (CPython 3.10.13; numerical tests, not Windows GUI checks)",
+  "analysis_sources_sha256": {
+    "experiments/summarize_policy_study.py": "20859721d3170a29358177471dae1d1b44e20a7a624f3261167891d6bb845e41",
+    "experiments/trace_policy_case.py": "6bb2e0f69657acaaf1a363c6f82ed8bb91b0101331999138fb42da9a73488083",
+    "test_policy_study.py": "595bdd47bbaa2909176927bbbae53b120ee4e47efd93e3ca9a2aa058088a8def"
+  }
+}

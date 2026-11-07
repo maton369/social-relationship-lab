@@ -1,0 +1,74 @@
+[
+  {
+    "first": "help_spaced",
+    "second": "help_burst",
+    "split": "discovery",
+    "n_conditions": 6,
+    "ego_degree": {
+      "mean": -0.16666666666666666,
+      "positive": 1,
+      "zero": 4,
+      "negative": 1
+    },
+    "ego_in_liking": {
+      "mean": -0.0009693000397007675,
+      "positive": 3,
+      "zero": 0,
+      "negative": 3
+    },
+    "ego_in_trust": {
+      "mean": -0.0008225919019095029,
+      "positive": 2,
+      "zero": 0,
+      "negative": 4
+    },
+    "ties": {
+      "mean": -0.3333333333333333,
+      "positive": 2,
+      "zero": 1,
+      "negative": 3
+    },
+    "isolates": {
+      "mean": 0.0,
+      "positive": 0,
+      "zero": 6,
+      "negative": 0
+    }
+  },
+  {
+    "first": "help_spaced",
+    "second": "help_burst",
+    "split": "validation",
+    "n_conditions": 6,
+    "ego_degree": {
+      "mean": 0.0,
+      "positive": 0,
+      "zero": 6,
+      "negative": 0
+    },
+    "ego_in_liking": {
+      "mean": 0.0021795198509287996,
+      "positive": 4,
+      "zero": 0,
+      "negative": 2
+    },
+    "ego_in_trust": {
+      "mean": 0.0004893124819787958,
+      "positive": 2,
+      "zero": 0,
+      "negative": 4
+    },
+    "ties": {
+      "mean": -0.3333333333333333,
+      "positive": 2,
+      "zero": 2,
+      "negative": 2
+    },
+    "isolates": {
+      "mean": 0.0,
+      "positive": 0,
+      "zero": 6,
+      "negative": 0
+    }
+  }
+]

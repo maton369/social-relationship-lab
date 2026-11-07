@@ -1,0 +1,262 @@
+[
+  {
+    "policy": "none",
+    "n_seeds": 12,
+    "n_conditions": 12,
+    "ego_degree": {
+      "mean": 0.0,
+      "seed_bootstrap_95": [
+        0.0,
+        0.0
+      ]
+    },
+    "ego_in_liking": {
+      "mean": 0.0,
+      "seed_bootstrap_95": [
+        0.0,
+        0.0
+      ]
+    },
+    "ego_in_trust": {
+      "mean": 0.0,
+      "seed_bootstrap_95": [
+        0.0,
+        0.0
+      ]
+    },
+    "ties": {
+      "mean": 0.0,
+      "seed_bootstrap_95": [
+        0.0,
+        0.0
+      ]
+    },
+    "isolates": {
+      "mean": 0.0,
+      "seed_bootstrap_95": [
+        0.0,
+        0.0
+      ]
+    },
+    "negative_liking": {
+      "mean": 0.0,
+      "seed_bootstrap_95": [
+        0.0,
+        0.0
+      ]
+    },
+    "exchanges": {
+      "mean": 0.0,
+      "seed_bootstrap_95": [
+        0.0,
+        0.0
+      ]
+    },
+    "subject_liking": {
+      "mean": 0.0,
+      "seed_bootstrap_95": [
+        0.0,
+        0.0
+      ]
+    },
+    "degree_better": 0,
+    "degree_worse": 0,
+    "degree_equal": 12,
+    "incoming_liking_worse": 0
+  },
+  {
+    "policy": "help_burst",
+    "n_seeds": 12,
+    "n_conditions": 12,
+    "ego_degree": {
+      "mean": 0.75,
+      "seed_bootstrap_95": [
+        0.25,
+        1.3333333333333333
+      ]
+    },
+    "ego_in_liking": {
+      "mean": 0.16389531093010934,
+      "seed_bootstrap_95": [
+        0.1353637189080859,
+        0.18913424986881466
+      ]
+    },
+    "ego_in_trust": {
+      "mean": 0.019588561484830118,
+      "seed_bootstrap_95": [
+        0.010273613702957216,
+        0.027435029164266357
+      ]
+    },
+    "ties": {
+      "mean": 0.5,
+      "seed_bootstrap_95": [
+        -0.3333333333333333,
+        1.4166666666666667
+      ]
+    },
+    "isolates": {
+      "mean": 0.0,
+      "seed_bootstrap_95": [
+        0.0,
+        0.0
+      ]
+    },
+    "negative_liking": {
+      "mean": -0.0016254031286188516,
+      "seed_bootstrap_95": [
+        -0.002028256267489203,
+        -0.0012114320214570474
+      ]
+    },
+    "exchanges": {
+      "mean": 0.16666666666666666,
+      "seed_bootstrap_95": [
+        -4.666666666666667,
+        5.333333333333333
+      ]
+    },
+    "subject_liking": {
+      "mean": 0.00268521583786852,
+      "seed_bootstrap_95": [
+        0.0008673025237409673,
+        0.004961227469411373
+      ]
+    },
+    "degree_better": 6,
+    "degree_worse": 0,
+    "degree_equal": 6,
+    "incoming_liking_worse": 0
+  },
+  {
+    "policy": "help_spaced",
+    "n_seeds": 12,
+    "n_conditions": 12,
+    "ego_degree": {
+      "mean": 0.6666666666666666,
+      "seed_bootstrap_95": [
+        0.08333333333333333,
+        1.25
+      ]
+    },
+    "ego_in_liking": {
+      "mean": 0.16450042083572333,
+      "seed_bootstrap_95": [
+        0.1402477078076343,
+        0.18958280560397792
+      ]
+    },
+    "ego_in_trust": {
+      "mean": 0.019421921774864764,
+      "seed_bootstrap_95": [
+        0.010625146493161753,
+        0.027427928014383974
+      ]
+    },
+    "ties": {
+      "mean": 0.16666666666666666,
+      "seed_bootstrap_95": [
+        -0.6666666666666666,
+        1.0
+      ]
+    },
+    "isolates": {
+      "mean": 0.0,
+      "seed_bootstrap_95": [
+        0.0,
+        0.0
+      ]
+    },
+    "negative_liking": {
+      "mean": -0.0016505468257955874,
+      "seed_bootstrap_95": [
+        -0.00201170528988308,
+        -0.001284910961078708
+      ]
+    },
+    "exchanges": {
+      "mean": -1.25,
+      "seed_bootstrap_95": [
+        -6.25,
+        4.333333333333333
+      ]
+    },
+    "subject_liking": {
+      "mean": 0.0018045646870737408,
+      "seed_bootstrap_95": [
+        0.00025297370584436715,
+        0.0035790594713812607
+      ]
+    },
+    "degree_better": 6,
+    "degree_worse": 1,
+    "degree_equal": 5,
+    "incoming_liking_worse": 0
+  },
+  {
+    "policy": "gossip_burst",
+    "n_seeds": 12,
+    "n_conditions": 12,
+    "ego_degree": {
+      "mean": 0.08333333333333333,
+      "seed_bootstrap_95": [
+        0.0,
+        0.25
+      ]
+    },
+    "ego_in_liking": {
+      "mean": -0.001588361588211454,
+      "seed_bootstrap_95": [
+        -0.0051286116843180865,
+        0.001404030731691128
+      ]
+    },
+    "ego_in_trust": {
+      "mean": -0.0012241311977228622,
+      "seed_bootstrap_95": [
+        -0.004726488753576538,
+        0.001812028404407804
+      ]
+    },
+    "ties": {
+      "mean": -0.08333333333333333,
+      "seed_bootstrap_95": [
+        -0.9166666666666666,
+        0.8333333333333334
+      ]
+    },
+    "isolates": {
+      "mean": 0.0,
+      "seed_bootstrap_95": [
+        0.0,
+        0.0
+      ]
+    },
+    "negative_liking": {
+      "mean": 0.0012314718692298596,
+      "seed_bootstrap_95": [
+        0.0006888534845830841,
+        0.0020993358047675247
+      ]
+    },
+    "exchanges": {
+      "mean": -3.5,
+      "seed_bootstrap_95": [
+        -7.416666666666667,
+        0.5833333333333334
+      ]
+    },
+    "subject_liking": {
+      "mean": -0.10290144819498337,
+      "seed_bootstrap_95": [
+        -0.14986646889794095,
+        -0.06947083927407048
+      ]
+    },
+    "degree_better": 1,
+    "degree_worse": 0,
+    "degree_equal": 11,
+    "incoming_liking_worse": 6
+  }
+]

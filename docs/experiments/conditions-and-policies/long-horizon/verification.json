@@ -1,0 +1,14 @@
+{
+  "runs": 48,
+  "initial_pair_equality": true,
+  "null_interventions_exact": true,
+  "baseline_independent_of_policy": true,
+  "replay": {
+    "seed": 0,
+    "density": 0.1,
+    "trust": "natural",
+    "policy": "help_spaced",
+    "exact_match": true
+  },
+  "elapsed_seconds": 374.0003609590058
+}

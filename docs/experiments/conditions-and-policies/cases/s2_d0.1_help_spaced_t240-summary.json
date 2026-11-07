@@ -1,0 +1,559 @@
+{
+  "comparison": {
+    "seed": 2,
+    "split": "discovery",
+    "density": 0.1,
+    "policy": "help_spaced",
+    "initial_digest": "0cd51fb12bc4b7596aa120d964463fe295a0e561232b46202d50396bf4048bf7",
+    "initial_degree": 5,
+    "initial_in_liking": 0.15818272157333185,
+    "initial_neighbor_trust": 0.5486326003408903,
+    "initial_min_cut_margin": 0.41344466836967997,
+    "weak_target": 30,
+    "strong_target": 23,
+    "new_target": 25,
+    "gossip_subject": 12,
+    "steps": 240,
+    "warmup": 10,
+    "degree_delta_t20": 0,
+    "final_ego_degree": 5,
+    "final_ego_in_liking": 0.34415496656972105,
+    "final_ego_in_trust": 0.27330541783578977,
+    "final_retained": 5,
+    "final_new_ties": 0,
+    "final_ties": 103,
+    "final_isolates": 0,
+    "final_communities": 8,
+    "final_negative_liking": 0.0867407112822023,
+    "final_subject_liking": 0.30072828303319965,
+    "final_exchanges": 3049,
+    "final_ego_exchanges": 161,
+    "final_gossip_unique_reach": 0,
+    "final_gossip_events": 0,
+    "baseline_ego_degree": 6,
+    "baseline_ego_in_liking": 0.24567007645243075,
+    "baseline_ego_in_trust": 0.27203289313675694,
+    "baseline_retained": 5,
+    "baseline_new_ties": 1,
+    "baseline_ties": 106,
+    "baseline_isolates": 0,
+    "baseline_communities": 8,
+    "baseline_negative_liking": 0.08783012920415431,
+    "baseline_subject_liking": 0.30039318414416916,
+    "baseline_exchanges": 3055,
+    "baseline_ego_exchanges": 158,
+    "baseline_gossip_unique_reach": 0,
+    "baseline_gossip_events": 0,
+    "delta_ego_degree": -1,
+    "delta_ego_in_liking": 0.09848489011729031,
+    "delta_ego_in_trust": 0.0012725246990328287,
+    "delta_retained": 0,
+    "delta_new_ties": -1,
+    "delta_ties": -3,
+    "delta_isolates": 0,
+    "delta_communities": 0,
+    "delta_negative_liking": -0.00108941792195201,
+    "delta_subject_liking": 0.000335098889030494,
+    "delta_exchanges": -6,
+    "delta_ego_exchanges": 3,
+    "delta_gossip_unique_reach": 0,
+    "delta_gossip_events": 0,
+    "compare_difference": 0.013832510644436271,
+    "compare_tie_difference": 7,
+    "compare_vi_bits": 1.7538744479605262,
+    "compare_trust_difference": 0.015678752383409964,
+    "final_digest": "630fad26d77adaf07c44276cd457e7cf9761b32d00bc7948cdd650a8537c1e5f",
+    "baseline_digest": "90ff657991a90815c05bf91338fba6b458e339f07272e72bec5fec5476023e0f",
+    "status": "running",
+    "observation_end": "not_converged",
+    "third_party_edge_changes": 6,
+    "other_people_losing_degree": 7,
+    "ambiguous_people": 0,
+    "effective_direct_strength": 5.000000000000002
+  },
+  "requests": [
+    {
+      "step": 10,
+      "kind": "action_scheduled",
+      "actor": 1,
+      "targets": [
+        13,
+        21,
+        24,
+        31,
+        33
+      ],
+      "action": "help",
+      "execution_step": 11
+    },
+    {
+      "step": 14,
+      "kind": "action_scheduled",
+      "actor": 1,
+      "targets": [
+        13,
+        21,
+        24,
+        31,
+        33
+      ],
+      "action": "help",
+      "execution_step": 15
+    },
+    {
+      "step": 18,
+      "kind": "action_scheduled",
+      "actor": 1,
+      "targets": [
+        13,
+        21,
+        24,
+        31,
+        33
+      ],
+      "action": "help",
+      "execution_step": 19
+    },
+    {
+      "step": 22,
+      "kind": "action_scheduled",
+      "actor": 1,
+      "targets": [
+        13,
+        21,
+        24,
+        31,
+        33
+      ],
+      "action": "help",
+      "execution_step": 23
+    },
+    {
+      "step": 26,
+      "kind": "action_scheduled",
+      "actor": 1,
+      "targets": [
+        13,
+        21,
+        24,
+        31,
+        33
+      ],
+      "action": "help",
+      "execution_step": 27
+    }
+  ],
+  "initial_neighbors": [
+    13,
+    21,
+    24,
+    31,
+    33
+  ],
+  "intervention_neighbors": [
+    13,
+    21,
+    24,
+    31,
+    33
+  ],
+  "baseline_neighbors": [
+    13,
+    18,
+    21,
+    24,
+    31,
+    33
+  ],
+  "baseline_only_neighbors": [
+    18
+  ],
+  "intervention_only_neighbors": [],
+  "original_neighbors_lost": [],
+  "same_proposal_accepted_in_control_no_time_in_intervention": [
+    {
+      "step": 11,
+      "actor": 1,
+      "target": 33,
+      "baseline": "accepted",
+      "intervention": "no_time"
+    },
+    {
+      "step": 15,
+      "actor": 1,
+      "target": 32,
+      "baseline": "accepted",
+      "intervention": "no_time"
+    },
+    {
+      "step": 19,
+      "actor": 1,
+      "target": 18,
+      "baseline": "accepted",
+      "intervention": "no_time"
+    },
+    {
+      "step": 27,
+      "actor": 13,
+      "target": 1,
+      "baseline": "accepted",
+      "intervention": "no_time"
+    },
+    {
+      "step": 39,
+      "actor": 1,
+      "target": 22,
+      "baseline": "accepted",
+      "intervention": "no_time"
+    },
+    {
+      "step": 58,
+      "actor": 1,
+      "target": 33,
+      "baseline": "accepted",
+      "intervention": "no_time"
+    },
+    {
+      "step": 125,
+      "actor": 1,
+      "target": 24,
+      "baseline": "accepted",
+      "intervention": "no_time"
+    },
+    {
+      "step": 194,
+      "actor": 1,
+      "target": 28,
+      "baseline": "accepted",
+      "intervention": "no_time"
+    }
+  ],
+  "note": "Matching proposal outcomes document scheduling effects, not a unique causal decomposition of the final network.",
+  "events": [
+    {
+      "id": 1,
+      "kind": "help",
+      "target": 13,
+      "step": 11,
+      "strength": 0.2,
+      "reached": 17,
+      "initial_credits": {
+        "33": 1.0,
+        "21": 1.0
+      },
+      "depth_max": 6
+    },
+    {
+      "id": 2,
+      "kind": "help",
+      "target": 21,
+      "step": 11,
+      "strength": 0.2,
+      "reached": 18,
+      "initial_credits": {
+        "24": 1.0,
+        "33": 1.0
+      },
+      "depth_max": 5
+    },
+    {
+      "id": 3,
+      "kind": "help",
+      "target": 24,
+      "step": 11,
+      "strength": 0.2,
+      "reached": 20,
+      "initial_credits": {
+        "31": 1.0,
+        "8": 1.0
+      },
+      "depth_max": 4
+    },
+    {
+      "id": 4,
+      "kind": "help",
+      "target": 31,
+      "step": 11,
+      "strength": 0.2,
+      "reached": 5,
+      "initial_credits": {
+        "16": 1.0,
+        "21": 1.0
+      },
+      "depth_max": 1
+    },
+    {
+      "id": 5,
+      "kind": "help",
+      "target": 33,
+      "step": 11,
+      "strength": 0.2,
+      "reached": 14,
+      "initial_credits": {
+        "3": 1.0,
+        "38": 1.0
+      },
+      "depth_max": 5
+    },
+    {
+      "id": 6,
+      "kind": "help",
+      "target": 13,
+      "step": 15,
+      "strength": 0.2,
+      "reached": 14,
+      "initial_credits": {
+        "33": 1.0,
+        "24": 1.0
+      },
+      "depth_max": 6
+    },
+    {
+      "id": 7,
+      "kind": "help",
+      "target": 21,
+      "step": 15,
+      "strength": 0.2,
+      "reached": 22,
+      "initial_credits": {
+        "31": 1.0,
+        "13": 1.0
+      },
+      "depth_max": 6
+    },
+    {
+      "id": 8,
+      "kind": "help",
+      "target": 24,
+      "step": 15,
+      "strength": 0.2,
+      "reached": 11,
+      "initial_credits": {
+        "33": 1.0,
+        "13": 1.0
+      },
+      "depth_max": 4
+    },
+    {
+      "id": 9,
+      "kind": "help",
+      "target": 31,
+      "step": 15,
+      "strength": 0.2,
+      "reached": 3,
+      "initial_credits": {
+        "33": 1.0,
+        "21": 1.0
+      },
+      "depth_max": 0
+    },
+    {
+      "id": 10,
+      "kind": "help",
+      "target": 33,
+      "step": 15,
+      "strength": 0.2,
+      "reached": 13,
+      "initial_credits": {
+        "3": 1.0,
+        "13": 1.0
+      },
+      "depth_max": 4
+    },
+    {
+      "id": 11,
+      "kind": "help",
+      "target": 13,
+      "step": 19,
+      "strength": 0.2,
+      "reached": 9,
+      "initial_credits": {
+        "33": 1.0,
+        "37": 1.0
+      },
+      "depth_max": 2
+    },
+    {
+      "id": 12,
+      "kind": "help",
+      "target": 21,
+      "step": 19,
+      "strength": 0.2,
+      "reached": 5,
+      "initial_credits": {
+        "6": 1.0,
+        "13": 1.0
+      },
+      "depth_max": 2
+    },
+    {
+      "id": 13,
+      "kind": "help",
+      "target": 24,
+      "step": 19,
+      "strength": 0.2,
+      "reached": 19,
+      "initial_credits": {
+        "13": 1.0,
+        "8": 1.0
+      },
+      "depth_max": 6
+    },
+    {
+      "id": 14,
+      "kind": "help",
+      "target": 31,
+      "step": 19,
+      "strength": 0.2,
+      "reached": 16,
+      "initial_credits": {
+        "16": 1.0,
+        "24": 1.0
+      },
+      "depth_max": 4
+    },
+    {
+      "id": 15,
+      "kind": "help",
+      "target": 33,
+      "step": 19,
+      "strength": 0.2,
+      "reached": 10,
+      "initial_credits": {
+        "38": 1.0,
+        "13": 1.0
+      },
+      "depth_max": 3
+    },
+    {
+      "id": 16,
+      "kind": "help",
+      "target": 13,
+      "step": 23,
+      "strength": 0.2,
+      "reached": 22,
+      "initial_credits": {
+        "37": 1.0,
+        "33": 1.0
+      },
+      "depth_max": 6
+    },
+    {
+      "id": 17,
+      "kind": "help",
+      "target": 21,
+      "step": 23,
+      "strength": 0.2,
+      "reached": 16,
+      "initial_credits": {
+        "33": 1.0,
+        "13": 1.0
+      },
+      "depth_max": 5
+    },
+    {
+      "id": 18,
+      "kind": "help",
+      "target": 24,
+      "step": 23,
+      "strength": 0.2,
+      "reached": 14,
+      "initial_credits": {
+        "31": 1.0,
+        "21": 1.0
+      },
+      "depth_max": 5
+    },
+    {
+      "id": 19,
+      "kind": "help",
+      "target": 31,
+      "step": 23,
+      "strength": 0.2,
+      "reached": 25,
+      "initial_credits": {
+        "13": 1.0,
+        "2": 1.0
+      },
+      "depth_max": 11
+    },
+    {
+      "id": 20,
+      "kind": "help",
+      "target": 33,
+      "step": 23,
+      "strength": 0.2,
+      "reached": 29,
+      "initial_credits": {
+        "24": 1.0,
+        "32": 1.0
+      },
+      "depth_max": 6
+    },
+    {
+      "id": 21,
+      "kind": "help",
+      "target": 13,
+      "step": 27,
+      "strength": 0.2,
+      "reached": 22,
+      "initial_credits": {
+        "9": 1.0,
+        "28": 1.0
+      },
+      "depth_max": 6
+    },
+    {
+      "id": 22,
+      "kind": "help",
+      "target": 21,
+      "step": 27,
+      "strength": 0.2,
+      "reached": 13,
+      "initial_credits": {
+        "23": 1.0,
+        "24": 1.0
+      },
+      "depth_max": 5
+    },
+    {
+      "id": 23,
+      "kind": "help",
+      "target": 24,
+      "step": 27,
+      "strength": 0.2,
+      "reached": 5,
+      "initial_credits": {
+        "13": 1.0,
+        "8": 1.0
+      },
+      "depth_max": 1
+    },
+    {
+      "id": 24,
+      "kind": "help",
+      "target": 31,
+      "step": 27,
+      "strength": 0.2,
+      "reached": 21,
+      "initial_credits": {
+        "21": 1.0,
+        "2": 1.0
+      },
+      "depth_max": 6
+    },
+    {
+      "id": 25,
+      "kind": "help",
+      "target": 33,
+      "step": 27,
+      "strength": 0.2,
+      "reached": 7,
+      "initial_credits": {
+        "24": 1.0,
+        "21": 1.0
+      },
+      "depth_max": 2
+    }
+  ]
+}

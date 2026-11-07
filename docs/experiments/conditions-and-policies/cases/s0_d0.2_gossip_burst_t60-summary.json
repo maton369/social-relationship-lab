@@ -1,0 +1,282 @@
+{
+  "comparison": {
+    "seed": 0,
+    "split": "discovery",
+    "density": 0.2,
+    "policy": "gossip_burst",
+    "initial_digest": "b68c54040bedde128b3cc8e2c243e37a69030ceb08c206a1a717aa1a9e1a1578",
+    "initial_degree": 8,
+    "initial_in_liking": 0.07888837884770315,
+    "initial_neighbor_trust": 0.5262958128194467,
+    "initial_min_cut_margin": 0.26943121839353734,
+    "weak_target": 32,
+    "strong_target": 38,
+    "new_target": 11,
+    "gossip_subject": 19,
+    "steps": 60,
+    "warmup": 10,
+    "degree_delta_t20": 0,
+    "final_ego_degree": 8,
+    "final_ego_in_liking": 0.08371676531102636,
+    "final_ego_in_trust": 0.14648726540637066,
+    "final_retained": 8,
+    "final_new_ties": 0,
+    "final_ties": 159,
+    "final_isolates": 0,
+    "final_communities": 7,
+    "final_negative_liking": 0.11221184174844309,
+    "final_subject_liking": 0.20081414053000557,
+    "final_exchanges": 768,
+    "final_ego_exchanges": 23,
+    "final_gossip_unique_reach": 39,
+    "final_gossip_events": 5,
+    "baseline_ego_degree": 8,
+    "baseline_ego_in_liking": 0.08936330601065007,
+    "baseline_ego_in_trust": 0.15422967829711864,
+    "baseline_retained": 8,
+    "baseline_new_ties": 0,
+    "baseline_ties": 159,
+    "baseline_isolates": 0,
+    "baseline_communities": 7,
+    "baseline_negative_liking": 0.11162869881486298,
+    "baseline_subject_liking": 0.2666492417559601,
+    "baseline_exchanges": 772,
+    "baseline_ego_exchanges": 28,
+    "baseline_gossip_unique_reach": 0,
+    "baseline_gossip_events": 0,
+    "delta_ego_degree": 0,
+    "delta_ego_in_liking": -0.005646540699623712,
+    "delta_ego_in_trust": -0.0077424128907479794,
+    "delta_retained": 0,
+    "delta_new_ties": 0,
+    "delta_ties": 0,
+    "delta_isolates": 0,
+    "delta_communities": 0,
+    "delta_negative_liking": 0.0005831429335801108,
+    "delta_subject_liking": -0.06583510122595454,
+    "delta_exchanges": -4,
+    "delta_ego_exchanges": -5,
+    "delta_gossip_unique_reach": 39,
+    "delta_gossip_events": 5,
+    "compare_difference": 0.0021880780466353124,
+    "compare_tie_difference": 0,
+    "compare_vi_bits": 0.0,
+    "compare_trust_difference": 0.0012794445119313005,
+    "final_digest": "faaae2c1da7730aebdbd5088551592d894a25eacbdb1c4a090715c28a8aecb07",
+    "baseline_digest": "4a188eb71ecb410804a700f607bdb80d57f85718f6871e526e7ac3da729ccda4",
+    "status": "running",
+    "observation_end": "not_converged",
+    "third_party_edge_changes": 0,
+    "other_people_losing_degree": 0,
+    "ambiguous_people": 0,
+    "effective_direct_strength": 0.0
+  },
+  "requests": [
+    {
+      "step": 10,
+      "kind": "action_scheduled",
+      "actor": 1,
+      "targets": [
+        20
+      ],
+      "action": "gossip",
+      "execution_step": 11
+    },
+    {
+      "step": 11,
+      "kind": "action_scheduled",
+      "actor": 1,
+      "targets": [
+        20
+      ],
+      "action": "gossip",
+      "execution_step": 12
+    },
+    {
+      "step": 12,
+      "kind": "action_scheduled",
+      "actor": 1,
+      "targets": [
+        20
+      ],
+      "action": "gossip",
+      "execution_step": 13
+    },
+    {
+      "step": 13,
+      "kind": "action_scheduled",
+      "actor": 1,
+      "targets": [
+        20
+      ],
+      "action": "gossip",
+      "execution_step": 14
+    },
+    {
+      "step": 14,
+      "kind": "action_scheduled",
+      "actor": 1,
+      "targets": [
+        20
+      ],
+      "action": "gossip",
+      "execution_step": 15
+    }
+  ],
+  "initial_neighbors": [
+    11,
+    20,
+    23,
+    28,
+    31,
+    33,
+    34,
+    39
+  ],
+  "intervention_neighbors": [
+    11,
+    20,
+    23,
+    28,
+    31,
+    33,
+    34,
+    39
+  ],
+  "baseline_neighbors": [
+    11,
+    20,
+    23,
+    28,
+    31,
+    33,
+    34,
+    39
+  ],
+  "baseline_only_neighbors": [],
+  "intervention_only_neighbors": [],
+  "original_neighbors_lost": [],
+  "same_proposal_accepted_in_control_no_time_in_intervention": [
+    {
+      "step": 11,
+      "actor": 31,
+      "target": 1,
+      "baseline": "accepted",
+      "intervention": "no_time"
+    },
+    {
+      "step": 13,
+      "actor": 16,
+      "target": 1,
+      "baseline": "accepted",
+      "intervention": "no_time"
+    },
+    {
+      "step": 14,
+      "actor": 1,
+      "target": 34,
+      "baseline": "accepted",
+      "intervention": "no_time"
+    },
+    {
+      "step": 15,
+      "actor": 1,
+      "target": 20,
+      "baseline": "accepted",
+      "intervention": "no_time"
+    }
+  ],
+  "note": "Matching proposal outcomes document scheduling effects, not a unique causal decomposition of the final network.",
+  "events": [
+    {
+      "id": 1,
+      "kind": "gossip",
+      "target": 20,
+      "step": 11,
+      "strength": 0.14285714285714285,
+      "reached": 39,
+      "initial_credits": {
+        "11": 0.2034986795295741,
+        "23": 0.5015293142302002,
+        "28": 0.5426682096374734,
+        "31": 0.6564208477912565,
+        "33": 0.17953776,
+        "34": 0.7391492661242143,
+        "39": 0.8631274125416535
+      },
+      "depth_max": 3
+    },
+    {
+      "id": 2,
+      "kind": "gossip",
+      "target": 20,
+      "step": 12,
+      "strength": 0.14285714285714285,
+      "reached": 33,
+      "initial_credits": {
+        "11": 0.20298757160115405,
+        "23": 0.5006284022547869,
+        "28": 0.5417469780943638,
+        "31": 0.6554857172384787,
+        "33": 0.17907650785743795,
+        "34": 0.7382430382561104,
+        "39": 0.8623260037367025
+      },
+      "depth_max": 3
+    },
+    {
+      "id": 3,
+      "kind": "gossip",
+      "target": 20,
+      "step": 13,
+      "strength": 0.14285714285714285,
+      "reached": 36,
+      "initial_credits": {
+        "11": 0.20247749837648946,
+        "23": 0.49972802616116857,
+        "28": 0.5408261126519391,
+        "31": 0.654550447747972,
+        "33": 0.17861624248346503,
+        "34": 0.7373363158218227,
+        "39": 0.8615236804536217
+      },
+      "depth_max": 4
+    },
+    {
+      "id": 4,
+      "kind": "gossip",
+      "target": 20,
+      "step": 14,
+      "strength": 0.14285714285714285,
+      "reached": 37,
+      "initial_credits": {
+        "11": 0.2019684590109971,
+        "23": 0.4988281895229993,
+        "28": 0.5399056172358863,
+        "31": 0.653615043497481,
+        "33": 0.178156962785004,
+        "34": 0.7364291024966685,
+        "39": 0.8607204447370185
+      },
+      "depth_max": 3
+    },
+    {
+      "id": 5,
+      "kind": "gossip",
+      "target": 20,
+      "step": 15,
+      "strength": 0.14285714285714285,
+      "reached": 37,
+      "initial_credits": {
+        "11": 0.20146045265420878,
+        "23": 0.497928895904821,
+        "28": 0.5389854957654334,
+        "31": 0.6526795086671955,
+        "33": 0.17769866766478207,
+        "34": 0.7355214019643882,
+        "39": 0.8599162986443794
+      },
+      "depth_max": 3
+    }
+  ]
+}

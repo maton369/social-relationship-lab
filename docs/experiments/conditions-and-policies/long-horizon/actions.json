@@ -1,0 +1,2530 @@
+[
+  {
+    "seed": 0,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "none",
+    "requests": []
+  },
+  {
+    "seed": 0,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "help_burst",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          31,
+          34
+        ],
+        "action": "help",
+        "execution_step": 11
+      },
+      {
+        "step": 11,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          31,
+          34
+        ],
+        "action": "help",
+        "execution_step": 12
+      },
+      {
+        "step": 12,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          31,
+          34
+        ],
+        "action": "help",
+        "execution_step": 13
+      },
+      {
+        "step": 13,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          31,
+          34
+        ],
+        "action": "help",
+        "execution_step": 14
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          31,
+          34
+        ],
+        "action": "help",
+        "execution_step": 15
+      }
+    ]
+  },
+  {
+    "seed": 0,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "help_spaced",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          31,
+          34
+        ],
+        "action": "help",
+        "execution_step": 11
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          31,
+          34
+        ],
+        "action": "help",
+        "execution_step": 15
+      },
+      {
+        "step": 18,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          31,
+          33,
+          34
+        ],
+        "action": "help",
+        "execution_step": 19
+      },
+      {
+        "step": 22,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          31,
+          33,
+          34
+        ],
+        "action": "help",
+        "execution_step": 23
+      },
+      {
+        "step": 26,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          31,
+          33,
+          34
+        ],
+        "action": "help",
+        "execution_step": 27
+      }
+    ]
+  },
+  {
+    "seed": 0,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "gossip_burst",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          31
+        ],
+        "action": "gossip",
+        "execution_step": 11
+      },
+      {
+        "step": 11,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          31
+        ],
+        "action": "gossip",
+        "execution_step": 12
+      },
+      {
+        "step": 12,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          31
+        ],
+        "action": "gossip",
+        "execution_step": 13
+      },
+      {
+        "step": 13,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          31
+        ],
+        "action": "gossip",
+        "execution_step": 14
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          31
+        ],
+        "action": "gossip",
+        "execution_step": 15
+      }
+    ]
+  },
+  {
+    "seed": 1,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "none",
+    "requests": []
+  },
+  {
+    "seed": 1,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "help_burst",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          14,
+          22,
+          32
+        ],
+        "action": "help",
+        "execution_step": 11
+      },
+      {
+        "step": 11,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          14,
+          22,
+          32
+        ],
+        "action": "help",
+        "execution_step": 12
+      },
+      {
+        "step": 12,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          14,
+          22,
+          32
+        ],
+        "action": "help",
+        "execution_step": 13
+      },
+      {
+        "step": 13,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          14,
+          22,
+          32
+        ],
+        "action": "help",
+        "execution_step": 14
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          14,
+          22,
+          32
+        ],
+        "action": "help",
+        "execution_step": 15
+      }
+    ]
+  },
+  {
+    "seed": 1,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "help_spaced",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          14,
+          22,
+          32
+        ],
+        "action": "help",
+        "execution_step": 11
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          14,
+          22,
+          32
+        ],
+        "action": "help",
+        "execution_step": 15
+      },
+      {
+        "step": 18,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          14,
+          22,
+          32
+        ],
+        "action": "help",
+        "execution_step": 19
+      },
+      {
+        "step": 22,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          14,
+          22,
+          32
+        ],
+        "action": "help",
+        "execution_step": 23
+      },
+      {
+        "step": 26,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          14,
+          22,
+          32
+        ],
+        "action": "help",
+        "execution_step": 27
+      }
+    ]
+  },
+  {
+    "seed": 1,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "gossip_burst",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          14
+        ],
+        "action": "gossip",
+        "execution_step": 11
+      },
+      {
+        "step": 11,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          14
+        ],
+        "action": "gossip",
+        "execution_step": 12
+      },
+      {
+        "step": 12,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          14
+        ],
+        "action": "gossip",
+        "execution_step": 13
+      },
+      {
+        "step": 13,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          14
+        ],
+        "action": "gossip",
+        "execution_step": 14
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          14
+        ],
+        "action": "gossip",
+        "execution_step": 15
+      }
+    ]
+  },
+  {
+    "seed": 2,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "none",
+    "requests": []
+  },
+  {
+    "seed": 2,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "help_burst",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          13,
+          21,
+          24,
+          31,
+          33
+        ],
+        "action": "help",
+        "execution_step": 11
+      },
+      {
+        "step": 11,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          13,
+          21,
+          24,
+          31,
+          33
+        ],
+        "action": "help",
+        "execution_step": 12
+      },
+      {
+        "step": 12,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          13,
+          21,
+          24,
+          31,
+          33
+        ],
+        "action": "help",
+        "execution_step": 13
+      },
+      {
+        "step": 13,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          13,
+          21,
+          24,
+          31,
+          33
+        ],
+        "action": "help",
+        "execution_step": 14
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          13,
+          21,
+          24,
+          31,
+          33
+        ],
+        "action": "help",
+        "execution_step": 15
+      }
+    ]
+  },
+  {
+    "seed": 2,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "help_spaced",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          13,
+          21,
+          24,
+          31,
+          33
+        ],
+        "action": "help",
+        "execution_step": 11
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          13,
+          21,
+          24,
+          31,
+          33
+        ],
+        "action": "help",
+        "execution_step": 15
+      },
+      {
+        "step": 18,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          13,
+          21,
+          24,
+          31,
+          33
+        ],
+        "action": "help",
+        "execution_step": 19
+      },
+      {
+        "step": 22,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          13,
+          21,
+          24,
+          31,
+          33
+        ],
+        "action": "help",
+        "execution_step": 23
+      },
+      {
+        "step": 26,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          13,
+          21,
+          24,
+          31,
+          33
+        ],
+        "action": "help",
+        "execution_step": 27
+      }
+    ]
+  },
+  {
+    "seed": 2,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "gossip_burst",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          13
+        ],
+        "action": "gossip",
+        "execution_step": 11
+      },
+      {
+        "step": 11,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          13
+        ],
+        "action": "gossip",
+        "execution_step": 12
+      },
+      {
+        "step": 12,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          13
+        ],
+        "action": "gossip",
+        "execution_step": 13
+      },
+      {
+        "step": 13,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          13
+        ],
+        "action": "gossip",
+        "execution_step": 14
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          13
+        ],
+        "action": "gossip",
+        "execution_step": 15
+      }
+    ]
+  },
+  {
+    "seed": 3,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "none",
+    "requests": []
+  },
+  {
+    "seed": 3,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "help_burst",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          3,
+          4,
+          23,
+          39
+        ],
+        "action": "help",
+        "execution_step": 11
+      },
+      {
+        "step": 11,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          3,
+          4,
+          23,
+          39
+        ],
+        "action": "help",
+        "execution_step": 12
+      },
+      {
+        "step": 12,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          3,
+          4,
+          23,
+          39
+        ],
+        "action": "help",
+        "execution_step": 13
+      },
+      {
+        "step": 13,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          3,
+          4,
+          23,
+          39
+        ],
+        "action": "help",
+        "execution_step": 14
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          3,
+          4,
+          23,
+          39
+        ],
+        "action": "help",
+        "execution_step": 15
+      }
+    ]
+  },
+  {
+    "seed": 3,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "help_spaced",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          3,
+          4,
+          23,
+          39
+        ],
+        "action": "help",
+        "execution_step": 11
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          3,
+          4,
+          23,
+          39
+        ],
+        "action": "help",
+        "execution_step": 15
+      },
+      {
+        "step": 18,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          3,
+          4,
+          23,
+          39
+        ],
+        "action": "help",
+        "execution_step": 19
+      },
+      {
+        "step": 22,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          3,
+          4,
+          23,
+          39
+        ],
+        "action": "help",
+        "execution_step": 23
+      },
+      {
+        "step": 26,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          3,
+          4,
+          23,
+          39
+        ],
+        "action": "help",
+        "execution_step": 27
+      }
+    ]
+  },
+  {
+    "seed": 3,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "gossip_burst",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          39
+        ],
+        "action": "gossip",
+        "execution_step": 11
+      },
+      {
+        "step": 11,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          39
+        ],
+        "action": "gossip",
+        "execution_step": 12
+      },
+      {
+        "step": 12,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          39
+        ],
+        "action": "gossip",
+        "execution_step": 13
+      },
+      {
+        "step": 13,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          39
+        ],
+        "action": "gossip",
+        "execution_step": 14
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          39
+        ],
+        "action": "gossip",
+        "execution_step": 15
+      }
+    ]
+  },
+  {
+    "seed": 4,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "none",
+    "requests": []
+  },
+  {
+    "seed": 4,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "help_burst",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          10,
+          12,
+          17,
+          24
+        ],
+        "action": "help",
+        "execution_step": 11
+      },
+      {
+        "step": 11,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          10,
+          12,
+          17,
+          24
+        ],
+        "action": "help",
+        "execution_step": 12
+      },
+      {
+        "step": 12,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          10,
+          12,
+          17,
+          24
+        ],
+        "action": "help",
+        "execution_step": 13
+      },
+      {
+        "step": 13,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          10,
+          12,
+          17,
+          24
+        ],
+        "action": "help",
+        "execution_step": 14
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          10,
+          12,
+          17,
+          24
+        ],
+        "action": "help",
+        "execution_step": 15
+      }
+    ]
+  },
+  {
+    "seed": 4,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "help_spaced",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          10,
+          12,
+          17,
+          24
+        ],
+        "action": "help",
+        "execution_step": 11
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          10,
+          12,
+          17,
+          24
+        ],
+        "action": "help",
+        "execution_step": 15
+      },
+      {
+        "step": 18,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          10,
+          12,
+          17,
+          24
+        ],
+        "action": "help",
+        "execution_step": 19
+      },
+      {
+        "step": 22,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          10,
+          12,
+          17,
+          24
+        ],
+        "action": "help",
+        "execution_step": 23
+      },
+      {
+        "step": 26,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          10,
+          12,
+          17,
+          24
+        ],
+        "action": "help",
+        "execution_step": 27
+      }
+    ]
+  },
+  {
+    "seed": 4,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "gossip_burst",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          24
+        ],
+        "action": "gossip",
+        "execution_step": 11
+      },
+      {
+        "step": 11,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          24
+        ],
+        "action": "gossip",
+        "execution_step": 12
+      },
+      {
+        "step": 12,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          24
+        ],
+        "action": "gossip",
+        "execution_step": 13
+      },
+      {
+        "step": 13,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          24
+        ],
+        "action": "gossip",
+        "execution_step": 14
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          24
+        ],
+        "action": "gossip",
+        "execution_step": 15
+      }
+    ]
+  },
+  {
+    "seed": 5,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "none",
+    "requests": []
+  },
+  {
+    "seed": 5,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "help_burst",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          20,
+          21,
+          27
+        ],
+        "action": "help",
+        "execution_step": 11
+      },
+      {
+        "step": 11,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          20,
+          21,
+          27
+        ],
+        "action": "help",
+        "execution_step": 12
+      },
+      {
+        "step": 12,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          20,
+          21,
+          27
+        ],
+        "action": "help",
+        "execution_step": 13
+      },
+      {
+        "step": 13,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          20,
+          21,
+          27
+        ],
+        "action": "help",
+        "execution_step": 14
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          20,
+          21,
+          27
+        ],
+        "action": "help",
+        "execution_step": 15
+      }
+    ]
+  },
+  {
+    "seed": 5,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "help_spaced",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          20,
+          21,
+          27
+        ],
+        "action": "help",
+        "execution_step": 11
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          20,
+          21,
+          27
+        ],
+        "action": "help",
+        "execution_step": 15
+      },
+      {
+        "step": 18,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          20,
+          21,
+          27
+        ],
+        "action": "help",
+        "execution_step": 19
+      },
+      {
+        "step": 22,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          20,
+          21,
+          27
+        ],
+        "action": "help",
+        "execution_step": 23
+      },
+      {
+        "step": 26,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          20,
+          21,
+          27
+        ],
+        "action": "help",
+        "execution_step": 27
+      }
+    ]
+  },
+  {
+    "seed": 5,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "gossip_burst",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          20
+        ],
+        "action": "gossip",
+        "execution_step": 11
+      },
+      {
+        "step": 11,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          20
+        ],
+        "action": "gossip",
+        "execution_step": 12
+      },
+      {
+        "step": 12,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          20
+        ],
+        "action": "gossip",
+        "execution_step": 13
+      },
+      {
+        "step": 13,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          20
+        ],
+        "action": "gossip",
+        "execution_step": 14
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          20
+        ],
+        "action": "gossip",
+        "execution_step": 15
+      }
+    ]
+  },
+  {
+    "seed": 100,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "none",
+    "requests": []
+  },
+  {
+    "seed": 100,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "help_burst",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          5,
+          7,
+          12,
+          25
+        ],
+        "action": "help",
+        "execution_step": 11
+      },
+      {
+        "step": 11,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          5,
+          7,
+          12,
+          25
+        ],
+        "action": "help",
+        "execution_step": 12
+      },
+      {
+        "step": 12,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          5,
+          7,
+          12,
+          25
+        ],
+        "action": "help",
+        "execution_step": 13
+      },
+      {
+        "step": 13,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          5,
+          7,
+          12,
+          25
+        ],
+        "action": "help",
+        "execution_step": 14
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          5,
+          7,
+          12,
+          25
+        ],
+        "action": "help",
+        "execution_step": 15
+      }
+    ]
+  },
+  {
+    "seed": 100,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "help_spaced",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          5,
+          7,
+          12,
+          25
+        ],
+        "action": "help",
+        "execution_step": 11
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          5,
+          7,
+          12,
+          25
+        ],
+        "action": "help",
+        "execution_step": 15
+      },
+      {
+        "step": 18,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          5,
+          7,
+          12,
+          25
+        ],
+        "action": "help",
+        "execution_step": 19
+      },
+      {
+        "step": 22,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          5,
+          7,
+          12,
+          25
+        ],
+        "action": "help",
+        "execution_step": 23
+      },
+      {
+        "step": 26,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          5,
+          7,
+          12,
+          25
+        ],
+        "action": "help",
+        "execution_step": 27
+      }
+    ]
+  },
+  {
+    "seed": 100,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "gossip_burst",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          12
+        ],
+        "action": "gossip",
+        "execution_step": 11
+      },
+      {
+        "step": 11,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          12
+        ],
+        "action": "gossip",
+        "execution_step": 12
+      },
+      {
+        "step": 12,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          12
+        ],
+        "action": "gossip",
+        "execution_step": 13
+      },
+      {
+        "step": 13,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          12
+        ],
+        "action": "gossip",
+        "execution_step": 14
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          12
+        ],
+        "action": "gossip",
+        "execution_step": 15
+      }
+    ]
+  },
+  {
+    "seed": 101,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "none",
+    "requests": []
+  },
+  {
+    "seed": 101,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "help_burst",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          15,
+          21,
+          24,
+          25
+        ],
+        "action": "help",
+        "execution_step": 11
+      },
+      {
+        "step": 11,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          15,
+          21,
+          24,
+          25
+        ],
+        "action": "help",
+        "execution_step": 12
+      },
+      {
+        "step": 12,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          15,
+          21,
+          24,
+          25
+        ],
+        "action": "help",
+        "execution_step": 13
+      },
+      {
+        "step": 13,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          15,
+          21,
+          24,
+          25
+        ],
+        "action": "help",
+        "execution_step": 14
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          15,
+          21,
+          24,
+          25
+        ],
+        "action": "help",
+        "execution_step": 15
+      }
+    ]
+  },
+  {
+    "seed": 101,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "help_spaced",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          15,
+          21,
+          24,
+          25
+        ],
+        "action": "help",
+        "execution_step": 11
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          15,
+          21,
+          24,
+          25
+        ],
+        "action": "help",
+        "execution_step": 15
+      },
+      {
+        "step": 18,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          15,
+          21,
+          24,
+          25,
+          36
+        ],
+        "action": "help",
+        "execution_step": 19
+      },
+      {
+        "step": 22,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          15,
+          21,
+          24,
+          25,
+          36
+        ],
+        "action": "help",
+        "execution_step": 23
+      },
+      {
+        "step": 26,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          15,
+          21,
+          24,
+          25,
+          36
+        ],
+        "action": "help",
+        "execution_step": 27
+      }
+    ]
+  },
+  {
+    "seed": 101,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "gossip_burst",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          24
+        ],
+        "action": "gossip",
+        "execution_step": 11
+      },
+      {
+        "step": 11,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          24
+        ],
+        "action": "gossip",
+        "execution_step": 12
+      },
+      {
+        "step": 12,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          24
+        ],
+        "action": "gossip",
+        "execution_step": 13
+      },
+      {
+        "step": 13,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          24
+        ],
+        "action": "gossip",
+        "execution_step": 14
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          24
+        ],
+        "action": "gossip",
+        "execution_step": 15
+      }
+    ]
+  },
+  {
+    "seed": 102,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "none",
+    "requests": []
+  },
+  {
+    "seed": 102,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "help_burst",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          6,
+          9,
+          18,
+          24,
+          25,
+          34
+        ],
+        "action": "help",
+        "execution_step": 11
+      },
+      {
+        "step": 11,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          6,
+          9,
+          18,
+          24,
+          25,
+          34
+        ],
+        "action": "help",
+        "execution_step": 12
+      },
+      {
+        "step": 12,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          6,
+          9,
+          18,
+          24,
+          25,
+          34
+        ],
+        "action": "help",
+        "execution_step": 13
+      },
+      {
+        "step": 13,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          6,
+          9,
+          18,
+          24,
+          25,
+          34
+        ],
+        "action": "help",
+        "execution_step": 14
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          6,
+          9,
+          18,
+          24,
+          25,
+          34
+        ],
+        "action": "help",
+        "execution_step": 15
+      }
+    ]
+  },
+  {
+    "seed": 102,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "help_spaced",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          6,
+          9,
+          18,
+          24,
+          25,
+          34
+        ],
+        "action": "help",
+        "execution_step": 11
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          6,
+          9,
+          18,
+          24,
+          25,
+          34
+        ],
+        "action": "help",
+        "execution_step": 15
+      },
+      {
+        "step": 18,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          6,
+          9,
+          18,
+          24,
+          25,
+          34
+        ],
+        "action": "help",
+        "execution_step": 19
+      },
+      {
+        "step": 22,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          6,
+          9,
+          18,
+          24,
+          25,
+          34
+        ],
+        "action": "help",
+        "execution_step": 23
+      },
+      {
+        "step": 26,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          6,
+          9,
+          18,
+          24,
+          25,
+          34
+        ],
+        "action": "help",
+        "execution_step": 27
+      }
+    ]
+  },
+  {
+    "seed": 102,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "gossip_burst",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          18
+        ],
+        "action": "gossip",
+        "execution_step": 11
+      },
+      {
+        "step": 11,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          18
+        ],
+        "action": "gossip",
+        "execution_step": 12
+      },
+      {
+        "step": 12,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          18
+        ],
+        "action": "gossip",
+        "execution_step": 13
+      },
+      {
+        "step": 13,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          18
+        ],
+        "action": "gossip",
+        "execution_step": 14
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          18
+        ],
+        "action": "gossip",
+        "execution_step": 15
+      }
+    ]
+  },
+  {
+    "seed": 103,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "none",
+    "requests": []
+  },
+  {
+    "seed": 103,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "help_burst",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          21,
+          23
+        ],
+        "action": "help",
+        "execution_step": 11
+      },
+      {
+        "step": 11,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          21,
+          23
+        ],
+        "action": "help",
+        "execution_step": 12
+      },
+      {
+        "step": 12,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          21,
+          23
+        ],
+        "action": "help",
+        "execution_step": 13
+      },
+      {
+        "step": 13,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          21,
+          23
+        ],
+        "action": "help",
+        "execution_step": 14
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          21,
+          23
+        ],
+        "action": "help",
+        "execution_step": 15
+      }
+    ]
+  },
+  {
+    "seed": 103,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "help_spaced",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          21,
+          23
+        ],
+        "action": "help",
+        "execution_step": 11
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          21,
+          23
+        ],
+        "action": "help",
+        "execution_step": 15
+      },
+      {
+        "step": 18,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          21,
+          23
+        ],
+        "action": "help",
+        "execution_step": 19
+      },
+      {
+        "step": 22,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          21,
+          23
+        ],
+        "action": "help",
+        "execution_step": 23
+      },
+      {
+        "step": 26,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          21,
+          23
+        ],
+        "action": "help",
+        "execution_step": 27
+      }
+    ]
+  },
+  {
+    "seed": 103,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "gossip_burst",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          21
+        ],
+        "action": "gossip",
+        "execution_step": 11
+      },
+      {
+        "step": 11,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          21
+        ],
+        "action": "gossip",
+        "execution_step": 12
+      },
+      {
+        "step": 12,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          21
+        ],
+        "action": "gossip",
+        "execution_step": 13
+      },
+      {
+        "step": 13,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          21
+        ],
+        "action": "gossip",
+        "execution_step": 14
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          21
+        ],
+        "action": "gossip",
+        "execution_step": 15
+      }
+    ]
+  },
+  {
+    "seed": 104,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "none",
+    "requests": []
+  },
+  {
+    "seed": 104,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "help_burst",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          5,
+          11,
+          13,
+          15,
+          29,
+          31
+        ],
+        "action": "help",
+        "execution_step": 11
+      },
+      {
+        "step": 11,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          5,
+          11,
+          13,
+          15,
+          29,
+          31
+        ],
+        "action": "help",
+        "execution_step": 12
+      },
+      {
+        "step": 12,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          5,
+          11,
+          13,
+          15,
+          29,
+          31
+        ],
+        "action": "help",
+        "execution_step": 13
+      },
+      {
+        "step": 13,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          5,
+          11,
+          13,
+          15,
+          29,
+          31
+        ],
+        "action": "help",
+        "execution_step": 14
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          5,
+          11,
+          13,
+          15,
+          29,
+          31
+        ],
+        "action": "help",
+        "execution_step": 15
+      }
+    ]
+  },
+  {
+    "seed": 104,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "help_spaced",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          5,
+          11,
+          13,
+          15,
+          29,
+          31
+        ],
+        "action": "help",
+        "execution_step": 11
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          5,
+          11,
+          13,
+          15,
+          29,
+          31
+        ],
+        "action": "help",
+        "execution_step": 15
+      },
+      {
+        "step": 18,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          5,
+          11,
+          13,
+          15,
+          29,
+          31
+        ],
+        "action": "help",
+        "execution_step": 19
+      },
+      {
+        "step": 22,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          5,
+          11,
+          13,
+          15,
+          29,
+          31
+        ],
+        "action": "help",
+        "execution_step": 23
+      },
+      {
+        "step": 26,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          5,
+          11,
+          13,
+          15,
+          29,
+          31
+        ],
+        "action": "help",
+        "execution_step": 27
+      }
+    ]
+  },
+  {
+    "seed": 104,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "gossip_burst",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          11
+        ],
+        "action": "gossip",
+        "execution_step": 11
+      },
+      {
+        "step": 11,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          11
+        ],
+        "action": "gossip",
+        "execution_step": 12
+      },
+      {
+        "step": 12,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          11
+        ],
+        "action": "gossip",
+        "execution_step": 13
+      },
+      {
+        "step": 13,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          11
+        ],
+        "action": "gossip",
+        "execution_step": 14
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          11
+        ],
+        "action": "gossip",
+        "execution_step": 15
+      }
+    ]
+  },
+  {
+    "seed": 105,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "none",
+    "requests": []
+  },
+  {
+    "seed": 105,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "help_burst",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          3,
+          19,
+          22,
+          31
+        ],
+        "action": "help",
+        "execution_step": 11
+      },
+      {
+        "step": 11,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          3,
+          19,
+          22,
+          31
+        ],
+        "action": "help",
+        "execution_step": 12
+      },
+      {
+        "step": 12,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          3,
+          19,
+          22,
+          31
+        ],
+        "action": "help",
+        "execution_step": 13
+      },
+      {
+        "step": 13,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          3,
+          19,
+          22,
+          31
+        ],
+        "action": "help",
+        "execution_step": 14
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          3,
+          19,
+          22,
+          31
+        ],
+        "action": "help",
+        "execution_step": 15
+      }
+    ]
+  },
+  {
+    "seed": 105,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "help_spaced",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          3,
+          19,
+          22,
+          31
+        ],
+        "action": "help",
+        "execution_step": 11
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          3,
+          19,
+          22,
+          31
+        ],
+        "action": "help",
+        "execution_step": 15
+      },
+      {
+        "step": 18,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          3,
+          19,
+          22,
+          31
+        ],
+        "action": "help",
+        "execution_step": 19
+      },
+      {
+        "step": 22,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          3,
+          19,
+          22,
+          31
+        ],
+        "action": "help",
+        "execution_step": 23
+      },
+      {
+        "step": 26,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          3,
+          19,
+          22,
+          31
+        ],
+        "action": "help",
+        "execution_step": 27
+      }
+    ]
+  },
+  {
+    "seed": 105,
+    "density": 0.1,
+    "trust_condition": "natural",
+    "policy": "gossip_burst",
+    "requests": [
+      {
+        "step": 10,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          19
+        ],
+        "action": "gossip",
+        "execution_step": 11
+      },
+      {
+        "step": 11,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          19
+        ],
+        "action": "gossip",
+        "execution_step": 12
+      },
+      {
+        "step": 12,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          19
+        ],
+        "action": "gossip",
+        "execution_step": 13
+      },
+      {
+        "step": 13,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          19
+        ],
+        "action": "gossip",
+        "execution_step": 14
+      },
+      {
+        "step": 14,
+        "kind": "action_scheduled",
+        "actor": 1,
+        "targets": [
+          19
+        ],
+        "action": "gossip",
+        "execution_step": 15
+      }
+    ]
+  }
+]

@@ -1,0 +1,129 @@
+{
+  "help_can_reduce_ego_degree": {
+    "count": 1,
+    "cases": [
+      {
+        "seed": 2,
+        "density": 0.1,
+        "policy": "help_spaced",
+        "degree_delta": -1.0,
+        "liking_delta": 0.09848489011729031,
+        "trust_delta": 0.0012725246990328287,
+        "isolate_delta": 0.0,
+        "subject_liking_delta": 0.000335098889030494,
+        "gossip_reach": 0.0,
+        "edge_changes": 7.0
+      }
+    ]
+  },
+  "harm_can_increase_ego_degree": {
+    "count": 0,
+    "cases": []
+  },
+  "gossip_large_reach_no_edge_difference": {
+    "count": 0,
+    "cases": []
+  },
+  "gossip_subject_liking_increases_later": {
+    "count": 0,
+    "cases": []
+  },
+  "help_can_increase_isolates": {
+    "count": 0,
+    "cases": []
+  },
+  "help_can_reduce_incoming_trust": {
+    "count": 4,
+    "cases": [
+      {
+        "seed": 101,
+        "density": 0.1,
+        "policy": "help_burst",
+        "degree_delta": 0.0,
+        "liking_delta": 0.14353209218316432,
+        "trust_delta": -0.005458512400634774,
+        "isolate_delta": 0.0,
+        "subject_liking_delta": 0.012348462758408868,
+        "gossip_reach": 0.0,
+        "edge_changes": 3.0
+      },
+      {
+        "seed": 101,
+        "density": 0.1,
+        "policy": "help_spaced",
+        "degree_delta": 0.0,
+        "liking_delta": 0.15026622109816212,
+        "trust_delta": -0.0055496465075303425,
+        "isolate_delta": 0.0,
+        "subject_liking_delta": 0.007844324853416379,
+        "gossip_reach": 0.0,
+        "edge_changes": 2.0
+      },
+      {
+        "seed": 102,
+        "density": 0.1,
+        "policy": "help_burst",
+        "degree_delta": 0.0,
+        "liking_delta": 0.06594229863472445,
+        "trust_delta": -0.011979304636827559,
+        "isolate_delta": 0.0,
+        "subject_liking_delta": 0.0007057372027542974,
+        "gossip_reach": 0.0,
+        "edge_changes": 2.0
+      },
+      {
+        "seed": 102,
+        "density": 0.1,
+        "policy": "help_spaced",
+        "degree_delta": 0.0,
+        "liking_delta": 0.08218987380991144,
+        "trust_delta": -0.005590510301257179,
+        "isolate_delta": 0.0,
+        "subject_liking_delta": 0.0008852608867939149,
+        "gossip_reach": 0.0,
+        "edge_changes": 3.0
+      }
+    ]
+  },
+  "help_more_ego_ties_fewer_global_ties": {
+    "count": 3,
+    "cases": [
+      {
+        "seed": 2,
+        "density": 0.1,
+        "policy": "help_burst",
+        "degree_delta": 1.0,
+        "liking_delta": 0.10392797939044854,
+        "trust_delta": 0.01540280431596236,
+        "isolate_delta": 0.0,
+        "subject_liking_delta": 0.0005492527753575005,
+        "gossip_reach": 0.0,
+        "edge_changes": 3.0
+      },
+      {
+        "seed": 100,
+        "density": 0.1,
+        "policy": "help_spaced",
+        "degree_delta": 1.0,
+        "liking_delta": 0.1652709724093237,
+        "trust_delta": 0.024668371844569353,
+        "isolate_delta": 0.0,
+        "subject_liking_delta": -0.0015900801732965653,
+        "gossip_reach": 0.0,
+        "edge_changes": 5.0
+      },
+      {
+        "seed": 103,
+        "density": 0.1,
+        "policy": "help_burst",
+        "degree_delta": 1.0,
+        "liking_delta": 0.22732157463951336,
+        "trust_delta": 0.036490525668292584,
+        "isolate_delta": 0.0,
+        "subject_liking_delta": 0.0018778272512239846,
+        "gossip_reach": 0.0,
+        "edge_changes": 3.0
+      }
+    ]
+  }
+}

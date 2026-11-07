@@ -1,0 +1,429 @@
+[
+  {
+    "step": 0,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07888837884770315,
+    "baseline_liking": 0.07888837884770315
+  },
+  {
+    "step": 1,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.0786008822455018,
+    "baseline_liking": 0.07922211660370732
+  },
+  {
+    "step": 2,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07831396063650485,
+    "baseline_liking": 0.07893395252599394
+  },
+  {
+    "step": 3,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07802761287072589,
+    "baseline_liking": 0.0817362237147526
+  },
+  {
+    "step": 4,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07774183780047848,
+    "baseline_liking": 0.08230957000637835
+  },
+  {
+    "step": 5,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07745663428037157,
+    "baseline_liking": 0.08287689647881682
+  },
+  {
+    "step": 6,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07717200116730485,
+    "baseline_liking": 0.08258760255922987
+  },
+  {
+    "step": 7,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.0768879373204643,
+    "baseline_liking": 0.08229888722748209
+  },
+  {
+    "step": 8,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07729296467015145,
+    "baseline_liking": 0.08269927239523185
+  },
+  {
+    "step": 9,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.0770086588963052,
+    "baseline_liking": 0.08241033372381207
+  },
+  {
+    "step": 10,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07735222501623414,
+    "baseline_liking": 0.08274927621196261
+  },
+  {
+    "step": 11,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07706780072169572,
+    "baseline_liking": 0.08246023753290938
+  },
+  {
+    "step": 12,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07678394527574636,
+    "baseline_liking": 0.08217177693121422
+  },
+  {
+    "step": 13,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07716801122273927,
+    "baseline_liking": 0.08249047662706029
+  },
+  {
+    "step": 14,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07688395535578785,
+    "baseline_liking": 0.08220195554717682
+  },
+  {
+    "step": 15,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07726204154122791,
+    "baseline_liking": 0.08257558545011075
+  },
+  {
+    "step": 16,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07756612105957576,
+    "baseline_liking": 0.08287521759851749
+  },
+  {
+    "step": 17,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.0778844203387099,
+    "baseline_liking": 0.08318907840245039
+  },
+  {
+    "step": 18,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07759893165352653,
+    "baseline_liking": 0.08289916011901616
+  },
+  {
+    "step": 19,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07793794443383632,
+    "baseline_liking": 0.08317972396457905
+  },
+  {
+    "step": 20,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07765234870046268,
+    "baseline_liking": 0.08288982439002056
+  },
+  {
+    "step": 21,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07736732415855584,
+    "baseline_liking": 0.08260050461461121
+  },
+  {
+    "step": 22,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07683413809765084,
+    "baseline_liking": 0.08206303191067074
+  },
+  {
+    "step": 23,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07655025251381342,
+    "baseline_liking": 0.08177486825708391
+  },
+  {
+    "step": 24,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07626693470114368,
+    "baseline_liking": 0.08148728093080426
+  },
+  {
+    "step": 25,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07598418352409927,
+    "baseline_liking": 0.08120026877917717
+  },
+  {
+    "step": 26,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07627170133276094,
+    "baseline_liking": 0.08148353413520532
+  },
+  {
+    "step": 27,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07598894062245329,
+    "baseline_liking": 0.0811965294771694
+  },
+  {
+    "step": 28,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07570674543356629,
+    "baseline_liking": 0.08091009882844959
+  },
+  {
+    "step": 29,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07601581318065022,
+    "baseline_liking": 0.0812149395866204
+  },
+  {
+    "step": 30,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07771276463253479,
+    "baseline_liking": 0.08290767250356967
+  },
+  {
+    "step": 31,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.0774310801963994,
+    "baseline_liking": 0.08262177796956884
+  },
+  {
+    "step": 32,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.078103195680346,
+    "baseline_liking": 0.08320818302206877
+  },
+  {
+    "step": 33,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07867989239833449,
+    "baseline_liking": 0.08378084948325043
+  },
+  {
+    "step": 34,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07839627370666748,
+    "baseline_liking": 0.08349320859529022
+  },
+  {
+    "step": 35,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.0781132222523838,
+    "baseline_liking": 0.08320614298910592
+  },
+  {
+    "step": 36,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07839053333731393,
+    "baseline_liking": 0.08347944795043925
+  },
+  {
+    "step": 37,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.08126015378337047,
+    "baseline_liking": 0.08634507028514617
+  },
+  {
+    "step": 38,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.08176859231885807,
+    "baseline_liking": 0.08686423676705214
+  },
+  {
+    "step": 39,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.08148510154818919,
+    "baseline_liking": 0.08657673442536352
+  },
+  {
+    "step": 40,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.0812021777590617,
+    "baseline_liking": 0.08628980708835829
+  },
+  {
+    "step": 41,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.08091981981751244,
+    "baseline_liking": 0.08600345360602708
+  },
+  {
+    "step": 42,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.08042185420219827,
+    "baseline_liking": 0.08550150044101251
+  },
+  {
+    "step": 43,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.08014062456298343,
+    "baseline_liking": 0.08521629122719669
+  },
+  {
+    "step": 44,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07985995738304705,
+    "baseline_liking": 0.08493165243180847
+  },
+  {
+    "step": 45,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.07957985153747052,
+    "baseline_liking": 0.08464758291401106
+  },
+  {
+    "step": 46,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.08217951030590043,
+    "baseline_liking": 0.0872432859375645
+  },
+  {
+    "step": 47,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.08190052376328281,
+    "baseline_liking": 0.08787482351180531
+  },
+  {
+    "step": 48,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.08162209519375045,
+    "baseline_liking": 0.08759062606065254
+  },
+  {
+    "step": 49,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.08134422348135714,
+    "baseline_liking": 0.08730699700440206
+  },
+  {
+    "step": 50,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.08174883272110851,
+    "baseline_liking": 0.08766017126908772
+  },
+  {
+    "step": 51,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.08247651545421883,
+    "baseline_liking": 0.08821313297071426
+  },
+  {
+    "step": 52,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.08219693490130457,
+    "baseline_liking": 0.08792825890064367
+  },
+  {
+    "step": 53,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.08254318918771893,
+    "baseline_liking": 0.08822836535521776
+  },
+  {
+    "step": 54,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.08226347528733768,
+    "baseline_liking": 0.08794346082037818
+  },
+  {
+    "step": 55,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.08306272050053543,
+    "baseline_liking": 0.08873752578038645
+  },
+  {
+    "step": 56,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.08372189597471487,
+    "baseline_liking": 0.08924376312164317
+  },
+  {
+    "step": 57,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.08422278403920788,
+    "baseline_liking": 0.08981607901926654
+  },
+  {
+    "step": 58,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.08464815666963428,
+    "baseline_liking": 0.09030495485850319
+  },
+  {
+    "step": 59,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.0839972304946499,
+    "baseline_liking": 0.08964889480501771
+  },
+  {
+    "step": 60,
+    "degree": 8,
+    "baseline_degree": 8,
+    "incoming_liking": 0.08371676531102636,
+    "baseline_liking": 0.08936330601065007
+  }
+]
