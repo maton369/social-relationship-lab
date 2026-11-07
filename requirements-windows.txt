@@ -1,5 +1,0 @@
-# Windows x64 / TouchDesigner Python 3.11.
-# NumPy is supplied by TouchDesigner; do not override it with a different ABI.
-igraph==0.11.9
-leidenalg==0.10.2
-texttable==1.7.0

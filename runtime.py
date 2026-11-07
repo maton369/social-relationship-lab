@@ -29,10 +29,16 @@ def wrap_panel(text,width=44):
 def init():
     global sim,view
     p=owner()
-    candidates=[os.environ.get('SOCIAL_LAB_HOME',''), str(project.folder), str(p.par.Basefolder)]
-    base=next((Path(v) for v in candidates if v and (Path(v)/'model.py').is_file()), None)
-    if base is None:raise RuntimeError('プロジェクト一式を展開し、Basefolder を配置先へ設定してください。')
+    bootstrap=p.op('distribution_bootstrap')
+    if bootstrap is not None:
+        base,packages=bootstrap.module.resolve(p)
+    else:
+        candidates=[os.environ.get('SOCIAL_LAB_HOME',''), str(project.folder), str(p.par.Basefolder)]
+        base=next((Path(v) for v in candidates if v and (Path(v)/'model.py').is_file()), None)
+        if base is None:raise RuntimeError('プロジェクト一式を展開し、Basefolder を配置先へ設定してください。')
+        packages=Path(os.environ.get('SOCIAL_LAB_PACKAGES') or str(base/('.deps/windows-cp311' if sys.platform=='win32' else 'vendor')))
     p.par.Basefolder=str(base)
+    p.op('title').par.text='RELATIONSHIP LAB v3 / 人物・コミュニティ分析'
     p.par.uvbuttonsright=True
     p.op('graph_panel').par.uvbuttonsright=True
     if str(base) not in sys.path:sys.path.insert(0,str(base))
@@ -40,7 +46,7 @@ def init():
     if not hasattr(p.par,'Dynamics'):
         page=p.appendCustomPage('Social Dynamics')
         mode=page.appendMenu('Dynamics',label='モデル（同じ初期値で適用）')[0]
-        mode.menuNames=list(MODES);mode.menuLabels=['旧モデル','履歴・信頼','履歴＋時間制約','自律交流あり'];mode.val='adaptive'
+        mode.menuNames=list(MODES);mode.menuLabels=['基準（比較用）','履歴・信頼','履歴＋時間制約','自律交流あり'];mode.val='adaptive'
         for name,key,label,lo,hi in [
             ('Socialbudget','social_budget','1時刻の交流時間',1,10),
             ('Trustlearning','trust_learning','信頼の学習率',0,1),
@@ -57,8 +63,6 @@ def init():
     if 'social' not in sidebar.menuNames:
         names,labels=list(sidebar.menuNames),list(sidebar.menuLabels)
         sidebar.menuNames=names+['social','gossip'];sidebar.menuLabels=labels+['交流履歴・信頼','噂の影響']
-    packages=Path(os.environ.get('SOCIAL_LAB_PACKAGES') or
-                  str(base/('.deps/windows-cp311' if sys.platform=='win32' else 'vendor')))
     vendor=str(packages)
     if not (packages/'leidenalg').is_dir():raise RuntimeError('Windows は start_windows.cmd で環境構築してください。依存先: '+vendor)
     if vendor not in sys.path:sys.path.insert(0,vendor)
@@ -220,7 +224,8 @@ def refresh():
 
 
 def export():
-    p=owner();path=p.op('export_analysis').module.save(sim,Path(str(p.par.Basefolder))/'exports')
+    p=owner();folder=Path(project.folder) if p.fetch('standalone_distribution',False) else Path(str(p.par.Basefolder))
+    path=p.op('export_analysis').module.save(sim,folder/'exports')
     p.store('last_export',path)
 
 
@@ -310,7 +315,11 @@ def click_graph(right=False):
     refresh()
 
 
-def onStart():init()
+def onStart():
+    init()
+    if owner().op('distribution_bootstrap') is not None:
+        op('/perform').par.winop=owner().path
+        ui.performMode=True
 
 
 def onFrameStart(frame):

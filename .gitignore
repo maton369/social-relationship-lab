@@ -4,7 +4,10 @@ exports/
 .DS_Store
 *_validation.json
 *_report.json
-Social_Relationship_Lab_v2.tox
+*.tox
 .deps/
-*.1.toe
+*.[0-9]*.toe
 .portable-stage*.toe
+.social_lab_v3/
+Backup/
+.build/

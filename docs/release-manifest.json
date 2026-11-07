@@ -1,0 +1,22 @@
+{
+  "file": "Social_Relationship_Lab_v3.toe",
+  "component": "/social_relationship_lab_v3",
+  "toe_sha256": "c047ef5c1123e3d1f15167e39a913fecb7d0754c3ff6774fa6e70ab2551dc083",
+  "payload_sha256": "e432ce0afbd26a3c51c281f56ff8f19b29683a34aa9e3c2fd540dc0f04220600",
+  "size": 7823796,
+  "platforms": [
+    "macos-arm64",
+    "windows-amd64"
+  ],
+  "python": "3.11",
+  "round_trip_verified": true,
+  "sources": {
+    "model": "36464c5efa6d5256cf73bd79e3c59d9943b184fd09b130945d8df8b98626466b",
+    "runtime": "5aa65d2a2719d912b9f77cd9538c0f6300cdb3f5a5f84ef55df3ed85f15da805",
+    "view": "4ac2327cb5ef0e5b6b11affaa5aa13111e4af4a33eab0090784dd688ec1dc394",
+    "community": "3fd2bd38fa5016e7f104bfd0cf211682a063ecf538ddaa9cd1a8e1059cf44a62",
+    "export_analysis": "8b66d75434d3c055cdd0b6723d0a7fba5510f7d9244f120c3eebd7f088f98965",
+    "social_dynamics": "359bd1f1a23c25698ecbc1854eed57e09ce46ddaeb4c685ec29ea7753fb9e085",
+    "distribution_bootstrap": "7c77c7974b6e9e4cee6119e611ccbb8646c007d79ea8199706b2562b7c776658"
+  }
+}

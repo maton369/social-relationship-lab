@@ -9,7 +9,7 @@ import time
 from pathlib import Path
 import numpy as np
 
-c=op('/social_relationship_lab_v2_analysis')
+c=op('/social_relationship_lab_v3')
 if c is None:raise RuntimeError('Validation component not found')
 r=c.op('runtime').module
 base=Path(c.par.Basefolder.eval())

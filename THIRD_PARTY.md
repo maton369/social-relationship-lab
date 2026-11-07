@@ -1,6 +1,6 @@
 # Third-party software
 
-公開PyPIの固定バージョンのwheelを `vendor/` に配置しています。アプリ利用中にインストールや通信は行いません。TouchDesigner内では同梱NumPyが既にロードされている場合はそれを利用し、単体テストではvendorのNumPyを利用します。
+公開PyPIの固定バージョンのwheelを使用しています。正式版 `Social_Relationship_Lab_v3.toe` は、Mac Apple Silicon用とWindows x64用のigraph・leidenalg・texttableおよび各配布物のライセンスを内蔵し、初回起動時にローカル展開します。アプリ起動時のダウンロードやpip実行は行いません。NumPyはTouchDesigner内蔵版を使い、追加で同梱しません。開発用 `vendor/` のNumPyは単体テスト用です。
 
 | Package | Version | License / included notice |
 | --- | --- | --- |
