@@ -37,8 +37,10 @@ def wrap(text,font,width):
 pdfs=[];warnings=[]
 for i,slide in enumerate(pr.slides,1):
     svg=['<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="1080" viewBox="0 0 1920 1080">',
-         '<rect width="1920" height="1080" fill="#0C141F"/>']
-    for shape in slide.shapes:
+         '<rect width="1920" height="1080" fill="#FFFFFF"/>']
+    inherited=[s for layer in (slide.slide_layout.slide_master,slide.slide_layout)
+               for s in layer.shapes if s.shape_type==MSO_SHAPE_TYPE.PICTURE]
+    for shape in inherited+list(slide.shapes):
         x,y,w,h=[v*SCALE for v in (shape.left,shape.top,shape.width,shape.height)]
         if shape.shape_type==MSO_SHAPE_TYPE.PICTURE:
             b=shape.image.blob;mime=shape.image.content_type
@@ -86,12 +88,12 @@ for i,slide in enumerate(pr.slides,1):
     subprocess.run(['rsvg-convert','-f','png','-w','1920','-o',str(OUT/f'slide-{i:02d}.png'),str(path)],env=env,check=True,capture_output=True)
     pdfs.append(str(pdf))
 subprocess.run(['pdfunite',*pdfs,str(HERE/'Social_Relationship_Lab.pdf')],check=True)
-contact=Image.new('RGB',(1280,4*203),(23,31,43))
+contact=Image.new('RGB',(1280,4*203),(220,228,234))
 draw=ImageDraw.Draw(contact)
 for i in range(1,14):
     image=Image.open(OUT/f'slide-{i:02d}.png').convert('RGB');image.thumbnail((310,175))
     x=((i-1)%4)*320+5;y=((i-1)//4)*203+18
-    contact.paste(image,(x,y));draw.text((x,y-14),str(i),fill='white')
+    contact.paste(image,(x,y));draw.text((x,y-14),str(i),fill='#182D41')
 contact.save(OUT/'contact-sheet.jpg',quality=93)
 (HERE/'layout-checks.json').write_text(json.dumps(dict(slides=len(pr.slides),renderer='PPTX geometry -> SVG -> librsvg/Pango PDF',
     text_height_warnings=warnings),ensure_ascii=False,indent=2),encoding='utf-8')

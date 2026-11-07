@@ -15,10 +15,15 @@ ROOT = HERE.parent
 DATA = ROOT/'docs/experiments/conditions-and-policies'
 ASSETS = HERE/'assets'
 ASSETS.mkdir(parents=True,exist_ok=True)
-BG='#0C141F'; PANEL='#142331'; WHITE='#F3F6F9'; MUTED='#B0C0CF'
-TEAL='#64D6BE'; GOLD='#F1C371'; CORAL='#F59A99'; GRAY='#8596A7'; BLUE='#8FB4EE'
+TEMPLATE=ASSETS/'tcu_template.pptx'
+if not TEMPLATE.exists():
+    shutil.copy2(ROOT.parents[1]/'【FMT】背景_東京都市大学.pptx',TEMPLATE)
+BG='#FFFFFF'; PANEL='#EEF5F8'; WHITE='#182D41'; MUTED='#536779'
+TEAL='#087C73'; GOLD='#A05E08'; CORAL='#B5424A'; GRAY='#7C8B99'; BLUE='#005D93'
 FONT='Hiragino Sans'
-prs=Presentation();prs.slide_width=Inches(13.333333);prs.slide_height=Inches(7.5)
+prs=Presentation(TEMPLATE)
+for sid in list(prs.slides._sldIdLst):
+    prs.part.drop_rel(sid.rId);prs.slides._sldIdLst.remove(sid)
 notes=[];timings=[15,35,50,25,65,50,40,20]
 
 
@@ -71,12 +76,15 @@ def circle(s,x,y,d,fill=TEAL,label=None,size=16):
 
 
 def slide(title,tag=''):
-    s=prs.slides.add_slide(prs.slide_layouts[6]);s.background.fill.solid();s.background.fill.fore_color.rgb=rgb(BG)
+    s=prs.slides.add_slide(prs.slide_layouts[0 if not len(prs.slides) else 7])
+    for v in list(s.shapes):
+        if v.is_placeholder:v._element.getparent().remove(v._element)
+    s.background.fill.solid();s.background.fill.fore_color.rgb=rgb(BG)
     n=len(prs.slides)
-    text(s,tag or ('SOCIAL RELATIONSHIP LAB  /  作品発表' if n<=8 else 'SUPPLEMENT  /  質疑用の補足'),.65,.3,11,.3,11,MUTED)
-    if title:text(s,title,.65,.85,12.05,.72,30,bold=True)
-    text(s,f'{n:02d} / 08' if n<=8 else f'補足 {n-8}',11.7,7.08,.95,.24,10,MUTED,align=PP_ALIGN.RIGHT)
-    if n<=8:box(s,.65,7.07,10.6*n/8,.025,TEAL)
+    header=text(s,title or tag,1.18,.19,11.0,.66,25 if title else 17,bold=bool(title))
+    header.name='TCU_CHROME_TITLE'
+    page=text(s,f'{n:02d} / 08' if n<=8 else f'補足 {n-8}',12.2,.88,.5,.2,9,MUTED,align=PP_ALIGN.RIGHT)
+    page.name='TCU_CHROME_PAGE'
     return s
 
 
@@ -278,6 +286,17 @@ def build():
     link(s,'結果・全試行CSV： docs/conditions-and-actions.md','https://github.com/maton369/social-relationship-lab/blob/main/docs/conditions-and-actions.md',1.0,6.18,11.3,14)
     note(s,'補足：集団検出・配布','CPMとLeidenの書誌情報はarXivの著者原稿ページでも確認。CPMはigraph/leidenalgで計算する。実際の関係グラフだけから推定し、好感度・心理的所属と混同しない。配布するファイルはSocial_Relationship_Lab.toe一つで、対応ライブラリを内蔵。Mac Apple Siliconで実機確認済み。Windows x64向けも同梱するがWindows描画実機確認は未実施。','画像出典：本リポジトリのTouchDesigner実画面。実験値出典：本リポジトリ保存の合成データ。画面と図表に外部画像や架空の実験結果は使用していない。')
 
+    # Keep the supplied university master, logo and campus footer intact. Reserve
+    # their header/footer space by mapping only our content into the body region.
+    for page in prs.slides:
+        for shape in page.shapes:
+            if shape.name.startswith('TCU_CHROME_'):continue
+            shape.top=int(Inches(.07)+shape.top*.88)
+            shape.height=int(shape.height*.88)
+            if shape.has_text_frame:
+                for p in shape.text_frame.paragraphs:
+                    if p.font.size:p.font.size=Pt(p.font.size.pt*.92)
+                    if p.space_after:p.space_after=Pt(p.space_after.pt*.88)
     prs.core_properties.title='Social Relationship Lab — 5分作品発表'
     prs.core_properties.subject='人間関係・コミュニティの共進化を可視化するTouchDesigner作品'
     prs.core_properties.author='Social Relationship Lab project'
@@ -295,6 +314,7 @@ def build():
         if n['extra']:md+=['','操作・出典・留意点：'+n['extra']]
     (HERE/'speaker-notes.md').write_text('\n'.join(md)+'\n',encoding='utf-8')
     (HERE/'provenance.json').write_text(json.dumps(dict(
+        template='【FMT】背景_東京都市大学.pptx (provided in workspace; master/layouts/logo/footer preserved)',
         screenshot='docs/screenshots/official.jpg (Mac実機画面。結果例の実験条件とは別)',
         main_slides=8,appendix_slides=5,total_seconds=sum(timings),
         cooperation_case='docs/experiments/conditions-and-policies/cases/s2_d0.1_help_spaced_t240-summary.json',
