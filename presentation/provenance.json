@@ -1,7 +1,9 @@
 {
   "template": "【FMT】背景_東京都市大学.pptx (provided in workspace; master/layouts/logo/footer preserved)",
   "cover_layout": "Original タイトル スライド; title/subtitle placeholders and inherited formatting preserved",
-  "screenshot": "docs/screenshots/official.jpg (Mac実機画面。結果例の実験条件とは別)",
+  "screenshot": "docs/screenshots/interface_overview.jpg (2026-11-12 Mac実機画面。結果例の実験条件とは別)",
+  "comparison_screenshot": "docs/screenshots/interface_comparison.jpg (2026-11-12 Mac実機画面。結果例の実験条件とは別)",
+  "interface_release_toe_sha256": "00b53709cbe790fdfa21cc43cd36e0b2270bb00cfb32986c2639b970f4e73f6e",
   "main_slides": 8,
   "appendix_slides": 5,
   "total_seconds": 300,

@@ -110,8 +110,9 @@ def tiny_network(s,x,y,scale=1,groups=True):
 
 
 def build():
-    original=ROOT/'docs/screenshots/official.jpg'
+    original=ROOT/'docs/screenshots/interface_overview.jpg'
     shutil.copy2(original,ASSETS/'demo_screen.jpg')
+    shutil.copy2(ROOT/'docs/screenshots/interface_comparison.jpg',ASSETS/'demo_comparison.jpg')
     Image.open(original).crop((16,108,916,617)).save(ASSETS/'network_detail.jpg',quality=95)
     case=json.loads((DATA/'cases/s2_d0.1_help_spaced_t240-summary.json').read_text())['comparison']
     later=json.loads((DATA/'cases/s2_longer_horizon_check.json').read_text())['comparison']
@@ -122,14 +123,14 @@ def build():
     low_rumor=mean('low','gossip_burst','delta_subject_liking');high_rumor=mean('high','gossip_burst','delta_subject_liking')
 
     s=slide('', 'マルチメディア情報特論  /  作品発表')
-    s.shapes.title.text='Social Relationship Lab'
+    s.shapes.title.text='人間関係シミュレーター'
     s.placeholders[1].text=('ひとつの行動が、関係のかたちを変える。\n'
                             '人間関係・コミュニティを観察するTouchDesigner作品\n'
                             'マルチメディア情報特論')
-    note(s,'作品紹介','私が制作したのは、人間関係とコミュニティの変化を触って観察する作品、Social Relationship Labです。一つの行動が、相手だけでなく、周囲との関係にどう波及するのかを表現しました。')
+    note(s,'作品紹介','私が制作したのは、人間関係とコミュニティの変化を触って観察する作品、「人間関係シミュレーター」です。一つの行動が、相手だけでなく、周囲との関係にどう波及するのかを表現しました。')
 
     s=slide('表現したかったこと：自分の行動は、どこまで届くのか。')
-    text(s,'誰かを助けたり、攻撃したり、噂を話したりしたとき。\nその人の評価と、周囲とのつながりはどう変わるのか。',.8,1.86,11.8,1.1,25)
+    text(s,'誰かを助け、攻撃し、悪い評判を広めたとき。\nその人の評価と、周囲とのつながりはどう変わるのか。',.8,1.86,11.8,1.1,25)
     labels=[('自分の行動',GOLD),('相手・周囲の評価',TEAL),('関係・集団の変化',BLUE)]
     for i,(label,c) in enumerate(labels):
         x=.8+i*4.2
@@ -137,7 +138,7 @@ def build():
         if i==0:
             circle(s,x+.45,3.92,.7,GOLD,'自',20);circle(s,x+2.35,4.3,.54,TEAL,'相',16)
             line(s,x+1.25,4.3,x+2.25,4.55,GOLD,3)
-            text(s,'協力・攻撃・噂',x+.4,5.05,2.9,.4,17,MUTED)
+            text(s,'協力・攻撃・悪い噂',x+.4,5.05,2.9,.4,17,MUTED)
         else:tiny_network(s,x+.32,3.76,.73,groups=i==2)
         text(s,label,x,6.02,3.55,.45,22,c,bold=True,align=PP_ALIGN.CENTER)
         if i<2:text(s,'→',x+3.7,4.14,.45,.55,27,MUTED)
@@ -147,23 +148,21 @@ def build():
     s.shapes.add_picture(str(ASSETS/'demo_screen.jpg'),Inches(.65),Inches(1.48),width=Inches(8.5))
     for i,(head,body,col) in enumerate([
         ('中央の自分','点が人物、線が関係。\n色は検出した集団。',GOLD),
-        ('行動を選ぶ','協力・攻撃・噂を\nボタンから試す。',TEAL),
-        ('止めて読む','好感度・関係・\n情報の経路を確認。',BLUE)]):
+        ('行動を選ぶ','協力する・攻撃する・\n悪い噂を広める。',TEAL),
+        ('止めて読む','つながり・好かれ度・\n信頼度を大きく確認。',BLUE)]):
         y=1.88+i*1.55;circle(s,9.55,y,.4,col,i+1,14)
         text(s,head,10.1,y,2.6,.42,20,col,True)
         text(s,body,9.6,y+.58,3.05,.9,18)
-    note(s,'デモ画面','こちらが実際の画面です。中央に自分を固定し、周りの点を他の人物、線を成立した関係として表示しています。色は、つながりから検出した集団です。下のボタンから協力、攻撃、噂を選べます。今は協力を一度実行し、1ステップ進めて停止します。関係線だけでなく、相手からの好感度も確認できます。噂では、情報が誰に届いたかと、評価がどう動いたかを見られます。この画面を使い、行動しなかった場合との差も調べました。','50秒枠。事前に正式TOEを開き、人物1を選択して停止する。協力→1ステップ→詳細確認を20秒程度で見せる。余裕があれば同じ初期値→悪い噂→1ステップを数回。画面切替が不調ならこの実画面だけで説明を続ける。画像はdocs/screenshots/official.jpgの過去の実機確認画面で、後続の実験条件そのものではない。')
+    note(s,'デモ画面','こちらが現在の画面です。中央に自分を固定し、点で人物、線で成立した関係、色で検出した集団を表しています。右には、つながり、周囲からの好かれ度、信頼度を大きく表示しています。「協力する」を一度押し、「1ステップ」で進めます。人物1の協力と攻撃は知人全員が対象です。「悪い噂を広める」は、右クリックで選んだ人の悪い評判を知人に伝える操作です。対象本人への直接攻撃とは分け、誰が知ったかを確認できます。','50秒枠。事前に正式TOEを開き、人物1を中心に停止する。「協力する」→「1ステップ」→右の数値確認を20秒程度で見せる。余裕があれば「やり直す」→右クリックで噂の対象を選ぶ→「悪い噂を広める」→「1ステップ」を数回。噂の対象本人には直接伝えず、伝播の途中で本人が知る場合はある。真偽は扱わない。画面切替が不調なら実画面の静止画で説明する。画像はdocs/screenshots/interface_overview.jpg（2026年11月12日の実機確認画面）。後続の結果例とは別の条件。')
 
     s=slide('同じ初期状態から、二つの世界へ。')
-    box(s,.8,2.1,3.2,2.4,PANEL,radius=True);text(s,'同じ人物・同じ関係',1.0,2.4,2.8,.45,20,WHITE,True)
-    tiny_network(s,1.0,3.1,.68)
-    for y,label,col in [(1.95,'行動しない世界',GRAY),(4.25,'行動する世界',TEAL)]:
-        line(s,4.2,3.3,5.1,y+.7,col,2)
-        box(s,5.25,y,6.95,1.65,PANEL,radius=True)
-        text(s,label,5.55,y+.22,5.9,.5,25,col,True)
-        text(s,'通常の交流を続ける' if col==GRAY else '指定した行動を加え、通常の交流を続ける',5.55,y+.92,6.25,.4,17,MUTED)
-    text(s,'40人・12シード。関係数、好感度、信頼、集団の違いを比較。',.85,6.28,11.8,.5,21)
-    note(s,'比較の方法','結果を読むために、同じ初期状態を二つにコピーしました。一方には行動を加えず、もう一方には指定した行動を加えます。どちらでも通常の交流は続きます。こうして、元から違う人同士を比べるのではなく、同じ人の行動の有無で何が変わったかを調べました。','図は比較設計の模式図。540条件＝介入492＋無操作確認48。数値実験はPythonで実施。詳細は補足11。')
+    s.shapes.add_picture(str(ASSETS/'demo_comparison.jpg'),Inches(.65),Inches(1.48),width=Inches(8.5))
+    for y,head,body,col in [(1.98,'左と右を比べる','左：何もしない場合\n右：行動した場合',BLUE),
+                           (3.67,'橙線は好感度の差','横：時間、縦：差の大きさ\n良し悪しの点数ではない。',GOLD),
+                           (5.4,'同じ初期状態','同じ人物・同じ関係から\n行動の有無だけを変える。',TEAL)]:
+        text(s,head,9.6,y,3.05,.5,20,col,True)
+        text(s,body,9.6,y+.6,3.05,.95,16)
+    note(s,'比較の方法','比較表示では、同じ初期状態から始めた二つの世界を並べます。左は何もしない場合、右は行動した場合で、どちらも通常の交流は続きます。下のオレンジ線は、両者の好感度がどれほど違うかです。大きいほど良いという点数ではありません。','25秒枠。「関係図」ボタンから表示を切り替えると、関係図→好感度→情報の流れ→行動比較の順で進む。オレンジ線は通常画面では非表示、行動比較で一つだけ表示する。縦軸は全ての他者評価ペアの平均絶対差、範囲は自動調整して画面下に表示。横軸はシミュレーション時刻。画像はdocs/screenshots/interface_comparison.jpg（2026年11月12日の実機確認画面、介入後8ステップ）。後続の研究例とは別条件。540条件＝介入492＋無操作確認48。数値実験の詳細は補足11。')
 
     s=slide('結果①  協力したのに、つながりが少ない？')
     for x,label,values in [(.85,'240ステップ後',[case['final_ego_degree'],case['baseline_ego_degree']]),
@@ -181,6 +180,7 @@ def build():
     note(s,'面白かった結果：時間による逆転','一つ目は、協力した方が、つながりが少なくなった例です。全ての知人に、間隔を空けて5回協力しました。240ステップ後、協力した世界は関係が5本、何もしない世界は6本でした。それでも、周りからの好感度は協力した方が高いままです。元の友人を失ったのではなく、何もしない世界だけが新しい相手と関係を作っていました。履歴では、協力に時間を使ったとき、通常の交流が時間不足になる場面も確認できました。ただし、さらに480ステップまで追うと、今度は協力側が10本、無操作側が9本と逆転しました。協力が悪い、とは言えません。どの時点を見るかによっても、評価が変わることが面白いと思いました。','seed2、密度0.10、help_spaced。240時点：受信好感度差+0.09848489。元の5関係は全て維持。480は発見後の追加確認で事前固定540条件外。240の不利は協力2方針×12シードの24条件中1例で、確認群では未再現。単一の招待だけを最終差の原因とは断定しない。出典：cases/s2_d0.1_help_spaced_t240-summary.json、s2_longer_horizon_check.json。')
 
     s=slide('結果②  噂が全員に届いても、関係線は変わらない。')
+    text(s,'悪い噂＝選んだ人物の悪い評判を、知人に伝える操作。',.85,1.55,11.8,.4,18,MUTED)
     nums=[('39','人','噂を知った人数',GOLD),
           (f'{rumor["delta_subject_liking"]:.3f}','','対象の平均好感度の差',CORAL),
           (str(rumor['compare_tie_difference']),'本','対照と異なる関係線',BLUE)]
@@ -228,7 +228,7 @@ def build():
         text(s,b,3.5,y+.12,8.7,.44,20)
         text(s,c,3.5,y+.6,8.7,.35,14,MUTED)
     text(s,'人物の座標と魚眼変換は描画専用。関係生成には使わない。',.85,6.76,11.4,.3,13,MUTED)
-    note(s,'補足：状態と集団','人物数初期値40。人物属性は成立閾値h、切断閾値l、感受性s、拡散傾向b。l<h。内部ハブ、橋渡し、孤立などは独立のタグと連続値で分析する。CPMはQ=ΣC[mC−γ|C|(|C|−1)/2]、γ=0.25。実装はmodel.py、social_dynamics.py、community.py。','コミュニティの理論出典は補足13。集団検出は大域最適や本当の所属を保証しない。')
+    note(s,'補足：状態と集団','人物数初期値40。人物属性は成立閾値h、切断閾値l、感受性s、拡散傾向b。l<h。内部ハブ、橋渡し、孤立などは独立のタグと連続値で分析する。CPMはQ=ΣC[mC−γ|C|(|C|−1)/2]、γ=0.25。実装はmodel.py、social_dynamics.py、community.py。','通常画面の「好かれ度」は自己を除く全人物からの好感度Xの平均、「信頼度」は同じ人物集合からの信頼Tの平均。非関係者も含む。細かな属性・閾値・分析値は「詳細」にある。コミュニティの理論出典は補足13。集団検出は大域最適や本当の所属を保証しない。')
 
     s=slide('仕様：実際の更新規則と独自の仮定。')
     blocks=[('直接の協力・攻撃','協力：ΔX[v,u] = +0.50 × 強度\n攻撃：ΔX[v,u] = −0.50 × 強度 × (1 − 0.85T[v,u])'),
@@ -249,9 +249,9 @@ def build():
         text(s,head,x+.22,2.12,3.1,.65,32,TEAL,True)
         text(s,body,x+.22,2.97,3.15,.76,14)
     text(s,'検査したこと',.85,4.2,3,.4,21,TEAL,True)
-    text(s,'初期状態の完全一致 ／ 共通の外生乱数 ／ 対照世界の不変性 ／ 完全再実行\n既存41件＋実験手順3件の自動テスト、計44件通過。',.85,4.78,11.6,1.0,18)
+    text(s,'初期状態の完全一致 ／ 共通の外生乱数 ／ 対照世界の不変性 ／ 完全再実行\n数値実験時44件、現行UIの確認を含めて自動テスト47件通過。',.85,4.78,11.6,1.0,18)
     text(s,'540条件は独立な540標本ではない。全終了時点は未収束。\n逆転の480ステップ確認は発見後の追加1件。現実社会の予測精度は未検証。',.85,6.0,11.6,.85,17,GOLD)
-    note(s,'補足：条件と限界','自然条件のシードは0〜5と100〜105。初期密度.05/.10/.20。540条件には無操作確認48条件を含む。探索群・確認群で同じ方針を実施。人物単位ではなくシード単位で集計・再標本化。同じ数値モデルをPythonで実行しており、540条件をTouchDesignerのボタンから操作したわけではない。代表2例は全状態JSONを保存して再実行のダイジェスト一致を確認。個人属性や社会的概念は合成で実測から校正していない。','実験手順：docs/experiments/conditions-and-policies/protocol.md。データ：runs.csv、long-horizon/runs.csv、integrity-checks.json。')
+    note(s,'補足：条件と限界','自然条件のシードは0〜5と100〜105。初期密度.05/.10/.20。540条件には無操作確認48条件を含む。探索群・確認群で同じ方針を実施。人物単位ではなくシード単位で集計・再標本化。同じ数値モデルをPythonで実行しており、540条件をTouchDesignerのボタンから操作したわけではない。代表2例は全状態JSONを保存して再実行のダイジェスト一致を確認。個人属性や社会的概念は合成で実測から校正していない。','数値実験の時点は44テスト。2026年11月12日のUI更新で、噂の人物区別と要約、通常画面の折れ線非表示の3件を追加し47件通過。Mac実機で協力・攻撃・噂・1ステップ・停止再開・詳細10表示を確認。更新は表示だけで数値モデルの式は同じ。実機記録：docs/interface-checks.json。実験手順：docs/experiments/conditions-and-policies/protocol.md。データ：runs.csv、long-horizon/runs.csv、integrity-checks.json。')
 
     s=slide('参考文献：社会関係・信頼・噂の着想。')
     refs=[('Sutcliffe, A., Wang, D. & Dunbar, R. (2012)',
@@ -296,13 +296,16 @@ def build():
             if shape.name.startswith('TCU_CHROME_'):continue
             shape.top=int(Inches(.07)+shape.top*.88)
             shape.height=int(shape.height*.88)
+            if shape.shape_type==13:
+                width=shape.width
+                shape.width=int(width*.88);shape.left+=int(width*.06)
             if shape.has_text_frame:
                 for p in shape.text_frame.paragraphs:
                     if p.font.size:p.font.size=Pt(p.font.size.pt*.92)
                     if p.space_after:p.space_after=Pt(p.space_after.pt*.88)
-    prs.core_properties.title='Social Relationship Lab — 5分作品発表'
+    prs.core_properties.title='人間関係シミュレーター — 5分作品発表'
     prs.core_properties.subject='人間関係・コミュニティの共進化を可視化するTouchDesigner作品'
-    prs.core_properties.author='Social Relationship Lab project'
+    prs.core_properties.author='人間関係シミュレーター 制作チーム'
     prs.core_properties.keywords='TouchDesigner, social networks, lecture, 5 minutes'
     prs.save(HERE/'Social_Relationship_Lab.pptx')
     (HERE/'slide-notes.json').write_text(json.dumps(notes,ensure_ascii=False,indent=2),encoding='utf-8')
@@ -319,7 +322,9 @@ def build():
     (HERE/'provenance.json').write_text(json.dumps(dict(
         template='【FMT】背景_東京都市大学.pptx (provided in workspace; master/layouts/logo/footer preserved)',
         cover_layout='Original タイトル スライド; title/subtitle placeholders and inherited formatting preserved',
-        screenshot='docs/screenshots/official.jpg (Mac実機画面。結果例の実験条件とは別)',
+        screenshot='docs/screenshots/interface_overview.jpg (2026-11-12 Mac実機画面。結果例の実験条件とは別)',
+        comparison_screenshot='docs/screenshots/interface_comparison.jpg (2026-11-12 Mac実機画面。結果例の実験条件とは別)',
+        interface_release_toe_sha256=json.loads((ROOT/'docs/interface-checks.json').read_text(encoding='utf-8'))['release_toe_sha256'],
         main_slides=8,appendix_slides=5,total_seconds=sum(timings),
         cooperation_case='docs/experiments/conditions-and-policies/cases/s2_d0.1_help_spaced_t240-summary.json',
         later_case='docs/experiments/conditions-and-policies/cases/s2_longer_horizon_check.json',
