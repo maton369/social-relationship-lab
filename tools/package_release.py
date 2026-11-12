@@ -17,7 +17,7 @@ COMP='social_relationship_lab'
 SOURCES=['model','runtime','view','community','export_analysis','social_dynamics','distribution_bootstrap']
 
 
-def payload(wheels):
+def payload(wheels,previous=None):
     stream=io.BytesIO()
     with zipfile.ZipFile(stream,'w',zipfile.ZIP_DEFLATED) as archive:
         for name in SOURCES:
@@ -29,12 +29,19 @@ def payload(wheels):
             for path in paths:
                 if path.is_file() and '__pycache__' not in path.parts and path.suffix!='.pyc':
                     archive.writestr('platforms/macos-arm64/'+str(path.relative_to(ROOT/'vendor')).replace('\\','/'),path.read_bytes())
-        for pattern in ['igraph-0.11.9-*-win_amd64.whl','leidenalg-0.10.2-*-win_amd64.whl','texttable-1.7.0-*.whl']:
-            matches=list(wheels.glob(pattern))
-            if len(matches)!=1:raise RuntimeError('One wheel required for '+pattern)
-            with zipfile.ZipFile(matches[0]) as wheel:
-                for entry in wheel.infolist():
-                    if not entry.is_dir():archive.writestr('platforms/windows-amd64/'+entry.filename,wheel.read(entry))
+        if wheels is None:
+            if previous is None:raise RuntimeError('Existing payload or Windows wheels required')
+            with zipfile.ZipFile(io.BytesIO(previous)) as old:
+                entries=[e for e in old.infolist() if e.filename.startswith('platforms/windows-amd64/') and not e.is_dir()]
+                if not entries:raise RuntimeError('Existing project has no Windows packages')
+                for entry in entries:archive.writestr(entry.filename,old.read(entry))
+        else:
+            for pattern in ['igraph-0.11.9-*-win_amd64.whl','leidenalg-0.10.2-*-win_amd64.whl','texttable-1.7.0-*.whl']:
+                matches=list(wheels.glob(pattern))
+                if len(matches)!=1:raise RuntimeError('One wheel required for '+pattern)
+                with zipfile.ZipFile(matches[0]) as wheel:
+                    for entry in wheel.infolist():
+                        if not entry.is_dir():archive.writestr('platforms/windows-amd64/'+entry.filename,wheel.read(entry))
     return stream.getvalue()
 
 
@@ -45,10 +52,9 @@ def replace_text(path,body,header):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--template',type=Path,default=ROOT/NAME)
-    parser.add_argument('--windows-wheels',type=Path,required=True)
+    parser.add_argument('--windows-wheels',type=Path,help='Omit to preserve Windows packages from the existing project')
     parser.add_argument('--bin-dir',type=Path,default=Path('/Applications/TouchDesigner.app/Contents/MacOS'))
     args=parser.parse_args()
-    data=payload(args.windows_wheels)
     work=Path(tempfile.mkdtemp(prefix='social-release-'))
     stage=work/NAME;shutil.copy2(args.template,stage)
     subprocess.run([str(args.bin_dir/'toeexpand'),str(stage)],capture_output=True)
@@ -66,6 +72,8 @@ def main():
     node=folder/COMP
     template=(node/'view.text').read_bytes();i=template.index(b'"""');header=template[:i]
     assert struct.unpack('>I',header[-4:])[0]==len(template)-i
+    previous=base64.b64decode((node/'distribution_payload.text').read_bytes()[len(header):])
+    data=payload(args.windows_wheels,previous)
     for name in ['model','runtime','view','community','export_analysis','distribution_bootstrap']:
         replace_text(node/(name+'.text'),(ROOT/(name+'.py')).read_bytes(),header)
     replace_text(node/'distribution_payload.text',base64.b64encode(data),header)

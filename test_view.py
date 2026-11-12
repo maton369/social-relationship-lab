@@ -38,6 +38,18 @@ class CenteredLayoutChecks(unittest.TestCase):
             view.layout(sim, pinned=actor)
             np.testing.assert_array_equal(view.pos[actor], [view.w / 2, (view.h - 45) / 2])
 
+    def test_trend_is_hidden_normally_and_opt_in_for_comparison(self):
+        sim=Simulation(8,seed=9)
+        sim.step(enforce_limit=False)
+        view=View(sim.n,sim.seed)
+        before=sim.world.x.copy()
+        orange=np.array([245,192,115])
+        ordinary=np.rint(view.image(sim,0,1)[:,:,:3]*255).astype(int)
+        comparison=np.rint(view.image(sim,0,1,show_trend=True)[:,:,:3]*255).astype(int)
+        self.assertFalse(np.any(np.all(ordinary[-47:]==orange,axis=2)))
+        self.assertTrue(np.any(np.all(comparison[-47:]==orange,axis=2)))
+        np.testing.assert_array_equal(before,sim.world.x)
+
 
 if __name__ == '__main__':
     unittest.main()

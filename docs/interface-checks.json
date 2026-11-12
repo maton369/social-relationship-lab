@@ -1,0 +1,55 @@
+{
+  "title": "人間関係シミュレーター",
+  "fonts": {
+    "title": 34.0,
+    "stats": 23.0,
+    "details": 28.0,
+    "event_log": 21.0,
+    "footer": 20.0
+  },
+  "checks": [
+    {
+      "button": "help",
+      "recipients": [
+        11,
+        36
+      ],
+      "step": 1,
+      "passed": true
+    },
+    {
+      "button": "harm",
+      "recipients": [
+        11,
+        36
+      ],
+      "step": 1,
+      "passed": true
+    },
+    {
+      "button": "gossip",
+      "recipients": [
+        11,
+        36
+      ],
+      "step": 1,
+      "passed": true
+    }
+  ],
+  "comparison_footer": "橙線：何もしない場合との好感度の差　横=時間　縦=差（0〜0.001）",
+  "detail_views": 10,
+  "manual_pause": true,
+  "normal_graph_has_no_trend": true,
+  "diagnostics": "",
+  "verification_environment": "Mac TouchDesigner 2025.33230; disposable project with a diagnostic MCP bridge; same runtime/view source as the release",
+  "source_sha256": {
+    "runtime": "1b1c6dea5315afcaa4155002dc492e0d195edf6378c5cbbd5a7da13f99ecad91",
+    "view": "12bc06c9a36e0bd0ba59c93ce00b06b37fb43d8a7cbb22d7770da6e142328066"
+  },
+  "automated_tests_passed": 47,
+  "release_round_trip_verified": true,
+  "release_toe_sha256": "00b53709cbe790fdfa21cc43cd36e0b2270bb00cfb32986c2639b970f4e73f6e",
+  "numerical_model_unchanged": true,
+  "mac_and_windows_dependencies_unchanged": true,
+  "windows_gui_checked": false
+}

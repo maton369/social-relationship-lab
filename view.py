@@ -58,7 +58,7 @@ class View:
         out[pinned]=center
         return out
 
-    def image(self, sim, actor, target, mode='network'):
+    def image(self, sim, actor, target, mode='network', show_trend=False):
         world=sim.world
         labels=world.detector.labels
         a=np.empty((self.h,self.w,4),dtype=np.uint8)
@@ -121,13 +121,15 @@ class View:
                         py=int(y)-5+(k//3)*2
                         a[py:py+2,px:px+2,:3]=[10,19,30] if world.a[i].any() else [210,224,239]
         # Divergence from the no-action counterfactual, with displayed autoscale.
-        hist=sim.history[-400:]
-        scale=max(.001,max(h['difference'] for h in hist))
+        hist=sim.history[-400:] if show_trend else []
+        scale=max([.001]+[h['difference'] for h in hist])
         y0=self.h-16
-        a[self.h-47:,:,:3]=[15,26,39]
+        if show_trend:a[self.h-47:,:,:3]=[15,26,39]
+        first_step=hist[0]['step'] if hist else 0
+        step_span=max(1,hist[-1]['step']-first_step) if hist else 1
         for k in range(1,len(hist)):
-            x1=20+(self.w-40)*(k-1)/max(1,len(hist)-1)
-            x2=20+(self.w-40)*k/max(1,len(hist)-1)
+            x1=20+(self.w-40)*(hist[k-1]['step']-first_step)/step_span
+            x2=20+(self.w-40)*(hist[k]['step']-first_step)/step_span
             line(np.array([x1,y0-28*hist[k-1]['difference']/scale]),
                  np.array([x2,y0-28*hist[k]['difference']/scale]),(245,192,115),2)
         return a.astype(np.float32)/255.
@@ -148,6 +150,8 @@ class View:
                 yy,xx=np.ogrid[:self.h,:self.w]
                 ring=((xx-x)**2+(yy-y)**2>=19**2)&((xx-x)**2+(yy-y)**2<=21**2)
                 image[ring,:3]=(.98,.47,.51)
+        # One difference curve describes the pair, not two per-world curves.
+        image[-47:]=self.image(sim,actor,target,show_trend=True)[-47:]
         return image
 
     def distribution(self,rows,actor):
