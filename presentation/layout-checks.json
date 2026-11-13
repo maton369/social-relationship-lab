@@ -28,12 +28,14 @@
   ],
   "notes_match_standalone_script": true,
   "notes_have_no_timing_annotations": true,
-  "visual_review": "All thirteen slide previews reviewed",
+  "visual_review": "No slide-count shapes or slide-number placeholders; PDF text checked",
   "pdf_japanese_text_extraction": "passed",
   "keynote_pptx_import": "not re-tested; previous environment timeouts",
   "artifact_sha256": {
-    "Social_Relationship_Lab.pdf": "ee5311c579348db7e1a7f5590f2434e890ee74ca6d167aedbc590e0d8c4d6b83",
-    "Social_Relationship_Lab.pptx": "d7041ed7b3d5f953d1877c6752ae6717ced3630d3c40743c313c14ca95974f3b",
+    "Social_Relationship_Lab.pdf": "f13c28d283d2053dbebb9a2c005e2fcf658e7e1b75ad5a414dc7687681655709",
+    "Social_Relationship_Lab.pptx": "8ba822cd4ea5b0687d4f1037721b335026fc93012aa7889969d0319656179dee",
     "tcu_template.pptx": "ceeee5da99ae9f1b12df4ab2e4d3438cae5266ea965fff688e50193cc633cde5"
-  }
+  },
+  "slide_count_labels_removed": true,
+  "notes_unchanged": true
 }

@@ -84,10 +84,7 @@ def slide(title,tag=''):
     for v in list(s.shapes):
         if v.is_placeholder and v.placeholder_format.idx!=0:v._element.getparent().remove(v._element)
     s.background.fill.solid();s.background.fill.fore_color.rgb=rgb(BG)
-    n=len(prs.slides)
     header=s.shapes.title;header.text=title or tag
-    page=text(s,f'{n:02d} / 08' if n<=8 else f'補足 {n-8}',12.2,.88,.5,.2,9,MUTED,align=PP_ALIGN.RIGHT)
-    page.name='TCU_CHROME_PAGE'
     return s
 
 
