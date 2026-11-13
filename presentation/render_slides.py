@@ -59,27 +59,36 @@ for i,slide in enumerate(pr.slides,1):
                 svg.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{radius}" fill="{fill}"/>')
         if shape.has_text_frame and shape.text:
             tf=shape.text_frame;rendered=[]
-            inherited_style=None;inherited_anchor=None
+            inherited_style={};inherited_font={};inherited_anchor=None;line_spacing=1.2
             if shape.is_placeholder:
+                levels=[]
+                if shape.placeholder_format.type in (1,3):
+                    levels+=slide.slide_layout.slide_master._element.xpath('./p:txStyles/p:titleStyle/a:lvl1pPr')
+                    bodies=slide.slide_layout.slide_master._element.xpath('./p:cSld/p:spTree/p:sp[p:nvSpPr/p:nvPr/p:ph[@type="title"]]/p:txBody/a:bodyPr')
+                    if bodies:inherited_anchor=bodies[0].get('anchor')
                 parents=[p for p in slide.slide_layout.placeholders if p.placeholder_format.idx==shape.placeholder_format.idx]
                 if parents:
-                    levels=parents[0]._element.xpath('./p:txBody/a:lstStyle/a:lvl1pPr')
-                    inherited_style=levels[0] if levels else None
+                    levels+=parents[0]._element.xpath('./p:txBody/a:lstStyle/a:lvl1pPr')
                     bodies=parents[0]._element.xpath('./p:txBody/a:bodyPr')
-                    inherited_anchor=bodies[0].get('anchor') if bodies else None
+                    if bodies and bodies[0].get('anchor') is not None:inherited_anchor=bodies[0].get('anchor')
+                for level in levels:
+                    inherited_style.update(level.attrib)
+                    defaults=level.find('{http://schemas.openxmlformats.org/drawingml/2006/main}defRPr')
+                    if defaults is not None:inherited_font.update(defaults.attrib)
+                    spacing=level.findall('{http://schemas.openxmlformats.org/drawingml/2006/main}lnSpc/{http://schemas.openxmlformats.org/drawingml/2006/main}spcPct')
+                    if spacing:line_spacing=float(spacing[0].get('val'))/100000
             for p in tf.paragraphs:
-                inherited_font=inherited_style.find('{http://schemas.openxmlformats.org/drawingml/2006/main}defRPr') if inherited_style is not None else None
-                default_size=float(inherited_font.get('sz','1800'))/100 if inherited_font is not None else 18
-                bold=p.font.bold if p.font.bold is not None else (inherited_font is not None and inherited_font.get('b')=='1')
+                default_size=float(inherited_font.get('sz','1800'))/100
+                bold=p.font.bold if p.font.bold is not None else inherited_font.get('b')=='1'
                 alignment=p.alignment
-                if alignment is None and inherited_style is not None and inherited_style.get('algn')=='ctr':alignment=PP_ALIGN.CENTER
+                if alignment is None and inherited_style.get('algn')=='ctr':alignment=PP_ALIGN.CENTER
                 size=(p.font.size.pt if p.font.size else default_size)*2
                 font=ImageFont.truetype(FONT_BOLD if bold else FONT_NORMAL,round(size))
                 width=w-(tf.margin_left+tf.margin_right)*SCALE
                 lines=wrap(p.text,font,width) if tf.word_wrap else [p.text]
                 ascent,descent=font.getmetrics()
                 for part in lines:
-                    rendered.append(dict(text=part,size=size,ascent=ascent,height=size*1.2,
+                    rendered.append(dict(text=part,size=size,ascent=ascent,height=size*line_spacing,
                         color=color(p.font.color,'#000000' if shape.is_placeholder else '#182D41'),bold=bold,align=alignment))
                 rendered[-1]['height']+=(p.space_after.pt if p.space_after else 0)*2
             height=sum(r['height'] for r in rendered)
@@ -87,7 +96,7 @@ for i,slide in enumerate(pr.slides,1):
             if height>available+16:
                 warnings.append(dict(slide=i,text=shape.text,box_height=available,text_height=height))
             cursor=y+tf.margin_top*SCALE
-            if tf.vertical_anchor==MSO_ANCHOR.MIDDLE:cursor=y+(h-height)/2
+            if tf.vertical_anchor==MSO_ANCHOR.MIDDLE or (tf.vertical_anchor is None and inherited_anchor=='ctr'):cursor=y+(h-height)/2
             elif tf.vertical_anchor==MSO_ANCHOR.BOTTOM or (tf.vertical_anchor is None and inherited_anchor=='b'):
                 cursor=y+h-tf.margin_bottom*SCALE-height
             for r in rendered:

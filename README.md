@@ -22,11 +22,11 @@
 
 MacのTouchDesigner上で協力・攻撃・噂、1ステップ、停止・再開、10種類の詳細表示を確認しました。[実操作ログ](docs/interface-checks.json)と自動テスト47件を記録し、単一TOEへ再梱包しています。以下の過去の実験画像・検証ログは、その時点の表示を残した研究記録です。
 
-## 講義での5分発表
+## 講義での4分発表
 
-[発表用PDF](presentation/Social_Relationship_Lab.pdf)・[編集用PowerPoint](presentation/Social_Relationship_Lab.pptx)・[読み上げ原稿とデモ操作](presentation/speaker-notes.md)を用意しました。提供された東京都市大学のテンプレートを使用しています。本編8枚で5分、仕様・検証・参考文献の補足は後ろの5枚です。
+[発表用PDF](presentation/Social_Relationship_Lab.pdf)・[編集用PowerPoint](presentation/Social_Relationship_Lab.pptx)・[読み上げ原稿](presentation/speaker-notes.md)を用意しました。全ページの見出しに東京都市大学テンプレートのタイトル用プレースホルダーを使用。本編8枚で4分を想定し、仕様2枚を除く各スライドのノートに時間表記なしの台本を入れています。仕様・検証・参考文献の補足は後ろの5枚です。
 
-![5分発表のスライド一覧。表現したかったこと、実際のデモ画面、時間で逆転する協力、噂と関係の違い、信頼の二面性、後半の仕様と参考文献](presentation/previews/contact-sheet.jpg)
+![4分発表のスライド一覧。全ページに大学テンプレートのタイトル欄を使用。表現したかったこと、最新のデモ画面、結果3例、後半の仕様と参考文献](presentation/previews/contact-sheet.jpg)
 
 ## 交流の履歴・時間制約・自律交流
 

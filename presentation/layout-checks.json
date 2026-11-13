@@ -2,21 +2,38 @@
   "slides": 13,
   "renderer": "PPTX geometry -> SVG -> librsvg/Pango PDF",
   "text_height_warnings": [],
+  "target_seconds": 240,
   "main_slides": 8,
   "appendix_slides": 5,
-  "total_seconds": 300,
-  "cover_uses_original_title_layout": true,
-  "cover_positions_and_inherited_formatting_preserved": true,
+  "main_script_characters": 994,
+  "all_titles_use_original_placeholders": true,
+  "all_title_geometry_and_formatting_inherited": true,
   "template_master_layout_theme_preserved": true,
-  "latest_interface_screenshots_byte_identical": true,
-  "screenshot_aspect_ratio_preserved": true,
-  "notes_and_buttons_updated": true,
+  "spoken_script_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "specification_notes_blank": [
+    9,
+    10
+  ],
+  "notes_match_standalone_script": true,
+  "notes_have_no_timing_annotations": true,
+  "visual_review": "All thirteen slide previews reviewed",
   "pdf_japanese_text_extraction": "passed",
   "keynote_pptx_import": "not re-tested; previous environment timeouts",
-  "visual_review": "All-slide contact sheet and full-size comparison slide checked",
   "artifact_sha256": {
-    "Social_Relationship_Lab.pdf": "3d292ef583fd3d6a3e2fe5ce7ba8051c598416b69763ca5d9615af74d416abfb",
-    "Social_Relationship_Lab.pptx": "d6c40d2e4ecb48e06e7996616b2464b3b30c2cee601a2a120e5d99781c173b83",
+    "Social_Relationship_Lab.pdf": "ee5311c579348db7e1a7f5590f2434e890ee74ca6d167aedbc590e0d8c4d6b83",
+    "Social_Relationship_Lab.pptx": "d7041ed7b3d5f953d1877c6752ae6717ced3630d3c40743c313c14ca95974f3b",
     "tcu_template.pptx": "ceeee5da99ae9f1b12df4ab2e4d3438cae5266ea965fff688e50193cc633cde5"
   }
 }

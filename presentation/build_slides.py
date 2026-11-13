@@ -24,7 +24,7 @@ FONT='Hiragino Sans'
 prs=Presentation(TEMPLATE)
 for sid in list(prs.slides._sldIdLst):
     prs.part.drop_rel(sid.rId);prs.slides._sldIdLst.remove(sid)
-notes=[];timings=[15,35,50,25,65,50,40,20]
+notes=[];target_seconds=240
 
 
 def rgb(v):return RGBColor.from_string(v.strip('#'))
@@ -76,29 +76,26 @@ def circle(s,x,y,d,fill=TEAL,label=None,size=16):
 
 
 def slide(title,tag=''):
-    s=prs.slides.add_slide(prs.slide_layouts[0 if not len(prs.slides) else 7])
+    s=prs.slides.add_slide(prs.slide_layouts[0 if not len(prs.slides) else 1])
     if len(prs.slides)==1:
         # The cover uses the actual title/subtitle placeholders, including their
         # inherited positions, typography, alignment and vertical anchoring.
         return s
     for v in list(s.shapes):
-        if v.is_placeholder:v._element.getparent().remove(v._element)
+        if v.is_placeholder and v.placeholder_format.idx!=0:v._element.getparent().remove(v._element)
     s.background.fill.solid();s.background.fill.fore_color.rgb=rgb(BG)
     n=len(prs.slides)
-    header=text(s,title or tag,1.18,.19,11.0,.66,25 if title else 17,bold=bool(title))
-    header.name='TCU_CHROME_TITLE'
+    header=s.shapes.title;header.text=title or tag
     page=text(s,f'{n:02d} / 08' if n<=8 else f'補足 {n-8}',12.2,.88,.5,.2,9,MUTED,align=PP_ALIGN.RIGHT)
     page.name='TCU_CHROME_PAGE'
     return s
 
 
 def note(s,title,script,extra=''):
-    n=len(prs.slides);duration=timings[n-1] if n<=8 else 0
-    elapsed=sum(timings[:n]) if n<=8 else 300
-    body=f'{duration}秒 / 累計 {elapsed//60}:{elapsed%60:02d}\n\n{script}' if n<=8 else script
-    if extra:body+='\n\n【操作・出典・留意点】\n'+extra
-    s.notes_slide.notes_text_frame.text=body
-    notes.append(dict(number=n,title=title,seconds=duration,script=script,extra=extra))
+    n=len(prs.slides)
+    # The notes pane is a spoken script, with no timing or technical reminders.
+    s.notes_slide.notes_text_frame.text=script
+    notes.append(dict(number=n,title=title,script=script,reference_context=extra))
 
 
 def tiny_network(s,x,y,scale=1,groups=True):
@@ -127,9 +124,9 @@ def build():
     s.placeholders[1].text=('ひとつの行動が、関係のかたちを変える。\n'
                             '人間関係・コミュニティを観察するTouchDesigner作品\n'
                             'マルチメディア情報特論')
-    note(s,'作品紹介','私が制作したのは、人間関係とコミュニティの変化を触って観察する作品、「人間関係シミュレーター」です。一つの行動が、相手だけでなく、周囲との関係にどう波及するのかを表現しました。')
+    note(s,'作品紹介','制作したのは「人間関係シミュレーター」です。一つの行動が、相手だけでなく周囲との関係をどう変えるかを、触って観察する作品です。')
 
-    s=slide('表現したかったこと：自分の行動は、どこまで届くのか。')
+    s=slide('行動は、どこまで届くのか')
     text(s,'誰かを助け、攻撃し、悪い評判を広めたとき。\nその人の評価と、周囲とのつながりはどう変わるのか。',.8,1.86,11.8,1.1,25)
     labels=[('自分の行動',GOLD),('相手・周囲の評価',TEAL),('関係・集団の変化',BLUE)]
     for i,(label,c) in enumerate(labels):
@@ -142,9 +139,9 @@ def build():
         else:tiny_network(s,x+.32,3.76,.73,groups=i==2)
         text(s,label,x,6.02,3.55,.45,22,c,bold=True,align=PP_ALIGN.CENTER)
         if i<2:text(s,'→',x+3.7,4.14,.45,.55,27,MUTED)
-    note(s,'作品で表現したかったこと','最初に考えたのは、誰かに親切にしたら、その人だけでなく、周囲からの見られ方も変わるのではないか、ということです。そこで、一人ひとりの好感度と実際の関係を分け、その積み重なりから集団がどう変わるかを見えるようにしました。大きな分裂や合流が必ず起きる演出にはしていません。変化しない場合も含めて、行動の影響を観察する作品にしたかったからです。','図は仕組みを説明する模式図。実験結果ではない。')
+    note(s,'作品で表現したかったこと','誰かを助けたり、攻撃したり、悪い噂を広めたりすると、周囲の見方も変わります。そこで、好感度、信頼、実際の関係を分けて持たせ、その積み重なりから集団がどう変わるかを表現しました。大きな分裂を演出するのではなく、変わらない結果もそのまま見られるようにしています。','図は仕組みを説明する模式図。実験結果ではない。')
 
-    s=slide('デモ：自分を中心に、関係の変化を追う。')
+    s=slide('自分を中心に関係を観察')
     s.shapes.add_picture(str(ASSETS/'demo_screen.jpg'),Inches(.65),Inches(1.48),width=Inches(8.5))
     for i,(head,body,col) in enumerate([
         ('中央の自分','点が人物、線が関係。\n色は検出した集団。',GOLD),
@@ -153,18 +150,18 @@ def build():
         y=1.88+i*1.55;circle(s,9.55,y,.4,col,i+1,14)
         text(s,head,10.1,y,2.6,.42,20,col,True)
         text(s,body,9.6,y+.58,3.05,.9,18)
-    note(s,'デモ画面','こちらが現在の画面です。中央に自分を固定し、点で人物、線で成立した関係、色で検出した集団を表しています。右には、つながり、周囲からの好かれ度、信頼度を大きく表示しています。「協力する」を一度押し、「1ステップ」で進めます。人物1の協力と攻撃は知人全員が対象です。「悪い噂を広める」は、右クリックで選んだ人の悪い評判を知人に伝える操作です。対象本人への直接攻撃とは分け、誰が知ったかを確認できます。','50秒枠。事前に正式TOEを開き、人物1を中心に停止する。「協力する」→「1ステップ」→右の数値確認を20秒程度で見せる。余裕があれば「やり直す」→右クリックで噂の対象を選ぶ→「悪い噂を広める」→「1ステップ」を数回。噂の対象本人には直接伝えず、伝播の途中で本人が知る場合はある。真偽は扱わない。画面切替が不調なら実画面の静止画で説明する。画像はdocs/screenshots/interface_overview.jpg（2026年11月12日の実機確認画面）。後続の結果例とは別の条件。')
+    note(s,'デモ画面','こちらが現在の画面です。点が人物、線が関係、色が集団です。中央に自分を固定し、右にはつながり、好かれ度、信頼度を表示しています。「協力する」を押し、1ステップ進めて変化を確認します。人物1の協力と攻撃は知人全員が対象です。悪い噂は、選んだ人の悪い評判を知人へ伝える操作で、真偽は扱いません。','事前に正式TOEを開き、人物1を中心に停止する。「協力する」→「1ステップ」→右の数値確認を手短に見せる。余裕があれば「やり直す」→右クリックで噂の対象を選ぶ→「悪い噂を広める」→「1ステップ」を数回。噂の対象本人には直接伝えず、伝播の途中で本人が知る場合はある。真偽は扱わない。画面切替が不調なら実画面の静止画で説明する。画像はdocs/screenshots/interface_overview.jpg（2026年11月12日の実機確認画面）。後続の結果例とは別の条件。')
 
-    s=slide('同じ初期状態から、二つの世界へ。')
+    s=slide('同じ初期状態から比較する')
     s.shapes.add_picture(str(ASSETS/'demo_comparison.jpg'),Inches(.65),Inches(1.48),width=Inches(8.5))
     for y,head,body,col in [(1.98,'左と右を比べる','左：何もしない場合\n右：行動した場合',BLUE),
                            (3.67,'橙線は好感度の差','横：時間、縦：差の大きさ\n良し悪しの点数ではない。',GOLD),
                            (5.4,'同じ初期状態','同じ人物・同じ関係から\n行動の有無だけを変える。',TEAL)]:
         text(s,head,9.6,y,3.05,.5,20,col,True)
         text(s,body,9.6,y+.6,3.05,.95,16)
-    note(s,'比較の方法','比較表示では、同じ初期状態から始めた二つの世界を並べます。左は何もしない場合、右は行動した場合で、どちらも通常の交流は続きます。下のオレンジ線は、両者の好感度がどれほど違うかです。大きいほど良いという点数ではありません。','25秒枠。「関係図」ボタンから表示を切り替えると、関係図→好感度→情報の流れ→行動比較の順で進む。オレンジ線は通常画面では非表示、行動比較で一つだけ表示する。縦軸は全ての他者評価ペアの平均絶対差、範囲は自動調整して画面下に表示。横軸はシミュレーション時刻。画像はdocs/screenshots/interface_comparison.jpg（2026年11月12日の実機確認画面、介入後8ステップ）。後続の研究例とは別条件。540条件＝介入492＋無操作確認48。数値実験の詳細は補足11。')
+    note(s,'比較の方法','同じ初期状態から、左は何もしない世界、右は行動する世界を動かします。どちらでも通常の交流は続きます。オレンジ線は両者の好感度の差で、大きいほど良いという点数ではありません。','「関係図」ボタンから表示を切り替えると、関係図→好感度→情報の流れ→行動比較の順で進む。オレンジ線は通常画面では非表示、行動比較で一つだけ表示する。縦軸は全ての他者評価ペアの平均絶対差、範囲は自動調整して画面下に表示。横軸はシミュレーション時刻。画像はdocs/screenshots/interface_comparison.jpg（2026年11月12日の実機確認画面、介入後8ステップ）。後続の研究例とは別条件。540条件＝介入492＋無操作確認48。数値実験の詳細は補足11。')
 
-    s=slide('結果①  協力したのに、つながりが少ない？')
+    s=slide('協力したのに、つながりが少ない？')
     for x,label,values in [(.85,'240ステップ後',[case['final_ego_degree'],case['baseline_ego_degree']]),
                            (7.0,'480ステップ後',[later['final_ego_degree'],later['baseline_ego_degree']])]:
         text(s,label,x,1.85,5.5,.5,24,bold=True)
@@ -177,9 +174,9 @@ def build():
     text(s,'→',6.2,3.55,.6,.6,32,GOLD)
     box(s,.8,6.22,11.8,.48,PANEL)
     text(s,'240時点でも好感度は協力側が高い。元の友人を失わず、新しい関係の成立に差。',1.0,6.3,11.4,.35,17)
-    note(s,'面白かった結果：時間による逆転','一つ目は、協力した方が、つながりが少なくなった例です。全ての知人に、間隔を空けて5回協力しました。240ステップ後、協力した世界は関係が5本、何もしない世界は6本でした。それでも、周りからの好感度は協力した方が高いままです。元の友人を失ったのではなく、何もしない世界だけが新しい相手と関係を作っていました。履歴では、協力に時間を使ったとき、通常の交流が時間不足になる場面も確認できました。ただし、さらに480ステップまで追うと、今度は協力側が10本、無操作側が9本と逆転しました。協力が悪い、とは言えません。どの時点を見るかによっても、評価が変わることが面白いと思いました。','seed2、密度0.10、help_spaced。240時点：受信好感度差+0.09848489。元の5関係は全て維持。480は発見後の追加確認で事前固定540条件外。240の不利は協力2方針×12シードの24条件中1例で、確認群では未再現。単一の招待だけを最終差の原因とは断定しない。出典：cases/s2_d0.1_help_spaced_t240-summary.json、s2_longer_horizon_check.json。')
+    note(s,'面白かった結果：時間による逆転','面白かったのは、協力しても関係が増えるとは限らなかったことです。知人全員に間隔を空けて5回協力した例では、240ステップ後の関係数は協力側が5本、何もしない側が6本でした。好感度は協力側の方が高く、元の友人も失っていません。新しい関係ができる時期に差があったのです。さらに480ステップまで追うと、協力側が10本、無操作側が9本と逆転しました。協力の良し悪しを一時点だけで判断できないと分かりました。','seed2、密度0.10、help_spaced。240時点：受信好感度差+0.09848489。元の5関係は全て維持。480は発見後の追加確認で事前固定540条件外。240の不利は協力2方針×12シードの24条件中1例で、確認群では未再現。単一の招待だけを最終差の原因とは断定しない。出典：cases/s2_d0.1_help_spaced_t240-summary.json、s2_longer_horizon_check.json。')
 
-    s=slide('結果②  噂が全員に届いても、関係線は変わらない。')
+    s=slide('噂が届いても、関係は変わらない')
     text(s,'悪い噂＝選んだ人物の悪い評判を、知人に伝える操作。',.85,1.55,11.8,.4,18,MUTED)
     nums=[('39','人','噂を知った人数',GOLD),
           (f'{rumor["delta_subject_liking"]:.3f}','','対象の平均好感度の差',CORAL),
@@ -191,9 +188,9 @@ def build():
         text(s,label,x+.12,4.45,3.32,.55,18,WHITE,align=PP_ALIGN.CENTER)
     text(s,'伝わること、評価が動くこと、関係を切ることは別。',.85,5.95,11.7,.55,26,bold=True)
     text(s,'40人の社会・悪い噂5回の一例。密な社会では12条件中11条件で、関係線の違いは0。',.85,6.58,11.8,.3,13,MUTED)
-    note(s,'面白かった結果：噂の到達と関係','二つ目は噂です。40人のうち発信者以外の39人、つまり全員が噂を知った例がありました。対象の人物への平均好感度は、無操作の世界より約0.066下がっています。ところが、関係線の違いは0本でした。情報が届いても、評価が変わっても、実際に関係を切るとは限りません。これは一例だけでなく、密な社会の12条件中11条件で、関係線に違いが出ませんでした。線だけを眺めると見落としてしまう変化を、情報と好感度の表示でも見られるようにした意味がありました。','seed0、密度0.20、gossip_burst、介入後60時刻。39人は5イベントの受信者の和集合、発信者を除く。0本は無操作世界との異なる辺数であり、初期から一切の形成・切断がないという意味ではない。出典：cases/s0_d0.2_gossip_burst_t60-summary.json、runs.csv。')
+    note(s,'面白かった結果：噂の到達と関係','次は悪い噂です。発信者以外の39人全員に届き、対象への平均好感度は無操作側より約0.066下がりました。でも、関係線の違いは0本でした。密な社会では、12条件中11条件で同じように関係線の違いが出ませんでした。情報が届くこと、評価が動くこと、関係を切ることは、それぞれ別なのです。','seed0、密度0.20、gossip_burst、介入後60時刻。39人は5イベントの受信者の和集合、発信者を除く。0本は無操作世界との異なる辺数であり、初期から一切の形成・切断がないという意味ではない。出典：cases/s0_d0.2_gossip_burst_t60-summary.json、runs.csv。')
 
-    s=slide('結果③  信頼は、関係を守り、噂の影響も強める。')
+    s=slide('信頼が守り、噂を強める')
     charts=[(.8,'攻撃5連続による関係数の差',[-low_harm,-high_harm],4,CORAL,2),
             (7.05,'噂5連続による対象好感度の差',[-low_rumor,-high_rumor],.19,GOLD,3)]
     for x,title,values,limit,col,decimals in charts:
@@ -205,9 +202,9 @@ def build():
     box(s,.8,5.68,11.8,.78,PANEL)
     text(s,'同じ「信頼」が、攻撃の緩衝と、情報の信用度の両方に働く。',1.0,5.88,11.4,.42,22)
     text(s,'既存関係の信頼を低／高に設定。各12シードの平均・行動なしとの差。',.85,6.65,11.8,.3,13,MUTED)
-    note(s,'面白かった結果：信頼の二面性','三つ目は信頼の二面性です。既存関係の信頼を低い状態と高い状態に設定して比較すると、信頼が高い集団では、攻撃を繰り返したときの関係損失が小さくなりました。一方、悪い噂による対象の評判低下は、高信頼の集団の方が大きくなりました。信頼があるから関係は守られるけれど、情報も信用されやすい、ということです。この方向は、信頼を攻撃の緩衝と噂の信用度に使った式にも依存しています。人間の新しい法則を発見したのではなく、自分たちの仮定がどんな結果を生むかが見えた例です。','密度0.10、全既存関係の介入時信頼を0.15／0.85に設定。低信頼の攻撃平均差約−3.17、高信頼約−1.92。噂対象の受信好感度差は約−0.0410／−0.1723。図は差の絶対値を棒の長さで表示し、符号を数値に残す。1人の信頼だけを変更した比較ではない。出典：runs.csv。')
+    note(s,'面白かった結果：信頼の二面性','信頼にも二つの働きがありました。信頼を高く設定した集団では、攻撃を繰り返したときの関係損失が小さくなりました。一方、悪い噂による評判低下は大きくなりました。関係が守られると同時に、情報も信用されやすくなるためです。この結果は設定した式にも依存し、現実の人間で確認した法則ではありません。','密度0.10、全既存関係の介入時信頼を0.15／0.85に設定。低信頼の攻撃平均差約−3.17、高信頼約−1.92。噂対象の受信好感度差は約−0.0410／−0.1723。図は差の絶対値を棒の長さで表示し、符号を数値に残す。1人の信頼だけを変更した比較ではない。出典：runs.csv。')
 
-    s=slide('この作品で、見えるようにしたこと。')
+    s=slide('作品で見えるようにしたこと')
     text(s,'好かれること。\nつながること。\n集団が変わること。',.85,2.0,6.4,2.65,36,bold=True)
     for y,txt,col in [(2.2,'結果は、見る時点で変わる。',TEAL),
                       (3.45,'情報と関係は、別々に動く。',GOLD),
@@ -215,9 +212,9 @@ def build():
         box(s,7.1,y+.04,.06,.45,col);text(s,txt,7.4,y,5.15,.7,21,col,True)
     text(s,'同じ初期状態から、行動の影響を試せる作品にした。',.85,6.05,11.7,.6,27,bold=True)
     link(s,'作品・実験記録： github.com/maton369/social-relationship-lab','https://github.com/maton369/social-relationship-lab',.85,6.72,10,12)
-    note(s,'まとめ','この作品では、好かれること、実際につながること、集団が変わることを、それぞれ別の変化として見えるようにしました。同じ初期状態から行動を変えて、何が変わり、何が変わらなかったのかを試せることが、作品の中心です。発表は以上です。','ここで本編終了。累計5分。以降は質問があった場合だけ表示する。現実社会の予測精度は検証していない。')
+    note(s,'まとめ','この作品では、好かれること、つながること、集団が変わることを、別々の変化として見えるようにしました。同じ初期状態から行動を変え、その影響を試せることが作品の中心です。以上です。','ここで本編終了。以降は質問があった場合だけ表示する。現実社会の予測精度は検証していない。')
 
-    s=slide('仕様：好感度・関係・信頼・集団を分ける。')
+    s=slide('仕様：好感度・関係・信頼')
     rows=[('好感度 X','方向付き、−1〜1。好きの向きは非対称。','人物iから人物jへの評価。自己評価は平均から除外。'),
           ('関係 A','相互関係、0／1。成立には双方の好意。','切断は一方の評価が切断閾値以下になると発生。'),
           ('信頼 T','好感度と別の方向付き状態、0〜1。','直接経験で学習。攻撃の緩衝・伝聞の信用度に使用。'),
@@ -228,9 +225,9 @@ def build():
         text(s,b,3.5,y+.12,8.7,.44,20)
         text(s,c,3.5,y+.6,8.7,.35,14,MUTED)
     text(s,'人物の座標と魚眼変換は描画専用。関係生成には使わない。',.85,6.76,11.4,.3,13,MUTED)
-    note(s,'補足：状態と集団','人物数初期値40。人物属性は成立閾値h、切断閾値l、感受性s、拡散傾向b。l<h。内部ハブ、橋渡し、孤立などは独立のタグと連続値で分析する。CPMはQ=ΣC[mC−γ|C|(|C|−1)/2]、γ=0.25。実装はmodel.py、social_dynamics.py、community.py。','通常画面の「好かれ度」は自己を除く全人物からの好感度Xの平均、「信頼度」は同じ人物集合からの信頼Tの平均。非関係者も含む。細かな属性・閾値・分析値は「詳細」にある。コミュニティの理論出典は補足13。集団検出は大域最適や本当の所属を保証しない。')
+    note(s,'補足：状態と集団','','通常画面の「好かれ度」は自己を除く全人物からの好感度Xの平均、「信頼度」は同じ人物集合からの信頼Tの平均。非関係者も含む。細かな属性・閾値・分析値は「詳細」にある。コミュニティの理論出典は補足13。集団検出は大域最適や本当の所属を保証しない。')
 
-    s=slide('仕様：実際の更新規則と独自の仮定。')
+    s=slide('仕様：更新規則と独自の仮定')
     blocks=[('直接の協力・攻撃','協力：ΔX[v,u] = +0.50 × 強度\n攻撃：ΔX[v,u] = −0.50 × 強度 × (1 − 0.85T[v,u])'),
             ('噂と情報伝播','噂：ΔX[i,v] = −0.30 × 強度 × s[i] × 信用度\n伝達確率：0.70 × A[i,j] × b[i]（新規受信者が一度だけ試行）'),
             ('関係と交流時間','成立：双方が成立閾値以上 ＋ 接触機会\n切断：どちらかが切断閾値以下 ／ 行動の時間上限1を人数配分')]
@@ -238,9 +235,9 @@ def build():
         y=1.9+i*1.4;text(s,head,.85,y,2.6,.5,20,TEAL,True)
         text(s,body,3.6,y,8.7,1.02,19)
     text(s,'これらの係数・式は試作の独自仮定。論文の実測値や収束保証ではない。',.85,6.5,11.8,.48,18,GOLD)
-    note(s,'補足：更新式','自律交流ありのadaptiveモード。攻撃の式は履歴・信頼が有効な場合。同時刻の評価変化は旧状態から計算し合算してクリップ。噂の信用度はT[i,source]に送り手と対象の対立割引を掛ける。初期Xは非関係者N(0,.35²)、既存関係U(.65,.90)。閾値h=.55±.07、l=.25±.05。s=.65±.15、b=.55±.15。q0=.03、共通友人による機会増分.10。自律交流は旧状態から全提案を決め、時間予算の範囲で受諾・拒絶を処理。好感度と信頼の更新、情報・関係・集団検出を分離。','詳細仕様：docs/social-dynamics.md。噂の真偽・嘘の訂正・同じ主張のclaim_id・送り手への制裁は未実装。')
+    note(s,'補足：更新式','','詳細仕様：docs/social-dynamics.md。噂の真偽・嘘の訂正・同じ主張のclaim_id・送り手への制裁は未実装。')
 
-    s=slide('検証：540条件と、結論を広げすぎないための限界。')
+    s=slide('検証の範囲と限界')
     specs=[('396条件','12シード × 3密度 × 11方針\n10ステップ準備 ＋ 60ステップ観測'),
            ('96条件','12シード × 低／高信頼 × 4方針\n密度0.10、既存関係の信頼のみ統制'),
            ('48条件','12シード × 4方針の長期比較\n密度0.10、240ステップ観測')]
@@ -251,9 +248,9 @@ def build():
     text(s,'検査したこと',.85,4.2,3,.4,21,TEAL,True)
     text(s,'初期状態の完全一致 ／ 共通の外生乱数 ／ 対照世界の不変性 ／ 完全再実行\n数値実験時44件、現行UIの確認を含めて自動テスト47件通過。',.85,4.78,11.6,1.0,18)
     text(s,'540条件は独立な540標本ではない。全終了時点は未収束。\n逆転の480ステップ確認は発見後の追加1件。現実社会の予測精度は未検証。',.85,6.0,11.6,.85,17,GOLD)
-    note(s,'補足：条件と限界','自然条件のシードは0〜5と100〜105。初期密度.05/.10/.20。540条件には無操作確認48条件を含む。探索群・確認群で同じ方針を実施。人物単位ではなくシード単位で集計・再標本化。同じ数値モデルをPythonで実行しており、540条件をTouchDesignerのボタンから操作したわけではない。代表2例は全状態JSONを保存して再実行のダイジェスト一致を確認。個人属性や社会的概念は合成で実測から校正していない。','数値実験の時点は44テスト。2026年11月12日のUI更新で、噂の人物区別と要約、通常画面の折れ線非表示の3件を追加し47件通過。Mac実機で協力・攻撃・噂・1ステップ・停止再開・詳細10表示を確認。更新は表示だけで数値モデルの式は同じ。実機記録：docs/interface-checks.json。実験手順：docs/experiments/conditions-and-policies/protocol.md。データ：runs.csv、long-horizon/runs.csv、integrity-checks.json。')
+    note(s,'補足：条件と限界','比較したのは40人の社会で、12個のシードを使った540条件です。無操作の確認48条件も含みます。初期状態と外から与える乱数を対応させ、結果の完全再現も確認しました。ただし540個の独立した標本ではなく、観測終了時点で数学的な収束も確認していません。現実の人間関係の予測精度は未検証です。','数値実験の時点は44テスト。2026年11月12日のUI更新で、噂の人物区別と要約、通常画面の折れ線非表示の3件を追加し47件通過。Mac実機で協力・攻撃・噂・1ステップ・停止再開・詳細10表示を確認。更新は表示だけで数値モデルの式は同じ。実機記録：docs/interface-checks.json。実験手順：docs/experiments/conditions-and-policies/protocol.md。データ：runs.csv、long-horizon/runs.csv、integrity-checks.json。')
 
-    s=slide('参考文献：社会関係・信頼・噂の着想。')
+    s=slide('参考文献：社会関係と噂')
     refs=[('Sutcliffe, A., Wang, D. & Dunbar, R. (2012)',
            'Social Relationships and the Emergence of Social Networks. JASSS, 15(4), 3.',
            'https://doi.org/10.18564/jasss.2059',
@@ -271,9 +268,9 @@ def build():
         text(s,title,.85,y+.43,11.5,.58,14,MUTED,font='Avenir Next')
         link(s,url,url,.85,y+1.0,11.5,13)
         text(s,relation,.85,y+1.34,11.5,.35,13,TEAL)
-    note(s,'補足：社会関係の参考文献','いずれも論文の仕組みをそのまま移植したものではなく、概念に着想を得た独自拡張。Sutcliffeは全文HTML、RandとDores Cruzは公開PDF本文を確認。論文の係数や収束保証を今回のモデルに転用しない。','本作との対応：docs/references.md。今回の解釈：docs/conditions-and-actions.md。引用は要約で、論文図版は転載していない。')
+    note(s,'補足：社会関係の参考文献','交流履歴や信頼、時間配分はSutcliffeら、行動に応じた関係更新はRandら、噂による評判更新はDores Cruzらの研究を参考にしています。ただし、今回の式や係数をこれらの研究が実証したわけではなく、考え方を参考にした独自のモデルです。','本作との対応：docs/references.md。今回の解釈：docs/conditions-and-actions.md。引用は要約で、論文図版は転載していない。')
 
-    s=slide('参考文献・配布：集団検出と、再現できる実験記録。')
+    s=slide('参考文献：集団検出と配布')
     refs=[('Traag, V. A., Van Dooren, P. & Nesterov, Y. (2011)',
            'Narrow scope for resolution-limit-free community detection. Physical Review E, 84, 016114.',
            'https://doi.org/10.1103/PhysRevE.84.016114','CPMの目的関数。γ=0.25は本作の仮設定。'),
@@ -287,13 +284,13 @@ def build():
     box(s,.8,5.56,11.8,1.1,PANEL)
     link(s,'作品・コード： https://github.com/maton369/social-relationship-lab','https://github.com/maton369/social-relationship-lab',1.0,5.75,11.3,15)
     link(s,'結果・全試行CSV： docs/conditions-and-actions.md','https://github.com/maton369/social-relationship-lab/blob/main/docs/conditions-and-actions.md',1.0,6.18,11.3,14)
-    note(s,'補足：集団検出・配布','CPMとLeidenの書誌情報はarXivの著者原稿ページでも確認。CPMはigraph/leidenalgで計算する。実際の関係グラフだけから推定し、好感度・心理的所属と混同しない。配布するファイルはSocial_Relationship_Lab.toe一つで、対応ライブラリを内蔵。Mac Apple Siliconで実機確認済み。Windows x64向けも同梱するがWindows描画実機確認は未実施。','画像出典：本リポジトリのTouchDesigner実画面。実験値出典：本リポジトリ保存の合成データ。画面と図表に外部画像や架空の実験結果は使用していない。')
+    note(s,'補足：集団検出・配布','集団の検出には、関係の内部密度を評価するCPMと、その最適化を行うLeidenを使いました。これは実際の関係から推定した構造的な集団で、本人の所属意識を表すものではありません。作品、コード、実験記録は、こちらのGitHubで公開しています。','画像出典：本リポジトリのTouchDesigner実画面。実験値出典：本リポジトリ保存の合成データ。画面と図表に外部画像や架空の実験結果は使用していない。')
 
     # Keep the supplied university master, logo and campus footer intact. Reserve
     # their header/footer space by mapping only our content into the body region.
     for page in list(prs.slides)[1:]:
         for shape in page.shapes:
-            if shape.name.startswith('TCU_CHROME_'):continue
+            if shape.name.startswith('TCU_CHROME_') or shape.is_placeholder:continue
             shape.top=int(Inches(.07)+shape.top*.88)
             shape.height=int(shape.height*.88)
             if shape.shape_type==13:
@@ -303,21 +300,17 @@ def build():
                 for p in shape.text_frame.paragraphs:
                     if p.font.size:p.font.size=Pt(p.font.size.pt*.92)
                     if p.space_after:p.space_after=Pt(p.space_after.pt*.88)
-    prs.core_properties.title='人間関係シミュレーター — 5分作品発表'
+    prs.core_properties.title='人間関係シミュレーター — 4分作品発表'
     prs.core_properties.subject='人間関係・コミュニティの共進化を可視化するTouchDesigner作品'
     prs.core_properties.author='人間関係シミュレーター 制作チーム'
-    prs.core_properties.keywords='TouchDesigner, social networks, lecture, 5 minutes'
+    prs.core_properties.keywords='TouchDesigner, social networks, lecture, 4 minutes'
     prs.save(HERE/'Social_Relationship_Lab.pptx')
     (HERE/'slide-notes.json').write_text(json.dumps(notes,ensure_ascii=False,indent=2),encoding='utf-8')
-    md=['# 5分発表：読み上げ原稿と操作メモ','',
-        '本編は1〜8枚、合計300秒。9〜13枚は質疑用の補足。時間にはデモ操作を含む。','',
-        '| スライド | 内容 | 持ち時間 | 累計 |','| --- | --- | ---: | ---: |']
-    elapsed=0
-    for n in notes[:8]:
-        elapsed+=n['seconds'];md.append(f'| {n["number"]} | {n["title"]} | {n["seconds"]}秒 | {elapsed//60}:{elapsed%60:02d} |')
+    md=['# 発表台本','',
+        '本編は1〜8枚。仕様を除く補足の台本は質疑用。PowerPointのノートにも同じ台本を記載。']
     for n in notes:
+        if not n['script']:continue
         md+=['',f'## {n["number"]}. {n["title"]}','',n['script']]
-        if n['extra']:md+=['','操作・出典・留意点：'+n['extra']]
     (HERE/'speaker-notes.md').write_text('\n'.join(md)+'\n',encoding='utf-8')
     (HERE/'provenance.json').write_text(json.dumps(dict(
         template='【FMT】背景_東京都市大学.pptx (provided in workspace; master/layouts/logo/footer preserved)',
@@ -325,7 +318,9 @@ def build():
         screenshot='docs/screenshots/interface_overview.jpg (2026-11-12 Mac実機画面。結果例の実験条件とは別)',
         comparison_screenshot='docs/screenshots/interface_comparison.jpg (2026-11-12 Mac実機画面。結果例の実験条件とは別)',
         interface_release_toe_sha256=json.loads((ROOT/'docs/interface-checks.json').read_text(encoding='utf-8'))['release_toe_sha256'],
-        main_slides=8,appendix_slides=5,total_seconds=sum(timings),
+        title_layout='Every content slide uses the original タイトルとコンテンツ title placeholder, with inherited formatting',
+        main_slides=8,appendix_slides=5,target_seconds=target_seconds,
+        script_slides=[n['number'] for n in notes if n['script']],specification_slides=[9,10],
         cooperation_case='docs/experiments/conditions-and-policies/cases/s2_d0.1_help_spaced_t240-summary.json',
         later_case='docs/experiments/conditions-and-policies/cases/s2_longer_horizon_check.json',
         gossip_case='docs/experiments/conditions-and-policies/cases/s0_d0.2_gossip_burst_t60-summary.json',
@@ -333,7 +328,7 @@ def build():
         reference_links=['https://www.jasss.org/15/4/3.html','https://doi.org/10.1073/pnas.1108243108',
           'https://doi.org/10.1098/rstb.2020.0301','https://arxiv.org/abs/1104.3083','https://arxiv.org/abs/1810.08473']),
         ensure_ascii=False,indent=2),encoding='utf-8')
-    print(f'Saved {len(prs.slides)} slides, {sum(timings)} seconds, editable PPTX + notes.')
+    print(f'Saved {len(prs.slides)} slides; four-minute presentation, spoken notes without timing labels.')
 
 
 if __name__=='__main__':build()

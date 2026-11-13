@@ -4,9 +4,27 @@
   "screenshot": "docs/screenshots/interface_overview.jpg (2026-11-12 Mac実機画面。結果例の実験条件とは別)",
   "comparison_screenshot": "docs/screenshots/interface_comparison.jpg (2026-11-12 Mac実機画面。結果例の実験条件とは別)",
   "interface_release_toe_sha256": "00b53709cbe790fdfa21cc43cd36e0b2270bb00cfb32986c2639b970f4e73f6e",
+  "title_layout": "Every content slide uses the original タイトルとコンテンツ title placeholder, with inherited formatting",
   "main_slides": 8,
   "appendix_slides": 5,
-  "total_seconds": 300,
+  "target_seconds": 240,
+  "script_slides": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "specification_slides": [
+    9,
+    10
+  ],
   "cooperation_case": "docs/experiments/conditions-and-policies/cases/s2_d0.1_help_spaced_t240-summary.json",
   "later_case": "docs/experiments/conditions-and-policies/cases/s2_longer_horizon_check.json",
   "gossip_case": "docs/experiments/conditions-and-policies/cases/s0_d0.2_gossip_burst_t60-summary.json",
